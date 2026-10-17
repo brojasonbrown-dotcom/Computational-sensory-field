@@ -1,0 +1,2111 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     81364,       2103]
+NotebookOptionsPosition[     63944,       1841]
+NotebookOutlinePosition[     64350,       1857]
+CellTagsIndexPosition[     64307,       1854]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "03",
+ StyleBox["Synapses",
+  FontSlant->Italic],
+ "Plasticity",
+ StyleBox["And",
+  FontSlant->Italic],
+ "Glia_Coupling"
+}], "Title",ExpressionUUID->"265fce76-99df-0b4b-b5d6-df055e008bdd"],
+
+Cell[CellGroupData[{
+
+Cell["Purpose", "Section",ExpressionUUID->"86afe3a7-61ce-384d-9961-43cf64357bdd"],
+
+Cell[TextData[{
+ "This is ",
+ StyleBox["Notebook 3",
+  FontWeight->Bold],
+ " in the Neuron Series."
+}], "Text",ExpressionUUID->"eee29fc8-f1ad-5d44-8aaa-046bf492651f"],
+
+Cell["\<\
+Its goal is to extend the neuron from an isolated dynamical membrane model \
+into a fully adaptive signaling system by incorporating:\
+\>", "Text",ExpressionUUID->"8f2a4f1d-6a0f-9143-9bc5-ed087ca45ded"],
+
+Cell["1. synaptic transmission,", "Text",ExpressionUUID->"9d83f90d-520e-8c46-a9b9-0814eb2b74a1"],
+
+Cell["2. receptor-specific conductance dynamics,", "Text",ExpressionUUID->"83a68cfe-dea0-204c-b68a-a548935c9bd1"],
+
+Cell["3. short-term synaptic plasticity,", "Text",ExpressionUUID->"83e48d7f-36ef-4641-9795-3257fe8083e3"],
+
+Cell["4. long-term plasticity and learning rules,", "Text",ExpressionUUID->"b160eb38-bcb6-8c44-b88a-8c64de68e0ca"],
+
+Cell["5. modulatory influences,", "Text",ExpressionUUID->"a7435879-273e-9846-8d01-e026eb28559e"],
+
+Cell["6. glia and astrocyte coupling,", "Text",ExpressionUUID->"b28feaee-98ec-9547-9857-c3892d8e95af"],
+
+Cell["\<\
+7. digital approximations suitable for advanced artificial neural \
+architectures.\
+\>", "Text",ExpressionUUID->"2ba3a3e3-581a-3245-bcdd-2df07c79677b"],
+
+Cell["\<\
+This notebook is essential because a neuron without synapses and plasticity \
+is not yet a computational organism. Synapses are the \
+neuron\[CloseCurlyQuote]s measurement interfaces to other cells, and \
+plasticity is the mechanism by which past interaction shapes future dynamics.\
+\>", "Text",ExpressionUUID->"d79b82be-c688-5e4e-bcc4-c45e41bb9142"],
+
+Cell["The methodological rule is: ", "Text",ExpressionUUID->"ddc28d05-6e08-b047-bdf9-f5b61fec1ed1"],
+
+Cell[BoxData[GridBox[{
+   {
+    PaneBox["\<\"every coupling mechanism must be represented either as a \
+state variable, a transfer law, a memory process, or a learning rule.\"\>",
+     BaseStyle->{"Text", FontColor -> LightDarkSwitched[
+         GrayLevel[0.35], 
+         GrayLevel[0.8602474]]},
+     ImageMargins->5,
+     ImageSize->{Full, Automatic},
+     ScrollPosition->{0., 0.}]}
+  },
+  AutoDelete->False,
+  GridBoxBackground->{"Columns" -> {{
+       LightDarkSwitched[
+        GrayLevel[1], 
+        GrayLevel[0.278317]]}}},
+  GridBoxDividers->{"ColumnsIndexed" -> {1 -> Directive[
+        LightDarkSwitched[
+         RGBColor[0.87, 0.94, 1], 
+         RGBColor[0.2491127, 0.3295188, 0.4231198]], 
+        AbsoluteThickness[4]]}, "Rows" -> {{False}}},
+  GridBoxItemSize->{
+   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]], "Text", \
+"BlockQuote",
+ Background->None,ExpressionUUID->"dc5bcb33-0f7a-4d40-b4e2-1549eadc1678"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"11101678-1f90-4044-8c4b-d5540215dfb8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1. Synapse as dynamical interface", "Section",ExpressionUUID->"1db2f291-4d92-9145-ad95-2c3e1814c1ae"],
+
+Cell[CellGroupData[{
+
+Cell["1.1. Why the synapse is not just an edge", "Subsection",ExpressionUUID->"28df0529-cf27-4d48-8005-fb40641e1106"],
+
+Cell["\<\
+In simplified artificial neural networks, a connection is often treated as a \
+scalar weight. This is inadequate biologically and computationally.\
+\>", "Text",ExpressionUUID->"5ba9b59e-fd21-e441-b4c5-7e51ee65f604"],
+
+Cell["A synapse is a structured dynamical process involving: ", "Text",ExpressionUUID->"bc6dffec-2bce-214a-9837-b98820097407"],
+
+Cell["transmitter release,", "Item",ExpressionUUID->"ab02dbdd-ef2c-6142-9ca8-6eaa6efbc6a2"],
+
+Cell["receptor binding,", "Item",ExpressionUUID->"c985799e-efeb-8a43-aaeb-9337841cddde"],
+
+Cell["conductance change,", "Item",ExpressionUUID->"6fa0e376-4bec-2b4c-8818-89db63e64259"],
+
+Cell["voltage dependence,", "Item",ExpressionUUID->"ca6845d2-7cd1-9744-bc80-bd2158ae2527"],
+
+Cell["stochasticity,", "Item",ExpressionUUID->"3544b986-9941-b645-9643-01ae5036edd0"],
+
+Cell["delay,", "Item",ExpressionUUID->"f026077d-d1b2-b348-816e-46028fda8680"],
+
+Cell["short-term state,", "Item",ExpressionUUID->"89caea89-e0a7-8a4a-91ec-a8b0685b2d00"],
+
+Cell["long-term plastic modification,", "Item",ExpressionUUID->"e543a92f-1d70-bc4e-9c7f-d0cd2c1cb1da"],
+
+Cell["modulatory context,", "Item",ExpressionUUID->"b45f2452-36d6-c540-b703-28b62f954126"],
+
+Cell["possible glial participation.", "Item",ExpressionUUID->"3cc683e7-f844-bd4e-b02a-07227187eb31"],
+
+Cell["\<\
+Thus a synapse should be modeled as an interface system, not merely a \
+parameter. \
+\>", "Text",ExpressionUUID->"b698c71c-b1f8-d64e-a843-bf2d6b734621"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1.2. General synaptic current", "Subsection",ExpressionUUID->"3afbd4e8-ba4f-f448-bf07-195300466816"],
+
+Cell[TextData[{
+ "A synaptic current entering a compartment is typically written as ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["I", "TI"], 
+          StyleBox["syn", FontSlant -> "Plain"]], 
+         RowBox[{"(", 
+           StyleBox["t", "TI"], ")"}], "\[LongEqual]", 
+         SubscriptBox[
+          StyleBox["g", "TI"], 
+          StyleBox["syn", FontSlant -> "Plain"]], 
+         RowBox[{"(", 
+           StyleBox["t", "TI"], ")"}], 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["V", "TI"], 
+             RowBox[{"(", 
+               StyleBox["t", "TI"], ")"}], "-", 
+             SubscriptBox[
+              StyleBox["E", "TI"], 
+              StyleBox["syn", FontSlant -> "Plain"]]}], ")"}]}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "I_{\\mathrm{syn}}(t) = g_{\\mathrm{syn}}(t) \
+\\big(V(t)-E_{\\mathrm{syn}}\\big)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "ec83f77b-3d47-6443-b749-02626343b7e4"],
+ "where: "
+}], "Text",ExpressionUUID->"257ee76f-5f5d-cd42-9ff7-d235b30d9d7b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["g", "TI"], 
+          StyleBox["syn", FontSlant -> "Plain"]], "(", 
+         StyleBox["t", "TI"], ")"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "g_{\\mathrm{syn}}(t)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "ec9958ba-23c1-004e-b80f-f6b1aae2eaf3"],
+ " is the time-varying synaptic conductance,"
+}], "Item",ExpressionUUID->"d9daed17-afdf-4942-91dc-6a011a67ca96"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["E", "TI"], 
+        StyleBox["syn", FontSlant -> "Plain"]], TraditionalForm], 
+     "errors" -> {}, "input" -> "E_{\\mathrm{syn}}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "c557b32c-e850-7345-b384-5d475e9c5055"],
+ " is the synaptic reversal potential."
+}], "Item",ExpressionUUID->"9d819151-05a5-9945-874a-dd60f32bc29e"],
+
+Cell[TextData[{
+ "For multiple synapses, ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["I", "TI"], 
+          StyleBox["syn", FontSlant -> "Plain"]], 
+         RowBox[{"(", 
+           StyleBox["t", "TI"], ")"}], "\[LongEqual]", 
+         UnderscriptBox["\[Sum]", 
+          StyleBox["j", "TI"], LimitsPositioning -> True], 
+         SubscriptBox[
+          StyleBox["g", "TI"], 
+          StyleBox["j", "TI"]], 
+         RowBox[{"(", 
+           StyleBox["t", "TI"], ")"}], 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["V", "TI"], 
+             RowBox[{"(", 
+               StyleBox["t", "TI"], ")"}], "-", 
+             SubscriptBox[
+              StyleBox["E", "TI"], 
+              StyleBox["j", "TI"]]}], ")"}], "."}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "I_{\\mathrm{syn}}(t) = \\sum_j g_j(t)\\big(V(t)-E_j\\big).", "state" -> 
+     "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "85a630b6-191a-5c46-91ac-18af93760b28"],
+ "This is the canonical conductance-based synaptic form. "
+}], "Text",ExpressionUUID->"97d4471c-98e7-a244-b850-f3440ef5323b"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"417715d1-bfca-d842-8d40-96d537b14f4c"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2. Event-driven synaptic conductance models", "Section",ExpressionUUID->"02358d0d-a06d-7e4a-a17a-731457c3f292"],
+
+Cell[CellGroupData[{
+
+Cell["2.1. Single exponential response", "Subsection",ExpressionUUID->"35d910e4-83a7-784b-af4e-937b32bbb2d7"],
+
+Cell[TextData[{
+ "A minimal synaptic conductance model triggered by a presynaptic spike train \
+",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"{", 
+         SubscriptBox[
+          StyleBox["t", "TI"], 
+          StyleBox["k", "TI"]], "}"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "\\{t_k\\}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "276d8d92-6141-5a40-9fd6-116bec45fc46"],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         FractionBox[
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["g", "TI"]}], 
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["t", "TI"]}]], "\[LongEqual]", "-", 
+         FractionBox[
+          StyleBox["g", "TI"], 
+          SubscriptBox["\[Tau]", 
+           StyleBox["s", "TI"]]], "+", 
+         UnderscriptBox["\[Sum]", 
+          StyleBox["k", "TI"], LimitsPositioning -> True], 
+         SubscriptBox[
+          StyleBox["w", "TI"], 
+          StyleBox["k", "TI"]], "\[Delta]", 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["t", "TI"], "-", 
+             SubscriptBox[
+              StyleBox["t", "TI"], 
+              StyleBox["k", "TI"]]}], ")"}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\frac{dg}{dt} = -\\frac{g}{\\tau_s} + \\sum_k w_k \\delta(t-t_k)", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "fdda8fb2-edb6-4b41-859e-929e0e8994ee"],
+ "where: "
+}], "Text",ExpressionUUID->"44d5aa81-9e7f-e549-9b5f-55dbe0e9a40b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox["\[Tau]", 
+        StyleBox["s", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "\\tau_s", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "302c6dc1-337c-5340-b591-6c5aa7f1af74"],
+ " is the synaptic decay time,"
+}], "Item",ExpressionUUID->"89e9a44b-7ef2-554b-a316-1d8947da0b93"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["w", "TI"], 
+        StyleBox["k", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "w_k", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "653ca4cb-b0af-ec4a-813e-a85a4c2891bc"],
+ " is the conductance increment per presynaptic event."
+}], "Item",ExpressionUUID->"022f1692-2f3d-da41-8227-fa4c8fd0d37e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2.2. Double exponential response", "Subsection",ExpressionUUID->"20711eac-7a99-3443-bae7-60b25e0f0a5b"],
+
+Cell[TextData[{
+ "A more realistic conductance kernel uses distinct rise and decay: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["g", "TI"], 
+         RowBox[{"(", 
+           StyleBox["t", "TI"], ")"}], "\[LongEqual]", 
+         SubscriptBox[
+          StyleBox["g", "TI"], "0"], 
+         UnderscriptBox["\[Sum]", 
+          StyleBox["k", "TI"], LimitsPositioning -> True], 
+         RowBox[{"(", 
+           RowBox[{
+             SuperscriptBox[
+              StyleBox["e", "TI"], 
+              RowBox[{"-", 
+                RowBox[{"(", 
+                  RowBox[{
+                    StyleBox["t", "TI"], "-", 
+                    SubscriptBox[
+                    StyleBox["t", "TI"], 
+                    StyleBox["k", "TI"]]}], ")"}], "/", 
+                SubscriptBox["\[Tau]", 
+                 StyleBox["d", "TI"]]}]], "-", 
+             SuperscriptBox[
+              StyleBox["e", "TI"], 
+              RowBox[{"-", 
+                RowBox[{"(", 
+                  RowBox[{
+                    StyleBox["t", "TI"], "-", 
+                    SubscriptBox[
+                    StyleBox["t", "TI"], 
+                    StyleBox["k", "TI"]]}], ")"}], "/", 
+                SubscriptBox["\[Tau]", 
+                 StyleBox["r", "TI"]]}]]}], ")"}], 
+         StyleBox["H", "TI"], 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["t", "TI"], "-", 
+             SubscriptBox[
+              StyleBox["t", "TI"], 
+              StyleBox["k", "TI"]]}], ")"}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "g(t) = g_0 \\sum_k \\left(e^{-(t-t_k)/\\tau_d} - \
+e^{-(t-t_k)/\\tau_r}\\right) H(t-t_k)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "cc934c53-f205-f642-bb47-5646c24d9f9f"],
+ "where: "
+}], "Text",ExpressionUUID->"340a002e-5199-5c40-a864-a350c6b82181"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox["\[Tau]", 
+        StyleBox["r", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "\\tau_r", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "6884c7e0-0713-1141-b3df-4da5c77a9636"],
+ " = rise time,"
+}], "Item",ExpressionUUID->"4b95b12f-493b-d64f-a4e4-c6b0ec1789d8"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox["\[Tau]", 
+        StyleBox["d", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "\\tau_d", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "e5876602-c58f-2544-b68c-174a148298e1"],
+ " = decay time,"
+}], "Item",ExpressionUUID->"b41346e5-f6ba-fd4f-8549-911738f5ee5b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["H", "TI"], TraditionalForm], "errors" -> {}, "input" -> "H", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "0e79b8a0-f869-ec41-b66e-bde9cd34ed14"],
+ " = Heaviside step function."
+}], "Item",ExpressionUUID->"d1e82057-b38e-7141-8737-ce527da8bd29"],
+
+Cell["\<\
+This captures the noninstantaneous onset of receptor activation. \
+\>", "Text",ExpressionUUID->"7b0c82c7-8c27-2e4f-bbe3-5c5a9fdeb4e5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2.3. Alpha-function synapse", "Subsection",ExpressionUUID->"0ff54acd-c42b-9e4d-9de4-0f8232c9bc8e"],
+
+Cell[TextData[{
+ "An alternative form is ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["g", "TI"], 
+         RowBox[{"(", 
+           StyleBox["t", "TI"], ")"}], "\[LongEqual]", 
+         SubscriptBox[
+          StyleBox["g", "TI"], "0"], 
+         UnderscriptBox["\[Sum]", 
+          StyleBox["k", "TI"], LimitsPositioning -> True], 
+         FractionBox[
+          RowBox[{
+            StyleBox["t", "TI"], "-", 
+            SubscriptBox[
+             StyleBox["t", "TI"], 
+             StyleBox["k", "TI"]]}], 
+          SubscriptBox["\[Tau]", 
+           StyleBox["s", "TI"]]], 
+         SuperscriptBox[
+          StyleBox["e", "TI"], 
+          RowBox[{"1", "-", 
+            RowBox[{"(", 
+              RowBox[{
+                StyleBox["t", "TI"], "-", 
+                SubscriptBox[
+                 StyleBox["t", "TI"], 
+                 StyleBox["k", "TI"]]}], ")"}], "/", 
+            SubscriptBox["\[Tau]", 
+             StyleBox["s", "TI"]]}]], 
+         StyleBox["H", "TI"], 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["t", "TI"], "-", 
+             SubscriptBox[
+              StyleBox["t", "TI"], 
+              StyleBox["k", "TI"]]}], ")"}], "."}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "g(t) = g_0 \\sum_k \\frac{t-t_k}{\\tau_s} e^{1-(t-t_k)/\\tau_s} \
+H(t-t_k).", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "244adda5-81ce-f342-9aa4-eb81381a2544"],
+ "This is computationally convenient and often used in reduced models. "
+}], "Text",ExpressionUUID->"7f807055-3832-d844-8f28-01461389ca4a"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"c85cb946-ee55-6e41-8703-2647d3003a7e"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3. Receptor classes", "Section",ExpressionUUID->"0c1b8394-db94-3341-ade2-ddf6e8ea417a"],
+
+Cell["\<\
+Different receptors imply different kinetics and nonlinearities. \
+\>", "Text",ExpressionUUID->"b4f76cbc-490e-da4c-b2ac-2ac642943e80"],
+
+Cell[CellGroupData[{
+
+Cell["3.1. Fast excitatory receptors", "Subsection",ExpressionUUID->"0226beb4-91f4-494d-94df-dcc7bb03a317"],
+
+Cell[TextData[{
+ "AMPA-like currents are often approximated as fast excitatory conductances: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["I", "TI"], 
+          StyleBox["AMPA", FontSlant -> "Plain"]], "\[LongEqual]", 
+         SubscriptBox[
+          StyleBox["g", "TI"], 
+          StyleBox["AMPA", FontSlant -> "Plain"]], 
+         RowBox[{"(", 
+           StyleBox["t", "TI"], ")"}], 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["V", "TI"], "-", 
+             SubscriptBox[
+              StyleBox["E", "TI"], 
+              StyleBox["AMPA", FontSlant -> "Plain"]]}], ")"}]}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "I_{\\mathrm{AMPA}} = g_{\\mathrm{AMPA}}(t)(V-E_{\\mathrm{AMPA}})", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "961bda40-aace-cb4b-8b11-2d45866e3c8e"],
+ "with ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["E", "TI"], 
+          StyleBox["AMPA", FontSlant -> "Plain"]], "\[TildeTilde]", "0", 
+         " mV"}], TraditionalForm], "errors" -> {}, "input" -> 
+     "E_{\\mathrm{AMPA}} \\approx 0 \\text{ mV}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "9de141f5-f1e7-9c48-bb36-10ad038f19d9"],
+ " and fast decay. "
+}], "Text",ExpressionUUID->"ddf99114-f40e-ee4f-b938-41b03c9c39db"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3.2. Slow voltage-dependent excitatory receptors", "Subsection",ExpressionUUID->"bfb28fe5-9f41-f440-a4e2-fcfdf0c98e2c"],
+
+Cell[TextData[{
+ "NMDA-like currents are slower and voltage dependent due to magnesium block. \
+A simplified form is: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["I", "TI"], 
+          StyleBox["NMDA", FontSlant -> "Plain"]], "\[LongEqual]", 
+         SubscriptBox[
+          StyleBox["g", "TI"], 
+          StyleBox["NMDA", FontSlant -> "Plain"]], 
+         RowBox[{"(", 
+           StyleBox["t", "TI"], ")"}], 
+         StyleBox["B", "TI"], 
+         RowBox[{"(", 
+           StyleBox["V", "TI"], ")"}], 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["V", "TI"], "-", 
+             SubscriptBox[
+              StyleBox["E", "TI"], 
+              StyleBox["NMDA", FontSlant -> "Plain"]]}], ")"}]}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "I_{\\mathrm{NMDA}} = g_{\\mathrm{NMDA}}(t) B(V)(V-E_{\\mathrm{NMDA}})", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "8604dfa1-d407-ec49-9ba1-614a1630d429"],
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["B", "TI"], "(", 
+         StyleBox["V", "TI"], ")"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "B(V)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "bc065008-6a70-d64d-965f-eb27f8d39f64"],
+ " is a voltage-dependent unblock factor."
+}], "Text",ExpressionUUID->"b1c62869-cf0e-af48-a75c-3eef6d5f5847"],
+
+Cell[TextData[{
+ "A common phenomenological form is: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["B", "TI"], 
+         RowBox[{"(", 
+           StyleBox["V", "TI"], ")"}], "\[LongEqual]", 
+         FractionBox["1", 
+          RowBox[{"1", "+", "\[Eta]", 
+            SuperscriptBox[
+             StyleBox["e", "TI"], 
+             RowBox[{"-", "\[Zeta]", 
+               StyleBox["V", "TI"]}]]}]], "."}], TraditionalForm], 
+     "errors" -> {}, "input" -> "B(V) = \\frac{1}{1 + \\eta e^{-\\zeta V}}.", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "876d0d1b-1830-f244-b950-756941f80feb"],
+ "This creates coincidence sensitivity and nonlinear dendritic integration. "
+}], "Text",ExpressionUUID->"dd3f08b5-3c6f-7341-898e-def68cc2cebb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3.3. Inhibitory receptors", "Subsection",ExpressionUUID->"d0c71934-042a-e944-be36-e0d97e8cde6f"],
+
+Cell[TextData[{
+ "Fast inhibitory currents are often modeled as: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["I", "TI"], 
+          StyleBox["GABA_A", FontSlant -> "Plain"]], "\[LongEqual]", 
+         SubscriptBox[
+          StyleBox["g", "TI"], 
+          StyleBox["GABA_A", FontSlant -> "Plain"]], 
+         RowBox[{"(", 
+           StyleBox["t", "TI"], ")"}], 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["V", "TI"], "-", 
+             SubscriptBox[
+              StyleBox["E", "TI"], 
+              StyleBox["inh", FontSlant -> "Plain"]]}], ")"}]}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "I_{\\mathrm{GABA_A}} = g_{\\mathrm{GABA_A}}(t)(V-E_{\\mathrm{inh}})", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "bfc10e4b-50bb-6b4b-8d9b-75dcb3dc5ea1"],
+ "with ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["E", "TI"], 
+        StyleBox["inh", FontSlant -> "Plain"]], TraditionalForm], 
+     "errors" -> {}, "input" -> "E_{\\mathrm{inh}}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "8fb16a02-f56b-d843-93b3-08be1d9f8012"],
+ " typically negative relative to resting potential."
+}], "Text",ExpressionUUID->"7a7e793f-c336-2b49-98f5-cbe80db76918"],
+
+Cell["\<\
+Slower metabotropic inhibition can be modeled with additional state \
+variables. \
+\>", "Text",ExpressionUUID->"db4833d9-85b2-0743-9a38-18487715f445"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"d7f3915f-db8c-6347-899a-343a7597fd4f"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4. Synaptic delays and transmission timing", "Section",ExpressionUUID->"3ae96799-2984-134c-8e56-e73b1be5f3ca"],
+
+Cell[CellGroupData[{
+
+Cell["4.1. Delay representation", "Subsection",ExpressionUUID->"204dd00a-170e-1d4b-8926-5bb3afe6a22c"],
+
+Cell[TextData[{
+ "Synaptic transmission is not instantaneous. If a presynaptic spike occurs \
+at time ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["t", "TI"], 
+        StyleBox["k", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "t_k", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "c24e81f5-db24-4746-bb74-5ba58f3a0f70"],
+ ", its effect may begin at ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["t", "TI"], 
+          StyleBox["k", "TI"]], "+", 
+         StyleBox["d", "TI"]}], TraditionalForm], "errors" -> {}, "input" -> 
+     "t_k + d", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "4834c968-1647-1545-9b1e-41f5f17afe60"],
+ "."
+}], "Text",ExpressionUUID->"266bcdfd-a7ab-9945-9bcc-a17fbe4e2f8d"],
+
+Cell[TextData[{
+ "Then ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         FractionBox[
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["g", "TI"]}], 
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["t", "TI"]}]], "\[LongEqual]", "-", 
+         FractionBox[
+          StyleBox["g", "TI"], 
+          SubscriptBox["\[Tau]", 
+           StyleBox["s", "TI"]]], "+", 
+         UnderscriptBox["\[Sum]", 
+          StyleBox["k", "TI"], LimitsPositioning -> True], 
+         SubscriptBox[
+          StyleBox["w", "TI"], 
+          StyleBox["k", "TI"]], "\[Delta]", 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["t", "TI"], "-", 
+             RowBox[{"(", 
+               RowBox[{
+                 SubscriptBox[
+                  StyleBox["t", "TI"], 
+                  StyleBox["k", "TI"]], "+", 
+                 StyleBox["d", "TI"]}], ")"}]}], ")"}], "."}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "\\frac{dg}{dt} = -\\frac{g}{\\tau_s} + \\sum_k w_k \\delta(t-(t_k+d)).",
+      "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "f4635394-6e23-3b47-9343-42ba734127a3"]
+}], "Text",ExpressionUUID->"8b083ee1-7db1-d64e-a42c-0d4982598bca"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4.2. Why timing matters", "Subsection",ExpressionUUID->"2909bc0d-6a2a-f348-ae78-76ceb623f1bc"],
+
+Cell["Delays are critical for: ", "Text",ExpressionUUID->"8a883972-4a9c-3046-aac8-0fc55672b34d"],
+
+Cell["synchronization,", "Item",ExpressionUUID->"1215eaff-6f9e-ad4b-b005-67eb3a26cef3"],
+
+Cell["oscillations,", "Item",ExpressionUUID->"ce96db8e-c312-c248-9666-ac943b52012f"],
+
+Cell["spike timing dependent plasticity,", "Item",ExpressionUUID->"a88aab39-3ab3-1e4c-9cab-32a58a287767"],
+
+Cell["sequence learning,", "Item",ExpressionUUID->"83c6df05-f7e7-1d44-8bac-9c11f4b2d45b"],
+
+Cell["reverberatory loops.", "Item",ExpressionUUID->"35ea05d7-c2b7-0e4e-aec6-d8993bc72706"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"ecc4ebea-c09c-6c42-89e8-80725609ef7a"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5. Short-term synaptic plasticity", "Section",ExpressionUUID->"4eb52184-5350-2c4e-9f2d-f95fbd69b57c"],
+
+Cell["\<\
+Short-term plasticity captures transient changes in efficacy on timescales of \
+milliseconds to seconds. \
+\>", "Text",ExpressionUUID->"98d065ad-1161-344c-a67f-7d0054f7b735"],
+
+Cell[CellGroupData[{
+
+Cell["5.1. Resource-utilization framework", "Subsection",ExpressionUUID->"d788e33e-0741-7346-a360-fc3ce47662e1"],
+
+Cell["\<\
+A widely useful model represents synaptic efficacy by interacting variables: \
+\>", "Text",ExpressionUUID->"052a8471-987c-a54e-81f7-c53bb112fbf2"],
+
+Cell[TextData[{
+ "available resources ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["R", "TI"], "(", 
+         StyleBox["t", "TI"], ")"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "R(t)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "b6fbd6ab-771b-aa48-a0e5-d0795ceed519"],
+ ","
+}], "Item",ExpressionUUID->"011caaf1-cf26-f24e-b730-8728bbb84888"],
+
+Cell[TextData[{
+ "utilization ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["u", "TI"], "(", 
+         StyleBox["t", "TI"], ")"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "u(t)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "987d215b-27c1-ff46-b885-1c32c2d20030"],
+ "."
+}], "Item",ExpressionUUID->"6b9d6b04-0f59-c84b-8341-ca1600c754fa"],
+
+Cell[TextData[{
+ "Upon a presynaptic spike at time ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["t", "TI"], 
+        StyleBox["k", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "t_k", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "8870dafa-266a-c642-8570-b0d3e07dda88"],
+ ": ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["u", "TI"], 
+         RowBox[{"(", 
+           SubsuperscriptBox[
+            StyleBox["t", "TI"], 
+            StyleBox["k", "TI"], "+"], ")"}], "\[LongEqual]", 
+         StyleBox["u", "TI"], 
+         RowBox[{"(", 
+           SubsuperscriptBox[
+            StyleBox["t", "TI"], 
+            StyleBox["k", "TI"], "-"], ")"}], "+", 
+         StyleBox["U", "TI"], 
+         RowBox[{"(", 
+           RowBox[{"1", "-", 
+             StyleBox["u", "TI"], 
+             RowBox[{"(", 
+               SubsuperscriptBox[
+                StyleBox["t", "TI"], 
+                StyleBox["k", "TI"], "-"], ")"}]}], ")"}]}], TraditionalForm],
+      "errors" -> {}, "input" -> 
+     "u(t_k^+) = u(t_k^-) + U\\big(1-u(t_k^-)\\big)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "330a34fd-85f6-6144-810e-9ff215097a78"],
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["R", "TI"], 
+         RowBox[{"(", 
+           SubsuperscriptBox[
+            StyleBox["t", "TI"], 
+            StyleBox["k", "TI"], "+"], ")"}], "\[LongEqual]", 
+         StyleBox["R", "TI"], 
+         RowBox[{"(", 
+           SubsuperscriptBox[
+            StyleBox["t", "TI"], 
+            StyleBox["k", "TI"], "-"], ")"}], 
+         RowBox[{"(", 
+           RowBox[{"1", "-", 
+             StyleBox["u", "TI"], 
+             RowBox[{"(", 
+               SubsuperscriptBox[
+                StyleBox["t", "TI"], 
+                StyleBox["k", "TI"], "+"], ")"}]}], ")"}], "."}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "R(t_k^+) = R(t_k^-)\\big(1-u(t_k^+)\\big).", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "e30fc8ad-2a71-0a46-ae76-5503dfb840ef"],
+ "Between spikes: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         FractionBox[
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["u", "TI"]}], 
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["t", "TI"]}]], "\[LongEqual]", "-", 
+         FractionBox[
+          RowBox[{
+            StyleBox["u", "TI"], "-", 
+            SubscriptBox[
+             StyleBox["U", "TI"], "0"]}], 
+          SubscriptBox["\[Tau]", 
+           StyleBox["f", "TI"]]]}], TraditionalForm], "errors" -> {}, "input" -> 
+     "\\frac{du}{dt} = -\\frac{u-U_0}{\\tau_f}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "043abc5a-96ef-c54e-b2f0-12df875eda11"],
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         FractionBox[
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["R", "TI"]}], 
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["t", "TI"]}]], "\[LongEqual]", 
+         FractionBox[
+          RowBox[{"1", "-", 
+            StyleBox["R", "TI"]}], 
+          SubscriptBox["\[Tau]", 
+           StyleBox["r", "TI"]]], "."}], TraditionalForm], "errors" -> {}, 
+     "input" -> "\\frac{dR}{dt} = \\frac{1-R}{\\tau_r}.", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "c68ceefc-c883-4d4a-8712-937a03b4ce28"],
+ "Then effective conductance increment is proportional to ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["u", "TI"], 
+         StyleBox["R", "TI"]}], TraditionalForm], "errors" -> {}, "input" -> 
+     "uR", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "05f9b700-f41d-bc4c-b890-b5bbc247ebd2"],
+ "."
+}], "Text",ExpressionUUID->"d0a3dd62-d269-2341-85ae-084f97f789b5"],
+
+Cell["This captures facilitation and depression. ", "Text",ExpressionUUID->"59666de0-9a36-064d-b539-16942688a761"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5.2. Computational significance", "Subsection",ExpressionUUID->"95ff3bf8-9eff-d34c-b38c-5607855e9137"],
+
+Cell["Short-term plasticity gives synapses: ", "Text",ExpressionUUID->"ae1635c1-bbfa-cf42-944d-c938d16e5528"],
+
+Cell["temporal filtering,", "Item",ExpressionUUID->"9eca9754-d3c8-394e-9be2-326610c28ecd"],
+
+Cell["adaptive gain control,", "Item",ExpressionUUID->"bb644c64-554b-c243-b2b0-175e94bfaf43"],
+
+Cell["novelty sensitivity,", "Item",ExpressionUUID->"701271b4-5268-174d-a38c-e3c0fb7a1665"],
+
+Cell["burst selectivity,", "Item",ExpressionUUID->"b993419a-61e6-1746-8a2c-d7379c7e48a1"],
+
+Cell["input history dependence.", "Item",ExpressionUUID->"9e025ba1-33a1-4f4c-b4c9-7c370a9396e3"],
+
+Cell["These are highly relevant for AI design. ", "Text",ExpressionUUID->"27cc7f28-6a87-3d4d-b68f-d9a4450804c1"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"0a8c89f8-991e-5345-8985-964e4e2fd1e7"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["6. Long-term synaptic plasticity", "Section",ExpressionUUID->"f654bea9-b382-284a-8da3-1e1ffac944c6"],
+
+Cell["\<\
+Long-term plasticity modifies connection strength persistently. \
+\>", "Text",ExpressionUUID->"3f56e874-f6cb-e646-96d4-469df00f404a"],
+
+Cell[CellGroupData[{
+
+Cell["6.1. Hebbian prototype", "Subsection",ExpressionUUID->"fa092c89-8875-a24c-b416-6aae15dc592f"],
+
+Cell[TextData[{
+ "A minimal Hebbian update is: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         FractionBox[
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["w", "TI"]}], 
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["t", "TI"]}]], "\[LongEqual]", "\[Eta]", 
+         SubscriptBox[
+          StyleBox["x", "TI"], 
+          StyleBox["pre", FontSlant -> "Plain"]], 
+         SubscriptBox[
+          StyleBox["x", "TI"], 
+          StyleBox["post", FontSlant -> "Plain"]]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\frac{dw}{dt} = \\eta x_{\\mathrm{pre}} x_{\\mathrm{post}}", "state" -> 
+     "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "4f667f96-a4d9-144d-8484-3229b1fbf781"],
+ "where: "
+}], "Text",ExpressionUUID->"7e80c550-c9bd-a540-b7a6-590269213108"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["w", "TI"], TraditionalForm], "errors" -> {}, "input" -> "w", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "712d04bb-8464-8d42-8eb3-5dc68df865f8"],
+ " = synaptic strength,"
+}], "Item",ExpressionUUID->"8fa5807f-ab24-af45-a88c-bd0f084b87b8"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["x", "TI"], 
+        StyleBox["pre", FontSlant -> "Plain"]], TraditionalForm], 
+     "errors" -> {}, "input" -> "x_{\\mathrm{pre}}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "9ecd5301-e0b6-3f47-a57e-a8054fb102ae"],
+ " = presynaptic activity,"
+}], "Item",ExpressionUUID->"b0121cf2-0654-6f40-881e-91d7fe93052b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["x", "TI"], 
+        StyleBox["post", FontSlant -> "Plain"]], TraditionalForm], 
+     "errors" -> {}, "input" -> "x_{\\mathrm{post}}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "2f53d006-be0f-1646-9ff5-5dcf187053ac"],
+ " = postsynaptic activity."
+}], "Item",ExpressionUUID->"c4b80ad1-f023-754f-b64c-a12cc7c135bd"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["6.2. Oja stabilization", "Subsection",ExpressionUUID->"3be0e4b9-1fc4-a04b-8138-2841dd41049f"],
+
+Cell[TextData[{
+ "Unbounded Hebbian growth is unstable. Oja\[CloseCurlyQuote]s rule adds \
+normalization: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         FractionBox[
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["w", "TI"]}], 
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["t", "TI"]}]], "\[LongEqual]", "\[Eta]", 
+         RowBox[{"(", 
+           RowBox[{
+             SubscriptBox[
+              StyleBox["x", "TI"], 
+              StyleBox["pre", FontSlant -> "Plain"]], 
+             SubscriptBox[
+              StyleBox["x", "TI"], 
+              StyleBox["post", FontSlant -> "Plain"]], "-", 
+             SubsuperscriptBox[
+              StyleBox["x", "TI"], 
+              StyleBox["post", FontSlant -> "Plain"], "2"], 
+             StyleBox["w", "TI"]}], ")"}], "."}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\frac{dw}{dt} = \\eta \\big(x_{\\mathrm{pre}} x_{\\mathrm{post}} - x_{\
+\\mathrm{post}}^2 w\\big).", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "624fb595-e4c4-0949-8c4c-76792ba2d898"]
+}], "Text",ExpressionUUID->"bb353d44-d50c-0f4b-8730-4fdb20300074"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["6.3. Spike timing dependent plasticity", "Subsection",ExpressionUUID->"d2168058-7133-f643-9992-9f0588fa90f7"],
+
+Cell[TextData[{
+ "STDP uses the relative timing ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"\[CapitalDelta]", 
+         StyleBox["t", "TI"], "\[LongEqual]", 
+         SubscriptBox[
+          StyleBox["t", "TI"], 
+          StyleBox["post", FontSlant -> "Plain"]], "-", 
+         SubscriptBox[
+          StyleBox["t", "TI"], 
+          StyleBox["pre", FontSlant -> "Plain"]]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\Delta t = t_{\\mathrm{post}} - t_{\\mathrm{pre}}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "06443b32-46bf-f14d-abf6-353e01e7bdee"],
+ ": ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"\[CapitalDelta]", 
+         StyleBox["w", "TI"], "\[LongEqual]", 
+         RowBox[{"{", 
+           Cell[
+            BoxData[
+             FormBox[
+              GridBox[{{
+                 Cell[
+                  TextData[{" ", 
+                    Cell[
+                    BoxData[
+                    RowBox[{
+                    SubscriptBox[
+                    StyleBox["A", "TI"], "+"], 
+                    SuperscriptBox[
+                    StyleBox["e", "TI"], 
+                    RowBox[{"-", "\[CapitalDelta]", 
+                    StyleBox["t", "TI"], "/", 
+                    SubscriptBox["\[Tau]", "+"]}]], ","}]], "InlineFormula"], 
+                    " "}]], 
+                 Cell[
+                  TextData[{" ", 
+                    Cell[
+                    BoxData[
+                    RowBox[{"\[CapitalDelta]", 
+                    StyleBox["t", "TI"], ">", "0"}]], "InlineFormula"], 
+                    " "}]]}, {
+                 Cell[
+                  TextData[{" ", 
+                    Cell[
+                    BoxData[
+                    RowBox[{"-", 
+                    SubscriptBox[
+                    StyleBox["A", "TI"], "-"], 
+                    SuperscriptBox[
+                    StyleBox["e", "TI"], 
+                    RowBox[{"\[CapitalDelta]", 
+                    StyleBox["t", "TI"], "/", 
+                    SubscriptBox["\[Tau]", "-"]}]], ","}]], "InlineFormula"], 
+                    " "}]], 
+                 Cell[
+                  TextData[{" ", 
+                    Cell[
+                    BoxData[
+                    RowBox[{"\[CapitalDelta]", 
+                    StyleBox["t", "TI"], "<", "0"}]], "InlineFormula"], 
+                    " "}]]}}], TraditionalForm]]]}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\Delta w =\n\\begin{cases}\nA_+ e^{-\\Delta t/\\tau_+}, & \\Delta t > \
+0 \\\\\n-A_- e^{\\Delta t/\\tau_-}, & \\Delta t < 0\n\\end{cases}", "state" -> 
+     "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "bb4c8f19-5592-344f-a461-01a640b73110"],
+ "This is a core timing-based learning rule. "
+}], "Text",ExpressionUUID->"07efc307-b30a-4241-a48b-88060169c1bb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["6.4. Homeostatic stabilization", "Subsection",ExpressionUUID->"aa12b662-75a2-6a4c-86cc-0805571ddaaa"],
+
+Cell[TextData[{
+ "Plasticity often requires global or local homeostasis, for example: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         FractionBox[
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["w", "TI"]}], 
+          RowBox[{
+            StyleBox["d", "TI"], 
+            StyleBox["t", "TI"]}]], "\[LongEqual]", "\[Eta] ", 
+         SubscriptBox["\[CapitalPi]", 
+          StyleBox["plasticity", FontSlant -> "Plain"]], "-", "\[Lambda]", 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["w", "TI"], "-", 
+             SubscriptBox[
+              StyleBox["w", "TI"], "0"]}], ")"}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\frac{dw}{dt} = \\eta \\, \\Pi_{\\mathrm{plasticity}} - \\lambda \
+(w-w_0)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "4670b4e2-6e33-af48-882a-78d9851040ae"],
+ "where the second term stabilizes around a target scale. "
+}], "Text",ExpressionUUID->"2763bcfa-49f5-8049-ac8b-25f2333ace8e"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"55b36c46-de2c-5b42-ab22-22f4a7094cdf"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["7. Structural plasticity", "Section",ExpressionUUID->"da094e09-cf87-204e-b9d4-60146bfaf5a7"],
+
+Cell[CellGroupData[{
+
+Cell["7.1. Beyond weight change", "Subsection",ExpressionUUID->"6b7e57c1-c48e-b146-a825-a7eb3c36bca4"],
+
+Cell["\<\
+Real neurons do not only change synaptic strength; they also modify: \
+\>", "Text",ExpressionUUID->"7de92c5e-959a-7147-8b29-23389372d659"],
+
+Cell["spine density,", "Item",ExpressionUUID->"dd087a14-cc19-f54b-afe4-7169b5db2783"],
+
+Cell["branch growth,", "Item",ExpressionUUID->"ed898bd5-53f5-9848-b517-00551f6dd9a4"],
+
+Cell["pruning,", "Item",ExpressionUUID->"aac904bf-6817-9c42-a17b-6103f6ab1f21"],
+
+Cell["contact probability.", "Item",ExpressionUUID->"d767bdd5-201e-a943-b691-192ed31667ef"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["7.2. Graph-level formalization", "Subsection",ExpressionUUID->"2bbc66e3-fa57-3848-874d-5bcf6741f0d7"],
+
+Cell[TextData[{
+ "Let the connectivity graph be ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["G", "TI"], "(", 
+         StyleBox["t", "TI"], ")"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "G(t)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "47ed33af-4486-6b4c-96da-5d6dbf448f05"],
+ ". Structural plasticity is then: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["G", "TI"], 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["t", "TI"], "+", "\[CapitalDelta]", 
+             StyleBox["t", "TI"]}], ")"}], "\[LongEqual]", 
+         SubscriptBox[
+          StyleBox["U", "TI"], 
+          StyleBox["struct", FontSlant -> "Plain"]], 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["G", "TI"], 
+             RowBox[{"(", 
+               StyleBox["t", "TI"], ")"}], ",", 
+             StyleBox["X", "TI"], 
+             RowBox[{"(", 
+               StyleBox["t", "TI"], ")"}], ",", "\[CapitalTheta]"}], ")"}]}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "G(t+\\Delta t) = \\mathcal{U}_{\\mathrm{struct}}(G(t), X(t), \\Theta)", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "15d88839-bee0-4047-b864-a784779c86c4"],
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["X", "TI"], "(", 
+         StyleBox["t", "TI"], ")"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "X(t)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "4f51be10-1c9a-a148-bfa6-27b4db4ff4b1"],
+ " includes activity and local state."
+}], "Text",ExpressionUUID->"e63a9526-2fc8-3a41-beb3-73c4d327a41c"],
+
+Cell["\<\
+This is important if the eventual AI system is to learn architecture rather \
+than only weights. \
+\>", "Text",ExpressionUUID->"d47d98a4-3aa5-044e-9fc1-77e5c5381222"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"eedd0bca-ec0c-b64c-bbda-65e4c4e59107"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["8. Neuromodulation", "Section",ExpressionUUID->"df6e7522-9b80-6049-a363-cdfd11fc93fa"],
+
+Cell[CellGroupData[{
+
+Cell["8.1. Slow context-dependent modulation", "Subsection",ExpressionUUID->"fb5384a9-63b8-424e-9f83-24e0ce1f3923"],
+
+Cell["\<\
+Many neural systems are shaped by diffuse modulatory signals. These do not \
+simply excite or inhibit; they alter gain, plasticity, thresholds, or time \
+constants. \
+\>", "Text",ExpressionUUID->"04376959-571d-c549-a127-e7325565273e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["8.2. Formalization", "Subsection",ExpressionUUID->"d8ae0600-766d-e143-8144-5c8303f9e550"],
+
+Cell[TextData[{
+ "Let ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["m", "TI"], 
+          StyleBox["mod", FontSlant -> "Plain"]], "(", 
+         StyleBox["t", "TI"], ")"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "m_{\\mathrm{mod}}(t)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "04c46d02-0e79-7244-9cf0-faadbae60c64"],
+ " be a modulatory state variable. Then parameters may become state \
+dependent: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox["\[Tau]", 
+          StyleBox["m", "TI"]], "\[Rule]", 
+         SubscriptBox["\[Tau]", 
+          StyleBox["m", "TI"]], 
+         RowBox[{"(", 
+           SubscriptBox[
+            StyleBox["m", "TI"], 
+            StyleBox["mod", FontSlant -> "Plain"]], ")"}], ",    ", "\[Eta]", 
+         "\[Rule]", "\[Eta]", 
+         RowBox[{"(", 
+           SubscriptBox[
+            StyleBox["m", "TI"], 
+            StyleBox["mod", FontSlant -> "Plain"]], ")"}], ",    ", 
+         SubscriptBox[
+          StyleBox["V", "TI"], 
+          StyleBox["th", FontSlant -> "Plain"]], "\[Rule]", 
+         SubscriptBox[
+          StyleBox["V", "TI"], 
+          StyleBox["th", FontSlant -> "Plain"]], 
+         RowBox[{"(", 
+           SubscriptBox[
+            StyleBox["m", "TI"], 
+            StyleBox["mod", FontSlant -> "Plain"]], ")"}], "."}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "\\tau_m \\to \\tau_m(m_{\\mathrm{mod}}), \\qquad\n\\eta \\to \
+\\eta(m_{\\mathrm{mod}}), \\qquad\nV_{\\mathrm{th}} \\to V_{\\mathrm{th}}(m_{\
+\\mathrm{mod}}).", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "91cfac13-6b73-0b4d-a915-87e5e74a94c3"],
+ "This is crucial for richer adaptive computation. "
+}], "Text",ExpressionUUID->"ccffcb8a-18d0-2046-9e69-0f6ea4997ced"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"83dbf209-d69b-774e-b62d-e5fc657ce0c8"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["9. Astrocytes and glia", "Section",ExpressionUUID->"668f1970-b652-f94f-92fe-db64fbb0ce87"],
+
+Cell[CellGroupData[{
+
+Cell["9.1. Why glia matter", "Subsection",ExpressionUUID->"6d4029e9-699f-f54a-b836-c0a44f17d1c9"],
+
+Cell["\<\
+A neuron-only picture is incomplete. Astrocytes and other glial cells: \
+\>", "Text",ExpressionUUID->"0e2e8d60-c819-b24e-ba3b-df8b07c00c11"],
+
+Cell["regulate transmitter levels,", "Item",ExpressionUUID->"02e5c6c4-d16a-594e-9597-53f765e9c99a"],
+
+Cell["buffer ions,", "Item",ExpressionUUID->"e0aed92d-872c-3643-88b5-81ee7d015ad4"],
+
+Cell["modulate synaptic efficacy,", "Item",ExpressionUUID->"ad9d114e-c11a-1847-8962-805b07192b79"],
+
+Cell["participate in metabolic support,", "Item",ExpressionUUID->"2f370318-9fe5-c14e-85cc-f145a5942b4a"],
+
+Cell["introduce slower spatially structured dynamical processes.", "Item",ExpressionUUID->"ee9e9900-c558-1344-b9bd-9e499627eccc"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+9.2. Tri ... uto does not claim those laws are already established here.\
+\>", "Subsection",ExpressionUUID->"2f822174-795e-074e-9832-251365d61a40"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"92003995-daf5-8c4b-8911-8c80f265421d"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["16. Wolfram Language scaffolding", "Section",ExpressionUUID->"463147ad-add6-5745-8581-4daa96c0d495"],
+
+Cell[CellGroupData[{
+
+Cell["16.1. Synaptic state representation", "Subsection",ExpressionUUID->"365f06b3-d9cc-8b4a-9c1e-cc23334c2403"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", "synapseState", "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"synapseState", "[", 
+    RowBox[{
+    "conductance_", ",", "weight_", ",", "resource_", ",", "utilization_", ",",
+      "delay_", ",", "receptor_", ",", "modulation_"}], "]"}], ":=", 
+   RowBox[{"<|", "\[IndentingNewLine]", "  ", 
+    RowBox[{
+     RowBox[{"\"\<Conductance\>\"", "->", "conductance"}], ",", 
+     "\[IndentingNewLine]", "  ", 
+     RowBox[{"\"\<Weight\>\"", "->", "weight"}], ",", "\[IndentingNewLine]", 
+     "  ", 
+     RowBox[{"\"\<Resource\>\"", "->", "resource"}], ",", 
+     "\[IndentingNewLine]", "  ", 
+     RowBox[{"\"\<Utilization\>\"", "->", "utilization"}], ",", 
+     "\[IndentingNewLine]", "  ", 
+     RowBox[{"\"\<Delay\>\"", "->", "delay"}], ",", "\[IndentingNewLine]", 
+     "  ", 
+     RowBox[{"\"\<ReceptorType\>\"", "->", "receptor"}], ",", 
+     "\[IndentingNewLine]", "  ", 
+     RowBox[{"\"\<ModulationState\>\"", "->", "modulation"}]}], 
+    "\[IndentingNewLine]", "|>"}]}], ";"}]}], "Input",ExpressionUUID->\
+"529d833b-f547-4043-ada5-9ebaacc369f7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["16.2. Exponential conductance update skeleton", "Subsection",ExpressionUUID->"b9efbc74-7104-2d4c-a8bd-0c18dbb8b4f4"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", "synapticConductanceRhs", "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"synapticConductanceRhs", "[", 
+    RowBox[{"conductance_", ",", "decayTime_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"-", "conductance"}], "/", "decayTime"}]}], ";"}]}], "Input",Expre\
+ssionUUID->"ebdb3172-7987-b747-af02-b565f592070b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["16.3. STDP update function", "Subsection",ExpressionUUID->"301f86aa-da3c-b74c-823a-b883db211614"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", "stdpUpdate", "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"stdpUpdate", "[", 
+    RowBox[{
+    "deltaT_", ",", "aPlus_", ",", "aMinus_", ",", "tauPlus_", ",", 
+     "tauMinus_"}], "]"}], ":=", "\[IndentingNewLine]", "  ", 
+   RowBox[{"Piecewise", "[", "\[IndentingNewLine]", "    ", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", "      ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"aPlus", " ", 
+          RowBox[{"Exp", "[", 
+           RowBox[{
+            RowBox[{"-", "deltaT"}], "/", "tauPlus"}], "]"}]}], ",", 
+         RowBox[{"deltaT", ">", "0"}]}], "}"}], ",", "\[IndentingNewLine]", 
+       "      ", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", "aMinus"}], " ", 
+          RowBox[{"Exp", "[", 
+           RowBox[{"deltaT", "/", "tauMinus"}], "]"}]}], ",", 
+         RowBox[{"deltaT", "<", "0"}]}], "}"}]}], "\[IndentingNewLine]", 
+      "    ", "}"}], ",", "\[IndentingNewLine]", "    ", "0"}], 
+    "\[IndentingNewLine]", "  ", "]"}]}], ";"}]}], "Input",ExpressionUUID->\
+"152a8024-ee1e-c74a-9804-ce43554b290b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["16.4. Short-term plasticity skeleton", "Subsection",ExpressionUUID->"04ac13ea-bc1a-8444-8008-c282c1fdc8cd"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", "shortTermPlasticityStep", "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"shortTermPlasticityStep", "[", 
+    RowBox[{
+    "resource_", ",", "utilization_", ",", "u0_", ",", "recoveryTime_", ",", 
+     "facilitationTime_", ",", "spikeQ_"}], "]"}], ":=", 
+   RowBox[{"<|", "\[IndentingNewLine]", "  ", 
+    RowBox[{
+     RowBox[{"\"\<ResourceNext\>\"", "->", 
+      RowBox[{"resource", "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", "-", "resource"}], ")"}], "/", "recoveryTime"}], "-", 
+       RowBox[{"spikeQ", " ", "utilization", " ", "resource"}]}]}], ",", 
+     "\[IndentingNewLine]", "  ", 
+     RowBox[{"\"\<UtilizationNext\>\"", "->", 
+      RowBox[{"utilization", "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"u0", "-", "utilization"}], ")"}], "/", "facilitationTime"}],
+        "+", 
+       RowBox[{"spikeQ", " ", "u0", " ", 
+        RowBox[{"(", 
+         RowBox[{"1", "-", "utilization"}], ")"}]}]}]}]}], 
+    "\[IndentingNewLine]", "|>"}]}], ";"}]}], "Input",ExpressionUUID->\
+"379e30a9-c1e1-ae47-a077-65bc13899901"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["16.5. Glia state representation", "Subsection",ExpressionUUID->"2016b6a0-6ca6-5941-8b95-ca6148cf8c17"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", "gliaState", "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"gliaState", "[", 
+    RowBox[{
+    "calcium_", ",", "transmitter_", ",", "modulation_", ",", "metabolic_"}], 
+    "]"}], ":=", 
+   RowBox[{"<|", "\[IndentingNewLine]", "  ", 
+    RowBox[{
+     RowBox[{"\"\<Calcium\>\"", "->", "calcium"}], ",", "\[IndentingNewLine]",
+      "  ", 
+     RowBox[{"\"\<Gliotransmitter\>\"", "->", "transmitter"}], ",", 
+     "\[IndentingNewLine]", "  ", 
+     RowBox[{"\"\<Modulation\>\"", "->", "modulation"}], ",", 
+     "\[IndentingNewLine]", "  ", 
+     RowBox[{"\"\<MetabolicSupport\>\"", "->", "metabolic"}]}], 
+    "\[IndentingNewLine]", "|>"}]}], ";"}]}], "Input",ExpressionUUID->\
+"8f1294c9-c7a1-564f-9991-f0e742b3c77e"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"88f778ba-d7ad-8c49-b1d8-df55b497f578"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["17. What this notebook establishes", "Section",ExpressionUUID->"a175f100-fa28-6b4f-b33a-d3db957f66ba"],
+
+Cell["\<\
+This notebook establishes the neuron as an adaptive signaling system, not \
+just a membrane.\
+\>", "Text",ExpressionUUID->"2e255d0f-8df8-804d-ab61-456abf109a64"],
+
+Cell["Its main achievements are:", "Text",ExpressionUUID->"5674265d-8aa1-7d40-a630-90ba90abafd8"],
+
+Cell["\<\
+1. formalizing synaptic currents as dynamical conductance processes,\
+\>", "Text",ExpressionUUID->"d7b08cde-99b1-cd42-ab97-e7e83caad63b"],
+
+Cell["2. distinguishing receptor classes and timing structure,", "Text",ExpressionUUID->"65b5dcb4-5a45-1b44-81aa-339299ddd68f"],
+
+Cell["\<\
+3. developing short-term and long-term plasticity mathematics,\
+\>", "Text",ExpressionUUID->"0732f8b0-fad9-c24f-8d77-61a65d577462"],
+
+Cell["4. introducing modulatory and structural adaptation,", "Text",ExpressionUUID->"8a42bdc5-04e6-b34a-8697-17512c1e8184"],
+
+Cell["5. incorporating glia and tripartite synapse thinking,", "Text",ExpressionUUID->"43d4e662-32e3-f04b-ae5e-a2ed51f3a0a9"],
+
+Cell["6. building the bridge to digital trainable approximations,", "Text",ExpressionUUID->"b015209d-9c1b-6a48-90c6-b9115e683fdc"],
+
+Cell["\<\
+7. identifying where RHUFT-style measurement and closure variables may later \
+augment the theory.\
+\>", "Text",ExpressionUUID->"ee13272c-5e28-354f-aae5-02937ec8f284"],
+
+Cell["This is the correct next layer of rigor. ", "Text",ExpressionUUID->"388fc793-b01e-9844-965f-b318f46203b9"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"bdcd0a7c-80aa-e044-8118-1ee145010a17"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["18. Next notebook", "Section",ExpressionUUID->"96588ca5-a986-0a46-966d-8c332c4fbe51"],
+
+Cell["The next notebook should be:", "Text",ExpressionUUID->"1da64ca9-5c85-9443-95a6-12c1df355c58"],
+
+Cell[TextData[{
+ "04",
+ StyleBox["Measurement",
+  FontSlant->Italic],
+ "Theory",
+ StyleBox["For",
+  FontSlant->Italic],
+ "Biological",
+ StyleBox["And",
+  FontSlant->Italic],
+ "Digital_Neurons"
+}], "Text",ExpressionUUID->"0d32e4e3-e8c8-de47-86c4-59853eec3b3d"],
+
+Cell["It should formalize: ", "Text",ExpressionUUID->"806466d0-80ec-e84f-bc35-5b6bd74a1bb8"],
+
+Cell["what neurons measure,", "Item",ExpressionUUID->"31cd728f-e295-f444-bf6c-b548515ff1f5"],
+
+Cell["what counts as a neuronal \[OpenCurlyDoubleQuote]sense,\
+\[CloseCurlyDoubleQuote]", "Item",ExpressionUUID->"e0eb3871-d3c5-084c-b671-\
+5972beddb257"],
+
+Cell["internal vs external measurement,", "Item",ExpressionUUID->"c79ce837-6453-454a-bba6-5c6642c7d7fe"],
+
+Cell["observability across scales,", "Item",ExpressionUUID->"d1751e01-3896-d24a-82e1-160ff1140ef8"],
+
+Cell["sensor geometry and dendritic geometry,", "Item",ExpressionUUID->"f6e8e327-63ae-9c46-b75a-655224215915"],
+
+Cell["measurement-state vectors for neurons,", "Item",ExpressionUUID->"2216d74d-197b-eb42-a66f-7ef4ff29f3c8"],
+
+Cell["how this changes the design of digital neural networks,", "Item",ExpressionUUID->"81cad122-3f9b-1245-9936-5cf31745f818"],
+
+Cell["\<\
+how RHUFT-style distinguishability density may be integrated as an auxiliary \
+field.\
+\>", "Item",ExpressionUUID->"0de6984e-26ee-dc41-bfa0-b829462f5abd"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{581.25, 654},
+WindowMargins->{{1029, Automatic}, {387.75, Automatic}},
+FrontEndVersion->"15.0 for Microsoft Windows (64-bit) (May 19, 2026)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"cbf2f9f5-085a-e142-b9b5-de1dfce05f53"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 205, 8, 157, "Title",ExpressionUUID->"265fce76-99df-0b4b-b5d6-df055e008bdd"],
+Cell[CellGroupData[{
+Cell[806, 34, 81, 0, 66, "Section",ExpressionUUID->"86afe3a7-61ce-384d-9961-43cf64357bdd"],
+Cell[890, 36, 166, 5, 33, "Text",ExpressionUUID->"eee29fc8-f1ad-5d44-8aaa-046bf492651f"],
+Cell[1059, 43, 212, 3, 55, "Text",ExpressionUUID->"8f2a4f1d-6a0f-9143-9bc5-ed087ca45ded"],
+Cell[1274, 48, 96, 0, 33, "Text",ExpressionUUID->"9d83f90d-520e-8c46-a9b9-0814eb2b74a1"],
+Cell[1373, 50, 113, 0, 33, "Text",ExpressionUUID->"83a68cfe-dea0-204c-b68a-a548935c9bd1"],
+Cell[1489, 52, 105, 0, 33, "Text",ExpressionUUID->"83e48d7f-36ef-4641-9795-3257fe8083e3"],
+Cell[1597, 54, 114, 0, 33, "Text",ExpressionUUID->"b160eb38-bcb6-8c44-b88a-8c64de68e0ca"],
+Cell[1714, 56, 96, 0, 33, "Text",ExpressionUUID->"a7435879-273e-9846-8d01-e026eb28559e"],
+Cell[1813, 58, 102, 0, 33, "Text",ExpressionUUID->"b28feaee-98ec-9547-9857-c3892d8e95af"],
+Cell[1918, 60, 161, 3, 55, "Text",ExpressionUUID->"2ba3a3e3-581a-3245-bcdd-2df07c79677b"],
+Cell[2082, 65, 361, 5, 99, "Text",ExpressionUUID->"d79b82be-c688-5e4e-bcc4-c45e41bb9142"],
+Cell[2446, 72, 99, 0, 33, "Text",ExpressionUUID->"ddc28d05-6e08-b047-bdf9-f5b61fec1ed1"],
+Cell[2548, 74, 936, 24, 65, "Text",ExpressionUUID->"dc5bcb33-0f7a-4d40-b4e2-1549eadc1678"],
+Cell[3487, 100, 596, 20, 48, "Text",ExpressionUUID->"11101678-1f90-4044-8c4b-d5540215dfb8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4120, 125, 107, 0, 66, "Section",ExpressionUUID->"1db2f291-4d92-9145-ad95-2c3e1814c1ae"],
+Cell[CellGroupData[{
+Cell[4252, 129, 117, 0, 53, "Subsection",ExpressionUUID->"28df0529-cf27-4d48-8005-fb40641e1106"],
+Cell[4372, 131, 225, 3, 55, "Text",ExpressionUUID->"5ba9b59e-fd21-e441-b4c5-7e51ee65f604"],
+Cell[4600, 136, 126, 0, 33, "Text",ExpressionUUID->"bc6dffec-2bce-214a-9837-b98820097407"],
+Cell[4729, 138, 91, 0, 30, "Item",ExpressionUUID->"ab02dbdd-ef2c-6142-9ca8-6eaa6efbc6a2"],
+Cell[4823, 140, 88, 0, 30, "Item",ExpressionUUID->"c985799e-efeb-8a43-aaeb-9337841cddde"],
+Cell[4914, 142, 90, 0, 30, "Item",ExpressionUUID->"6fa0e376-4bec-2b4c-8818-89db63e64259"],
+Cell[5007, 144, 90, 0, 30, "Item",ExpressionUUID->"ca6845d2-7cd1-9744-bc80-bd2158ae2527"],
+Cell[5100, 146, 85, 0, 30, "Item",ExpressionUUID->"3544b986-9941-b645-9643-01ae5036edd0"],
+Cell[5188, 148, 77, 0, 30, "Item",ExpressionUUID->"f026077d-d1b2-b348-816e-46028fda8680"],
+Cell[5268, 150, 88, 0, 30, "Item",ExpressionUUID->"89caea89-e0a7-8a4a-91ec-a8b0685b2d00"],
+Cell[5359, 152, 102, 0, 30, "Item",ExpressionUUID->"e543a92f-1d70-bc4e-9c7f-d0cd2c1cb1da"],
+Cell[5464, 154, 90, 0, 30, "Item",ExpressionUUID->"b45f2452-36d6-c540-b703-28b62f954126"],
+Cell[5557, 156, 100, 0, 30, "Item",ExpressionUUID->"3cc683e7-f844-bd4e-b02a-07227187eb31"],
+Cell[5660, 158, 162, 3, 55, "Text",ExpressionUUID->"b698c71c-b1f8-d64e-a843-bf2d6b734621"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5859, 166, 106, 0, 53, "Subsection",ExpressionUUID->"3afbd4e8-ba4f-f448-bf07-195300466816"],
+Cell[5968, 168, 1151, 30, 56, "Text",ExpressionUUID->"257ee76f-5f5d-cd42-9ff7-d235b30d9d7b"],
+Cell[7122, 200, 559, 13, 31, "Item",ExpressionUUID->"d9daed17-afdf-4942-91dc-6a011a67ca96"],
+Cell[7684, 215, 485, 11, 31, "Item",ExpressionUUID->"9d819151-05a5-9945-874a-dd60f32bc29e"],
+Cell[8172, 228, 1202, 32, 72, "Text",ExpressionUUID->"97d4471c-98e7-a244-b850-f3440ef5323b"],
+Cell[9377, 262, 596, 20, 48, "Text",ExpressionUUID->"417715d1-bfca-d842-8d40-96d537b14f4c"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10022, 288, 117, 0, 103, "Section",ExpressionUUID->"02358d0d-a06d-7e4a-a17a-731457c3f292"],
+Cell[CellGroupData[{
+Cell[10164, 292, 109, 0, 53, "Subsection",ExpressionUUID->"35d910e4-83a7-784b-af4e-937b32bbb2d7"],
+Cell[10276, 294, 1634, 46, 77, "Text",ExpressionUUID->"44d5aa81-9e7f-e549-9b5f-55dbe0e9a40b"],
+Cell[11913, 342, 429, 10, 30, "Item",ExpressionUUID->"89e9a44b-7ef2-554b-a316-1d8947da0b93"],
+Cell[12345, 354, 469, 11, 30, "Item",ExpressionUUID->"022f1692-2f3d-da41-8227-fa4c8fd0d37e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12851, 370, 109, 0, 53, "Subsection",ExpressionUUID->"20711eac-7a99-3443-bae7-60b25e0f0a5b"],
+Cell[12963, 372, 1894, 50, 70, "Text",ExpressionUUID->"340a002e-5199-5c40-a864-a350c6b82181"],
+Cell[14860, 424, 414, 10, 30, "Item",ExpressionUUID->"4b95b12f-493b-d64f-a4e4-c6b0ec1789d8"],
+Cell[15277, 436, 415, 10, 30, "Item",ExpressionUUID->"b41346e5-f6ba-fd4f-8549-911738f5ee5b"],
+Cell[15695, 448, 389, 9, 30, "Item",ExpressionUUID->"d1e82057-b38e-7141-8737-ce527da8bd29"],
+Cell[16087, 459, 144, 2, 33, "Text",ExpressionUUID->"7b0c82c7-8c27-2e4f-bbe3-5c5a9fdeb4e5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16268, 466, 104, 0, 53, "Subsection",ExpressionUUID->"0ff54acd-c42b-9e4d-9de4-0f8232c9bc8e"],
+Cell[16375, 468, 1646, 45, 75, "Text",ExpressionUUID->"7f807055-3832-d844-8f28-01461389ca4a"],
+Cell[18024, 515, 596, 20, 48, "Text",ExpressionUUID->"c85cb946-ee55-6e41-8703-2647d3003a7e"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18669, 541, 93, 0, 66, "Section",ExpressionUUID->"0c1b8394-db94-3341-ade2-ddf6e8ea417a"],
+Cell[18765, 543, 144, 2, 33, "Text",ExpressionUUID->"b4f76cbc-490e-da4c-b2ac-2ac642943e80"],
+Cell[CellGroupData[{
+Cell[18934, 549, 107, 0, 53, "Subsection",ExpressionUUID->"0226beb4-91f4-494d-94df-dcc7bb03a317"],
+Cell[19044, 551, 1490, 38, 77, "Text",ExpressionUUID->"ddf99114-f40e-ee4f-b938-41b03c9c39db"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20571, 594, 125, 0, 53, "Subsection",ExpressionUUID->"bfb28fe5-9f41-f440-a4e2-fcfdf0c98e2c"],
+Cell[20699, 596, 1526, 40, 77, "Text",ExpressionUUID->"b1c62869-cf0e-af48-a75c-3eef6d5f5847"],
+Cell[22228, 638, 837, 20, 73, "Text",ExpressionUUID->"dd3f08b5-3c6f-7341-898e-def68cc2cebb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23102, 663, 102, 0, 53, "Subsection",ExpressionUUID->"d0c71934-042a-e944-be36-e0d97e8cde6f"],
+Cell[23207, 665, 1413, 36, 77, "Text",ExpressionUUID->"7a7e793f-c336-2b49-98f5-cbe80db76918"],
+Cell[24623, 703, 160, 3, 55, "Text",ExpressionUUID->"db4833d9-85b2-0743-9a38-18487715f445"],
+Cell[24786, 708, 596, 20, 48, "Text",ExpressionUUID->"d7f3915f-db8c-6347-899a-343a7597fd4f"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25431, 734, 116, 0, 66, "Section",ExpressionUUID->"3ae96799-2984-134c-8e56-e73b1be5f3ca"],
+Cell[CellGroupData[{
+Cell[25572, 738, 102, 0, 53, "Subsection",ExpressionUUID->"204dd00a-170e-1d4b-8926-5bb3afe6a22c"],
+Cell[25677, 740, 933, 25, 55, "Text",ExpressionUUID->"266bcdfd-a7ab-9945-9bcc-a17fbe4e2f8d"],
+Cell[26613, 767, 1297, 36, 55, "Text",ExpressionUUID->"8b083ee1-7db1-d64e-a42c-0d4982598bca"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27947, 808, 100, 0, 53, "Subsection",ExpressionUUID->"2909bc0d-6a2a-f348-ae78-76ceb623f1bc"],
+Cell[28050, 810, 96, 0, 33, "Text",ExpressionUUID->"8a883972-4a9c-3046-aac8-0fc55672b34d"],
+Cell[28149, 812, 87, 0, 30, "Item",ExpressionUUID->"1215eaff-6f9e-ad4b-b005-67eb3a26cef3"],
+Cell[28239, 814, 84, 0, 30, "Item",ExpressionUUID->"ce96db8e-c312-c248-9666-ac943b52012f"],
+Cell[28326, 816, 105, 0, 30, "Item",ExpressionUUID->"a88aab39-3ab3-1e4c-9cab-32a58a287767"],
+Cell[28434, 818, 89, 0, 30, "Item",ExpressionUUID->"83c6df05-f7e7-1d44-8bac-9c11f4b2d45b"],
+Cell[28526, 820, 91, 0, 30, "Item",ExpressionUUID->"35ea05d7-c2b7-0e4e-aec6-d8993bc72706"],
+Cell[28620, 822, 596, 20, 48, "Text",ExpressionUUID->"ecc4ebea-c09c-6c42-89e8-80725609ef7a"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29265, 848, 107, 0, 66, "Section",ExpressionUUID->"4eb52184-5350-2c4e-9f2d-f95fbd69b57c"],
+Cell[29375, 850, 184, 3, 55, "Text",ExpressionUUID->"98d065ad-1161-344c-a67f-7d0054f7b735"],
+Cell[CellGroupData[{
+Cell[29584, 857, 112, 0, 53, "Subsection",ExpressionUUID->"d788e33e-0741-7346-a360-fc3ce47662e1"],
+Cell[29699, 859, 156, 2, 55, "Text",ExpressionUUID->"052a8471-987c-a54e-81f7-c53bb112fbf2"],
+Cell[29858, 863, 452, 12, 30, "Item",ExpressionUUID->"011caaf1-cf26-f24e-b730-8728bbb84888"],
+Cell[30313, 877, 444, 12, 30, "Item",ExpressionUUID->"6b9d6b04-0f59-c84b-8341-ca1600c754fa"],
+Cell[30760, 891, 4153, 115, 119, "Text",ExpressionUUID->"d0a3dd62-d269-2341-85ae-084f97f789b5"],
+Cell[34916, 1008, 114, 0, 33, "Text",ExpressionUUID->"59666de0-9a36-064d-b539-16942688a761"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[35067, 1013, 108, 0, 53, "Subsection",ExpressionUUID->"95ff3bf8-9eff-d34c-b38c-5607855e9137"],
+Cell[35178, 1015, 109, 0, 33, "Text",ExpressionUUID->"ae1635c1-bbfa-cf42-944d-c938d16e5528"],
+Cell[35290, 1017, 90, 0, 30, "Item",ExpressionUUID->"9eca9754-d3c8-394e-9be2-326610c28ecd"],
+Cell[35383, 1019, 93, 0, 30, "Item",ExpressionUUID->"bb644c64-554b-c243-b2b0-175e94bfaf43"],
+Cell[35479, 1021, 91, 0, 30, "Item",ExpressionUUID->"701271b4-5268-174d-a38c-e3c0fb7a1665"],
+Cell[35573, 1023, 89, 0, 30, "Item",ExpressionUUID->"b993419a-61e6-1746-8a2c-d7379c7e48a1"],
+Cell[35665, 1025, 96, 0, 30, "Item",ExpressionUUID->"9e025ba1-33a1-4f4c-b4c9-7c370a9396e3"],
+Cell[35764, 1027, 112, 0, 33, "Text",ExpressionUUID->"27cc7f28-6a87-3d4d-b68f-d9a4450804c1"],
+Cell[35879, 1029, 596, 20, 48, "Text",ExpressionUUID->"0a8c89f8-991e-5345-8985-964e4e2fd1e7"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[36524, 1055, 106, 0, 66, "Section",ExpressionUUID->"f654bea9-b382-284a-8da3-1e1ffac944c6"],
+Cell[36633, 1057, 143, 2, 33, "Text",ExpressionUUID->"3f56e874-f6cb-e646-96d4-469df00f404a"],
+Cell[CellGroupData[{
+Cell[36801, 1063, 99, 0, 70, "Subsection",ExpressionUUID->"fa092c89-8875-a24c-b416-6aae15dc592f"],
+Cell[36903, 1065, 902, 25, 70, "Text",ExpressionUUID->"7e80c550-c9bd-a540-b7a6-590269213108"],
+Cell[37808, 1092, 383, 9, 70, "Item",ExpressionUUID->"8fa5807f-ab24-af45-a88c-bd0f084b87b8"],
+Cell[38194, 1103, 473, 11, 70, "Item",ExpressionUUID->"b0121cf2-0654-6f40-881e-91d7fe93052b"],
+Cell[38670, 1116, 476, 11, 70, "Item",ExpressionUUID->"c4b80ad1-f023-754f-b64c-a12cc7c135bd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39183, 1132, 99, 0, 70, "Subsection",ExpressionUUID->"3be0e4b9-1fc4-a04b-8138-2841dd41049f"],
+Cell[39285, 1134, 1233, 31, 70, "Text",ExpressionUUID->"bb353d44-d50c-0f4b-8730-4fdb20300074"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40555, 1170, 115, 0, 70, "Subsection",ExpressionUUID->"d2168058-7133-f643-9992-9f0588fa90f7"],
+Cell[40673, 1172, 2932, 75, 70, "Text",ExpressionUUID->"07efc307-b30a-4241-a48b-88060169c1bb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[43642, 1252, 107, 0, 70, "Subsection",ExpressionUUID->"aa12b662-75a2-6a4c-86cc-0805571ddaaa"],
+Cell[43752, 1254, 1064, 26, 70, "Text",ExpressionUUID->"2763bcfa-49f5-8049-ac8b-25f2333ace8e"],
+Cell[44819, 1282, 596, 20, 70, "Text",ExpressionUUID->"55b36c46-de2c-5b42-ab22-22f4a7094cdf"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[45464, 1308, 98, 0, 70, "Section",ExpressionUUID->"da094e09-cf87-204e-b9d4-60146bfaf5a7"],
+Cell[CellGroupData[{
+Cell[45587, 1312, 102, 0, 70, "Subsection",ExpressionUUID->"6b7e57c1-c48e-b146-a825-a7eb3c36bca4"],
+Cell[45692, 1314, 148, 2, 70, "Text",ExpressionUUID->"7de92c5e-959a-7147-8b29-23389372d659"],
+Cell[45843, 1318, 85, 0, 70, "Item",ExpressionUUID->"dd087a14-cc19-f54b-afe4-7169b5db2783"],
+Cell[45931, 1320, 85, 0, 70, "Item",ExpressionUUID->"ed898bd5-53f5-9848-b517-00551f6dd9a4"],
+Cell[46019, 1322, 79, 0, 70, "Item",ExpressionUUID->"aac904bf-6817-9c42-a17b-6103f6ab1f21"],
+Cell[46101, 1324, 91, 0, 70, "Item",ExpressionUUID->"d767bdd5-201e-a943-b691-192ed31667ef"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[46229, 1329, 107, 0, 70, "Subsection",ExpressionUUID->"2bbc66e3-fa57-3848-874d-5bcf6741f0d7"],
+Cell[46339, 1331, 1827, 48, 70, "Text",ExpressionUUID->"e63a9526-2fc8-3a41-beb3-73c4d327a41c"],
+Cell[48169, 1381, 176, 3, 70, "Text",ExpressionUUID->"d47d98a4-3aa5-044e-9fc1-77e5c5381222"],
+Cell[48348, 1386, 596, 20, 70, "Text",ExpressionUUID->"eedd0bca-ec0c-b64c-bbda-65e4c4e59107"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[48993, 1412, 92, 0, 70, "Section",ExpressionUUID->"df6e7522-9b80-6049-a363-cdfd11fc93fa"],
+Cell[CellGroupData[{
+Cell[49110, 1416, 115, 0, 70, "Subsection",ExpressionUUID->"fb5384a9-63b8-424e-9f83-24e0ce1f3923"],
+Cell[49228, 1418, 244, 4, 70, "Text",ExpressionUUID->"04376959-571d-c549-a127-e7325565273e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[49509, 1427, 95, 0, 70, "Subsection",ExpressionUUID->"d8ae0600-766d-e143-8144-5c8303f9e550"],
+Cell[49607, 1429, 1943, 49, 70, "Text",ExpressionUUID->"ccffcb8a-18d0-2046-9e69-0f6ea4997ced"],
+Cell[51553, 1480, 596, 20, 70, "Text",ExpressionUUID->"83dbf209-d69b-774e-b62d-e5fc657ce0c8"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[52198, 1506, 96, 0, 70, "Section",ExpressionUUID->"668f1970-b652-f94f-92fe-db64fbb0ce87"],
+Cell[CellGroupData[{
+Cell[52319, 1510, 97, 0, 70, "Subsection",ExpressionUUID->"6d4029e9-699f-f54a-b836-c0a44f17d1c9"],
+Cell[52419, 1512, 150, 2, 70, "Text",ExpressionUUID->"0e2e8d60-c819-b24e-ba3b-df8b07c00c11"],
+Cell[52572, 1516, 99, 0, 70, "Item",ExpressionUUID->"02e5c6c4-d16a-594e-9597-53f765e9c99a"],
+Cell[52674, 1518, 83, 0, 70, "Item",ExpressionUUID->"e0aed92d-872c-3643-88b5-81ee7d015ad4"],
+Cell[52760, 1520, 98, 0, 70, "Item",ExpressionUUID->"ad9d114e-c11a-1847-8962-805b07192b79"],
+Cell[52861, 1522, 104, 0, 70, "Item",ExpressionUUID->"2f370318-9fe5-c14e-85cc-f145a5942b4a"],
+Cell[52968, 1524, 129, 0, 70, "Item",ExpressionUUID->"ee9e9900-c558-1344-b9bd-9e499627eccc"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[53134, 1529, 157, 2, 70, "Subsection",ExpressionUUID->"2f822174-795e-074e-9832-251365d61a40"],
+Cell[53294, 1533, 596, 20, 70, "Text",ExpressionUUID->"92003995-daf5-8c4b-8911-8c80f265421d"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[53939, 1559, 106, 0, 70, "Section",ExpressionUUID->"463147ad-add6-5745-8581-4daa96c0d495"],
+Cell[CellGroupData[{
+Cell[54070, 1563, 112, 0, 70, "Subsection",ExpressionUUID->"365f06b3-d9cc-8b4a-9c1e-cc23334c2403"],
+Cell[54185, 1565, 1169, 27, 70, "Input",ExpressionUUID->"529d833b-f547-4043-ada5-9ebaacc369f7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[55391, 1597, 122, 0, 70, "Subsection",ExpressionUUID->"b9efbc74-7104-2d4c-a8bd-0c18dbb8b4f4"],
+Cell[55516, 1599, 425, 11, 70, "Input",ExpressionUUID->"ebdb3172-7987-b747-af02-b565f592070b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[55978, 1615, 103, 0, 70, "Subsection",ExpressionUUID->"301f86aa-da3c-b74c-823a-b883db211614"],
+Cell[56084, 1617, 1214, 32, 70, "Input",ExpressionUUID->"152a8024-ee1e-c74a-9804-ce43554b290b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[57335, 1654, 113, 0, 70, "Subsection",ExpressionUUID->"04ac13ea-bc1a-8444-8008-c282c1fdc8cd"],
+Cell[57451, 1656, 1179, 30, 70, "Input",ExpressionUUID->"379e30a9-c1e1-ae47-a077-65bc13899901"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[58667, 1691, 108, 0, 70, "Subsection",ExpressionUUID->"2016b6a0-6ca6-5941-8b95-ca6148cf8c17"],
+Cell[58778, 1693, 834, 21, 70, "Input",ExpressionUUID->"8f1294c9-c7a1-564f-9991-f0e742b3c77e"],
+Cell[59615, 1716, 596, 20, 70, "Text",ExpressionUUID->"88f778ba-d7ad-8c49-b1d8-df55b497f578"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[60260, 1742, 108, 0, 70, "Section",ExpressionUUID->"a175f100-fa28-6b4f-b33a-d3db957f66ba"],
+Cell[60371, 1744, 171, 3, 70, "Text",ExpressionUUID->"2e255d0f-8df8-804d-ab61-456abf109a64"],
+Cell[60545, 1749, 97, 0, 70, "Text",ExpressionUUID->"5674265d-8aa1-7d40-a630-90ba90abafd8"],
+Cell[60645, 1751, 147, 2, 70, "Text",ExpressionUUID->"d7b08cde-99b1-cd42-ab97-e7e83caad63b"],
+Cell[60795, 1755, 127, 0, 70, "Text",ExpressionUUID->"65b5dcb4-5a45-1b44-81aa-339299ddd68f"],
+Cell[60925, 1757, 141, 2, 70, "Text",ExpressionUUID->"0732f8b0-fad9-c24f-8d77-61a65d577462"],
+Cell[61069, 1761, 123, 0, 70, "Text",ExpressionUUID->"8a42bdc5-04e6-b34a-8697-17512c1e8184"],
+Cell[61195, 1763, 125, 0, 70, "Text",ExpressionUUID->"43d4e662-32e3-f04b-ae5e-a2ed51f3a0a9"],
+Cell[61323, 1765, 130, 0, 70, "Text",ExpressionUUID->"b015209d-9c1b-6a48-90c6-b9115e683fdc"],
+Cell[61456, 1767, 177, 3, 70, "Text",ExpressionUUID->"ee13272c-5e28-354f-aae5-02937ec8f284"],
+Cell[61636, 1772, 112, 0, 70, "Text",ExpressionUUID->"388fc793-b01e-9844-965f-b318f46203b9"],
+Cell[61751, 1774, 596, 20, 70, "Text",ExpressionUUID->"bdcd0a7c-80aa-e044-8118-1ee145010a17"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[62384, 1799, 91, 0, 70, "Section",ExpressionUUID->"96588ca5-a986-0a46-966d-8c332c4fbe51"],
+Cell[62478, 1801, 99, 0, 70, "Text",ExpressionUUID->"1da64ca9-5c85-9443-95a6-12c1df355c58"],
+Cell[62580, 1803, 259, 11, 70, "Text",ExpressionUUID->"0d32e4e3-e8c8-de47-86c4-59853eec3b3d"],
+Cell[62842, 1816, 92, 0, 70, "Text",ExpressionUUID->"806466d0-80ec-e84f-bc35-5b6bd74a1bb8"],
+Cell[62937, 1818, 92, 0, 70, "Item",ExpressionUUID->"31cd728f-e295-f444-bf6c-b548515ff1f5"],
+Cell[63032, 1820, 154, 2, 70, "Item",ExpressionUUID->"e0eb3871-d3c5-084c-b671-5972beddb257"],
+Cell[63189, 1824, 104, 0, 70, "Item",ExpressionUUID->"c79ce837-6453-454a-bba6-5c6642c7d7fe"],
+Cell[63296, 1826, 99, 0, 70, "Item",ExpressionUUID->"d1751e01-3896-d24a-82e1-160ff1140ef8"],
+Cell[63398, 1828, 110, 0, 70, "Item",ExpressionUUID->"f6e8e327-63ae-9c46-b75a-655224215915"],
+Cell[63511, 1830, 109, 0, 70, "Item",ExpressionUUID->"2216d74d-197b-eb42-a66f-7ef4ff29f3c8"],
+Cell[63623, 1832, 126, 0, 70, "Item",ExpressionUUID->"81cad122-3f9b-1245-9936-5cf31745f818"],
+Cell[63752, 1834, 164, 3, 70, "Item",ExpressionUUID->"0de6984e-26ee-dc41-bfa0-b829462f5abd"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

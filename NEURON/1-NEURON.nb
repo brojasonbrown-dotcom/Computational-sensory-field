@@ -1,0 +1,2932 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[    128535,       2922]
+NotebookOptionsPosition[     82883,       2305]
+NotebookOutlinePosition[     83288,       2321]
+CellTagsIndexPosition[     83245,       2318]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "01",
+ StyleBox["Complete",
+  FontSlant->Italic],
+ "Mathematical",
+ StyleBox["Neuron",
+  FontSlant->Italic],
+ "Program",
+ StyleBox["And",
+  FontSlant->Italic],
+ "Gap_Map"
+}], "Title",ExpressionUUID->"78e8f61f-c59f-474c-80c5-5e12df79101f"],
+
+Cell[CellGroupData[{
+
+Cell["Purpose", "Section",ExpressionUUID->"dfcec424-58cd-204b-bad1-3e91610c8bfc"],
+
+Cell[TextData[{
+ "This is ",
+ StyleBox["Notebook 1",
+  FontWeight->Bold],
+ " in the Neuron Series."
+}], "Text",ExpressionUUID->"048301a5-da25-0749-ab20-64c94fcf4a32"],
+
+Cell[TextData[{
+ "Its purpose is to establish, in a rigorous and professionally structured \
+way, the full research program required to construct a ",
+ StyleBox["computable, multiscale, measurement-aware, biologically grounded, \
+digitally realizable neuron framework",
+  FontWeight->Bold],
+ " suitable for next-generation artificial neural systems."
+}], "Text",ExpressionUUID->"5c869e63-718b-154e-afe5-e1e6e87a4c56"],
+
+Cell[TextData[{
+ "This notebook does ",
+ StyleBox["not",
+  FontWeight->Bold],
+ " claim that the full neuron has already been derived. Instead, it performs \
+the essential first task required for real progress:"
+}], "Text",ExpressionUUID->"4d463749-79c0-d443-8bac-3346e7ded729"],
+
+Cell["1. define the project scope,", "Text",ExpressionUUID->"01b1103b-2cb8-9743-bd2d-9560edd09765"],
+
+Cell["2. separate established science from speculative extension,", "Text",ExpressionUUID->"5d58ea83-a61c-4e44-8b2e-5b0959d3012e"],
+
+Cell["\<\
+3. identify the mathematical layers required for completeness,\
+\>", "Text",ExpressionUUID->"477a8486-25a1-6949-b2ba-8e0e25127e1a"],
+
+Cell["4. expose the gaps in the current RHUFT-style neuron text,", "Text",ExpressionUUID->"21791c13-c7ec-b64d-81ce-17e165bbf994"],
+
+Cell["\<\
+5. create a formal roadmap toward a testable and trainable digital neuron \
+architecture.\
+\>", "Text",ExpressionUUID->"32849b2e-7d36-b84f-9820-fae9baab53b5"],
+
+Cell["The central methodological rule is: ", "Text",ExpressionUUID->"ffc883d1-4d16-584b-b0be-4c1c1fc4814c"],
+
+Cell[BoxData[GridBox[{
+   {
+    PaneBox["\<\"no concept is accepted as part of the final neuron unless it \
+can be placed into at least one of the following categories: state variable, \
+operator, invariant, coupling law, learning rule, measurement map, or \
+falsifiable prediction.\"\>",
+     BaseStyle->{"Text", FontColor -> LightDarkSwitched[
+         GrayLevel[0.35], 
+         GrayLevel[0.8602474]]},
+     ImageMargins->5,
+     ImageSize->{Full, Automatic}]}
+  },
+  AutoDelete->False,
+  GridBoxBackground->{"Columns" -> {{
+       LightDarkSwitched[
+        GrayLevel[1], 
+        GrayLevel[0.278317]]}}},
+  GridBoxDividers->{"ColumnsIndexed" -> {1 -> Directive[
+        LightDarkSwitched[
+         RGBColor[0.87, 0.94, 1], 
+         RGBColor[0.2491127, 0.3295188, 0.4231198]], 
+        AbsoluteThickness[4]]}, "Rows" -> {{False}}},
+  GridBoxItemSize->{
+   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]], "Text", \
+"BlockQuote",
+ Background->None,ExpressionUUID->"ac3650c9-3acb-7a47-aebe-0f8cbf52ac35"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"4ed2cc0f-abbb-1c47-962a-6b1330a210b9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1. Executive objective", "Section",ExpressionUUID->"690c3273-ef84-7641-9bde-9fc04138518f"],
+
+Cell["\<\
+The project objective is not merely to write a better neuron equation.\
+\>", "Text",ExpressionUUID->"71665c29-8c96-1442-acf5-10cd51cbe89d"],
+
+Cell[TextData[{
+ "It is to construct a ",
+ StyleBox["full mathematical design stack",
+  FontWeight->Bold],
+ " for an advanced neuron model that can serve simultaneously as: "
+}], "Text",ExpressionUUID->"7a6f0bf1-b599-8b4e-afeb-681554943ef1"],
+
+Cell["a neuroscience-grounded formal object,", "Item",ExpressionUUID->"22af00f0-6161-3e46-834a-ec0df46cb3db"],
+
+Cell["a digital computational primitive,", "Item",ExpressionUUID->"61bda3bd-8d53-d846-a537-3cb545534c87"],
+
+Cell["a multiscale measurement unit,", "Item",ExpressionUUID->"0fbff2bd-d470-b649-a6a6-daac1bdac016"],
+
+Cell["a possible substrate for richer AI architectures,", "Item",ExpressionUUID->"202c2153-7b98-7e40-bca6-2ca443d52051"],
+
+Cell["\<\
+a framework into which RHUFT-style closure and self-measurement ideas can be \
+inserted in a disciplined way.\
+\>", "Item",ExpressionUUID->"80ef039b-681d-9946-ac20-8f906decd695"],
+
+Cell[TextData[{
+ "A concise formal target is: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"Build ", 
+         StyleBox["N", "TI"], " such that ", 
+         StyleBox["N", "TI"], 
+         " is biologically informed, computationally trainable, multiscale \
+measurable, and structurally extensible."}], TraditionalForm], "errors" -> {},
+      "input" -> 
+     "\\text{Build } \\mathcal{N} \\text{ such that } \\mathcal{N} \\text{ is \
+biologically informed, computationally trainable, multiscale measurable, and \
+structurally extensible.}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "699a17b6-0727-7346-9f54-40f11a61a239"]
+}], "Text",ExpressionUUID->"cfa19739-1a1d-b443-9128-07def2c26e88"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"1da91288-5d5b-0b49-a35f-00304b314532"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2. Scope and epistemic discipline", "Section",ExpressionUUID->"86fc2229-2455-a54a-8167-4be8a79d19d3"],
+
+Cell[CellGroupData[{
+
+Cell["2.1. Four epistemic layers", "Subsection",ExpressionUUID->"6f1b2864-c4a0-ed4c-bd0c-ff2e57721596"],
+
+Cell["\<\
+To keep the program rigorous, every statement in the series must be assigned \
+to one of four layers. \
+\>", "Text",ExpressionUUID->"b03b3ad1-c6c3-df4a-b00a-ec576c053fde"],
+
+Cell[CellGroupData[{
+
+Cell["Layer A \[LongDash] Established neuroscience", "Subsubsection",ExpressionUUID->"cc046f95-1892-7044-a940-9510b1a51bc3"],
+
+Cell["This includes: ", "Text",ExpressionUUID->"2f199279-bf71-9442-a012-6cfa42abd753"],
+
+Cell["membrane dynamics,", "Item",ExpressionUUID->"21487fce-0185-d149-973c-dc870168f54b"],
+
+Cell["ion channel kinetics,", "Item",ExpressionUUID->"8386efcf-c9a5-634f-9406-7fd037157ecf"],
+
+Cell["cable theory,", "Item",ExpressionUUID->"20ee9db0-beeb-d64b-a3bc-7e44c55ff487"],
+
+Cell["synaptic transmission,", "Item",ExpressionUUID->"6036e94c-13db-a146-8af1-26e1d4a66dfb"],
+
+Cell["plasticity,", "Item",ExpressionUUID->"572d66e4-f5b3-7249-92f1-850f638280de"],
+
+Cell["network motifs,", "Item",ExpressionUUID->"700cb42d-25b8-a64a-a21a-07a0aa515dd7"],
+
+Cell["glial interaction where established.", "Item",ExpressionUUID->"c0601da7-8bcd-4245-8f09-85f9af76f099"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Layer B \[LongDash] Engineering abstraction", "Subsubsection",ExpressionUUID->"5f3c8567-190b-274c-a92d-9d3bb79626a6"],
+
+Cell["This includes: ", "Text",ExpressionUUID->"5a7660e8-aefe-064a-8165-431b7206bad8"],
+
+Cell["digital neuron approximations,", "Item",ExpressionUUID->"96918b52-ce55-0247-ad5c-6b63083559f3"],
+
+Cell["trainable recurrent units,", "Item",ExpressionUUID->"4cef2b83-295a-2142-a257-881110afad83"],
+
+Cell["graph-based morphology abstractions,", "Item",ExpressionUUID->"6013b06a-b58c-0a4c-a24a-13340d8ff12b"],
+
+Cell["differentiable surrogate dynamics,", "Item",ExpressionUUID->"3bd839a7-95ba-f343-a1a9-6815a0ead719"],
+
+Cell["efficient approximations for deployment.", "Item",ExpressionUUID->"7a86c184-675a-4e44-a276-abee283c4e8b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Layer C \[LongDash] Measurement-centric extension", "Subsubsection",ExpressionUUID->"4785188d-8575-3045-9ba7-2a87ce15719c"],
+
+Cell["This includes: ", "Text",ExpressionUUID->"cf215f2c-7c00-fc49-9b3b-d0189bb93394"],
+
+Cell["explicit measurement-state variables,", "Item",ExpressionUUID->"4242b26b-28a9-f845-b1cb-cc376f6c2565"],
+
+Cell["observability maps,", "Item",ExpressionUUID->"3cd82ef8-f732-1849-b304-df67cfed03e4"],
+
+Cell["multiscale sensing,", "Item",ExpressionUUID->"4e3b328e-8958-164c-b627-fcee4c1b95ea"],
+
+Cell["interface geometry,", "Item",ExpressionUUID->"07815eee-0160-4d43-aa8b-7285264336c5"],
+
+Cell["history dependence and hysteresis descriptors.", "Item",ExpressionUUID->"e9a70a3b-a1db-be45-8946-12e98557f129"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Layer D \[LongDash] RHUFT-style speculative extension", "Subsubsection",ExpressionUUID->"4e3dc171-0d90-4b4a-b6cc-240481a5cdf9"],
+
+Cell["This includes: ", "Text",ExpressionUUID->"9fc78668-dc46-5946-99ba-34296ccb218b"],
+
+Cell["closure functionals,", "Item",ExpressionUUID->"54f9845a-4878-1947-a59b-4b6506a71eff"],
+
+Cell["recursive self-measurement as a primitive principle,", "Item",ExpressionUUID->"7d5556b5-f54d-db49-a100-9e43927aea37"],
+
+Cell["golden/silver spacing hypotheses,", "Item",ExpressionUUID->"9ec1ceb4-ed6e-4e45-9d0e-3dd1443cf38f"],
+
+Cell["geometry-sensitive invariant claims,", "Item",ExpressionUUID->"14456466-56e4-da4a-9ae4-60e211a81c22"],
+
+Cell["broader ontological interpretations.", "Item",ExpressionUUID->"160f1261-57dd-3c45-9b39-458b9673f9b0"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2.2. Why this separation matters", "Subsection",ExpressionUUID->"d2319b3a-5f47-3c42-b713-075d79c6a5ee"],
+
+Cell["\<\
+Without it, the project becomes impossible to validate. With it, the project \
+can grow in a controlled way from biology to mathematics to AI to ontology. \
+\>", "Text",ExpressionUUID->"2ae19b1a-b509-5c4f-96a7-7a4ab2336135"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"7cbbc00c-4cd7-4141-9ced-c61f54dd6810"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3. What \[OpenCurlyDoubleQuote]complete mathematical neuron\
+\[CloseCurlyDoubleQuote] means", "Section",ExpressionUUID->"2d821cc7-0e18-\
+3844-8a6f-2af89568d86a"],
+
+Cell["The phrase must be operationally defined. ", "Text",ExpressionUUID->"e4a8d769-d6d2-6b49-8b6d-358ce5be9795"],
+
+Cell[CellGroupData[{
+
+Cell["3.1. Definition", "Subsection",ExpressionUUID->"a8e9bdf6-3100-f944-9a28-d0ec71075d77"],
+
+Cell[TextData[{
+ "A neuron model is ",
+ StyleBox["complete relative to an application class",
+  FontWeight->Bold],
+ " if it specifies all necessary: "
+}], "Text",ExpressionUUID->"d4cb6fab-4848-d348-8053-e47536331819"],
+
+Cell["state variables,", "Item",ExpressionUUID->"cf8a37e6-5025-0e42-a2d3-4a86e8fa3cc7"],
+
+Cell["update laws,", "Item",ExpressionUUID->"0c8db365-411a-354e-a37c-1a9dfc4382a9"],
+
+Cell["interaction channels,", "Item",ExpressionUUID->"4b6d03e9-e857-8b4f-8ee8-fcfaf2690aef"],
+
+Cell["memory traces,", "Item",ExpressionUUID->"187fc19f-de22-fc41-9bbc-4304bd0554fa"],
+
+Cell["learning rules,", "Item",ExpressionUUID->"25a8beff-09eb-f148-a563-e78b4bc6beb1"],
+
+Cell["measurement mappings,", "Item",ExpressionUUID->"5a5b6cf4-a7ec-484b-b47a-7493fb4e90d5"],
+
+Cell["stability criteria,", "Item",ExpressionUUID->"d84777d3-58de-6446-a98e-765ac65f1ba9"],
+
+Cell["compositional interfaces,", "Item",ExpressionUUID->"27574572-7fd7-9d48-9f29-8355bc09546f"],
+
+Cell["evaluation metrics,", "Item",ExpressionUUID->"40e2959f-fba8-8d42-a241-63e8f47ad605"],
+
+Cell["\<\
+required to reproduce the target computational behaviors of that class. \
+\>", "Text",ExpressionUUID->"e42fda63-cf4b-d946-8f16-ba4ce255a3fd"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3.2. Three completeness tiers", "Subsection",ExpressionUUID->"e9e610df-df2d-1b49-8ce3-699a0bbb890f"],
+
+Cell[CellGroupData[{
+
+Cell["Tier 1 \[LongDash] Biological completeness", "Subsubsection",ExpressionUUID->"21b3422a-f811-a14a-8a95-d270024ec0f9"],
+
+Cell["\<\
+A model is biologically complete enough when it includes, as needed: \
+\>", "Text",ExpressionUUID->"365f4d96-3863-e546-862c-b9fe5cbd92d4"],
+
+Cell["membrane voltage,", "Item",ExpressionUUID->"1afd58c2-c8af-194c-9508-59045a7931be"],
+
+Cell["conductances,", "Item",ExpressionUUID->"0bb9b92b-3a87-8449-ad9f-dd29267cb9f5"],
+
+Cell["ion channel gating,", "Item",ExpressionUUID->"64fe7f41-7538-374b-b8f9-1344360a68dd"],
+
+Cell["morphology,", "Item",ExpressionUUID->"4f060444-a7aa-e947-bb80-b5f9aa1b10e7"],
+
+Cell["compartments,", "Item",ExpressionUUID->"6d435978-10d8-d047-a1e5-e83d7c618c58"],
+
+Cell["synapses,", "Item",ExpressionUUID->"5920144d-f009-ee44-ad64-ca7cb09e4573"],
+
+Cell["delays,", "Item",ExpressionUUID->"4e37a925-99bf-5e4b-92ca-3c074134fa56"],
+
+Cell["plasticity,", "Item",ExpressionUUID->"f6bd493b-5a0e-ac4d-af02-62140dc62b94"],
+
+Cell["modulatory influences,", "Item",ExpressionUUID->"5d8fa672-2162-954e-adf4-00b3367fb403"],
+
+Cell["glial coupling.", "Item",ExpressionUUID->"8593a083-fe54-004b-805a-d20e5692e4f1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tier 2 \[LongDash] Computational completeness", "Subsubsection",ExpressionUUID->"08efd073-58a5-c14f-8bba-118b1c8d425a"],
+
+Cell["\<\
+A model is computationally complete enough when it supports: \
+\>", "Text",ExpressionUUID->"069e4655-07ac-e44b-8247-df0069aded51"],
+
+Cell["digital implementation,", "Item",ExpressionUUID->"1479825f-cd9d-ce44-87ff-0e421dfffdd7"],
+
+Cell["training or adaptation,", "Item",ExpressionUUID->"3162dbb4-8473-0747-ae06-e526bff323fc"],
+
+Cell["temporal processing,", "Item",ExpressionUUID->"e8c79434-3ebc-8643-993c-7e56e4bdfe8b"],
+
+Cell["routing and memory,", "Item",ExpressionUUID->"7a6bc5f7-6e87-2049-837d-6aaf3fb9eb37"],
+
+Cell["efficiency constraints,", "Item",ExpressionUUID->"dfea7fc0-52f2-4d4a-9bbc-c5613448ed7a"],
+
+Cell["composability into networks.", "Item",ExpressionUUID->"734af7d8-8a32-6e4d-9341-746c0bd3abb7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tier 3 \[LongDash] Measurement-closure completeness", "Subsubsection",ExpressionUUID->"e1a41fca-1e48-0841-9b88-07424cef693a"],
+
+Cell["\<\
+A model is complete in the RHUFT-extension sense when it includes: \
+\>", "Text",ExpressionUUID->"eaceb786-aa08-de4e-8bca-90b77005545b"],
+
+Cell["internal measurement variables,", "Item",ExpressionUUID->"0ab333a1-7b5e-0547-91d5-eed5a695ca60"],
+
+Cell["multiscale observability,", "Item",ExpressionUUID->"ad8dae01-c499-544a-8fc2-5c1ee6bf0a77"],
+
+Cell["closure/persistence scores,", "Item",ExpressionUUID->"8f08cc1e-75be-9d47-81f1-b2ce06cdf1fa"],
+
+Cell["geometry-sensitive interfaces,", "Item",ExpressionUUID->"5c3ca995-cbea-7142-a4db-fd0e5e4851ea"],
+
+Cell["recurrence-aware state stabilization.", "Item",ExpressionUUID->"b451dc45-32a1-2e46-8ad4-0f58351a2337"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"d1a1af59-94d9-6342-aeba-03f844333fc3"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4. Critique of the current text file", "Section",ExpressionUUID->"59020110-e933-8042-a09f-3fb91c76585d"],
+
+Cell[TextData[{
+ "The file ",
+ Cell[BoxData[Cell["MATHEMATICAL NEURON.txt",
+   Background->None,ExpressionUUID->"c9fa9667-d62f-cc4b-85fe-9fa43435e1a2"]], 
+  "InlineCode",ExpressionUUID->"d0ace6bc-1c5c-5b47-8cfc-bef598cec30a"],
+ " contains useful vision, but it is not yet a full neuron mathematics. It is \
+best interpreted as a ",
+ StyleBox["programmatic sketch",
+  FontWeight->Bold],
+ ". "
+}], "Text",ExpressionUUID->"666d8446-5754-414d-9c86-da12e0686128"],
+
+Cell[CellGroupData[{
+
+Cell["4.1. Strengths of the text", "Subsection",ExpressionUUID->"478a60d9-3860-6342-b665-c4dd7feb4898"],
+
+Cell["It contains several productive themes: ", "Text",ExpressionUUID->"d506d889-7d34-f14d-9fee-3603e403cb55"],
+
+Cell["persistence as closure,", "Item",ExpressionUUID->"ffa94633-7f3a-3a41-a060-d86e301a1410"],
+
+Cell["operator-based thinking,", "Item",ExpressionUUID->"d73ef614-e67e-0346-a775-6677bb508cf4"],
+
+Cell["fixed-point and resonance language,", "Item",ExpressionUUID->"07929afd-6e1a-a241-9146-1bb24dec5a02"],
+
+Cell["architecture-level rather than single-equation thinking,", "Item",ExpressionUUID->"7166e390-030e-4841-b2b0-4eb301fe2bf0"],
+
+Cell["recognition that measurement matters,", "Item",ExpressionUUID->"232b09dd-01b9-6d4c-80de-17b920825a9d"],
+
+Cell["\<\
+recognition that AI should not remain a static feedforward abstraction.\
+\>", "Item",ExpressionUUID->"baeb998d-e34b-414d-9633-e94bcca67926"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4.2. Main deficiencies", "Subsection",ExpressionUUID->"899837d7-c51d-4046-a8f4-14c682d85698"],
+
+Cell["To become mathematically complete, the sketch still lacks:", "Text",ExpressionUUID->"63399823-d7ee-5642-bb92-cf08afb4559a"],
+
+Cell["1. a precise neuron state space,", "Text",ExpressionUUID->"0ae1a42c-87c1-7e46-a9b0-4dde030020aa"],
+
+Cell["2. a hierarchy of neuron model classes,", "Text",ExpressionUUID->"e374b50d-fbad-f34f-a1f3-013333d10b7e"],
+
+Cell["3. explicit membrane and channel equations,", "Text",ExpressionUUID->"c2715fc1-8128-3d4a-b835-d26af9207fa4"],
+
+Cell["4. spatial cable formalisms,", "Text",ExpressionUUID->"41403f0d-53bf-3b43-9d45-4b48acc11dff"],
+
+Cell["5. synapse and receptor kinetics,", "Text",ExpressionUUID->"78a2c0c2-d700-cc4b-a9cd-c6f8278ce3c0"],
+
+Cell["6. plasticity rules,", "Text",ExpressionUUID->"2710765f-3f54-9647-9e92-92b698488189"],
+
+Cell["7. glia-neuron coupling equations,", "Text",ExpressionUUID->"8fd3539b-22bc-0f49-b7f2-d181c8366de9"],
+
+Cell["8. network embedding formalism,", "Text",ExpressionUUID->"1d94cdaa-442f-2042-a901-384470f93140"],
+
+Cell["9. operational definitions for closure variables,", "Text",ExpressionUUID->"32b56de6-7270-5e48-94e5-5239b91c997b"],
+
+Cell["10. a training strategy for digital realization,", "Text",ExpressionUUID->"c65ddf1c-591a-8747-80bc-e3159b29213c"],
+
+Cell["11. benchmark criteria,", "Text",ExpressionUUID->"9c504d14-3c34-5448-9c0c-097e8de489c7"],
+
+Cell["\<\
+12. clear separation between established and speculative claims. \
+\>", "Text",ExpressionUUID->"c2a36a29-f030-a04f-98c1-884e601e0f62"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4.3. Corrective principle", "Subsection",ExpressionUUID->"1d3d8163-5f48-df42-aab2-c069fbeb8044"],
+
+Cell[TextData[{
+ "The right way to improve the text is not to discard it, but to ",
+ StyleBox["factorize it",
+  FontWeight->Bold],
+ ": "
+}], "Text",ExpressionUUID->"0c412ce9-a018-584e-b7fd-b8288021380a"],
+
+Cell["keep its strong conceptual operators,", "Item",ExpressionUUID->"627c8749-e4c0-ab4d-93be-e86db7714c09"],
+
+Cell["replace vague claims with state variables and equations,", "Item",ExpressionUUID->"e1b832ba-649c-dc4c-8382-3fc1019d3db0"],
+
+Cell["\<\
+move unproven ratio claims into explicit hypothesis sections,\
+\>", "Item",ExpressionUUID->"bb5e60e8-6582-5d4d-afa8-00f98ce53121"],
+
+Cell["create executable model ladders.", "Item",ExpressionUUID->"c905caac-6ec6-e245-8d7b-a3abad4eff93"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"b55efb45-c065-8d40-9502-eae14a15382e"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5. The master architecture stack", "Section",ExpressionUUID->"c0f723d8-8330-c842-9874-d65fe78cc433"],
+
+Cell["\<\
+A rigorous neuron framework for this project requires at least ten technical \
+layers. \
+\>", "Text",ExpressionUUID->"c5fd0711-9ec3-4446-91be-531fddd1f803"],
+
+Cell[CellGroupData[{
+
+Cell["5.1. Morphological layer", "Subsection",ExpressionUUID->"205f3a91-7aa4-e646-ba0f-af518abbc48a"],
+
+Cell["Represents: ", "Text",ExpressionUUID->"574f4fbd-1eb3-cd4a-b69a-2c51b714abdc"],
+
+Cell["soma,", "Item",ExpressionUUID->"27c0a6e8-86ab-f547-a8cb-ece593a69900"],
+
+Cell["dendrites,", "Item",ExpressionUUID->"91a714e3-7a19-6842-9527-51de822cb3e8"],
+
+Cell["axon,", "Item",ExpressionUUID->"afeb3ccb-4622-a744-992e-9bef12f84eee"],
+
+Cell["branching geometry,", "Item",ExpressionUUID->"a19a89f4-206a-dc44-9a7b-c3deef3bb25e"],
+
+Cell["spatial embedding,", "Item",ExpressionUUID->"91193409-47ac-3b47-b253-66781058a4f6"],
+
+Cell["compartment boundaries.", "Item",ExpressionUUID->"71615e79-33d0-4a47-ae86-ec0ddc2b0109"],
+
+Cell["Mathematical candidates: ", "Text",ExpressionUUID->"164daa52-b393-744c-b7b8-ca19d5d66234"],
+
+Cell["rooted trees,", "Item",ExpressionUUID->"2ab95e40-3c07-0f4d-bc34-4b9d39a85ab2"],
+
+Cell["embedded graphs,", "Item",ExpressionUUID->"3e7b1767-f16c-f84e-a979-e99705ccafc7"],
+
+Cell["cable domains,", "Item",ExpressionUUID->"8ec7ae0c-a132-ac42-9096-93a2d1cae2aa"],
+
+Cell["simplicial complexes.", "Item",ExpressionUUID->"17993def-ec71-9949-aed5-ca7c44e6fdc5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5.2. Electrophysiological layer", "Subsection",ExpressionUUID->"dd6b7ca1-1d36-0742-a3d9-79c314770101"],
+
+Cell["Represents: ", "Text",ExpressionUUID->"d068262b-285c-ac48-b9f4-10685411a752"],
+
+Cell["membrane potential,", "Item",ExpressionUUID->"b5f5eb62-2a65-4846-a420-31e6900059d7"],
+
+Cell["capacitance,", "Item",ExpressionUUID->"3849fe46-e01f-fd4a-85fc-dfe0a6dddc3d"],
+
+Cell["ionic currents,", "Item",ExpressionUUID->"b7e7e9cb-9bbc-c04b-87f7-e88d6f4f3816"],
+
+Cell["leak,", "Item",ExpressionUUID->"174eafe2-f443-2745-9c4a-bb8659114d1a"],
+
+Cell["active channel dynamics.", "Item",ExpressionUUID->"b235507f-f615-dc4c-b557-c21d3b4d822b"],
+
+Cell["Mathematical candidates: ", "Text",ExpressionUUID->"e02df9f9-840f-be4a-826c-7b9ff4abb6c6"],
+
+Cell["ODEs,", "Item",ExpressionUUID->"7823d7ee-be2b-e54a-950f-17aead2a11aa"],
+
+Cell["PDEs,", "Item",ExpressionUUID->"07404843-a20c-384c-bcc8-9fb3c28577ab"],
+
+Cell["stochastic differential equations,", "Item",ExpressionUUID->"3f839f6a-2f0d-4a43-a068-4ef525ce0b29"],
+
+Cell["compartmental systems.", "Item",ExpressionUUID->"241352d2-556e-a540-94d1-cfcc4f3a5bae"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5.3. Synaptic layer", "Subsection",ExpressionUUID->"65a2fe30-d57c-0546-b24a-f92702d2e9ad"],
+
+Cell["Represents: ", "Text",ExpressionUUID->"59164546-f3aa-7b4a-9fd7-3c88ceac22ce"],
+
+Cell["excitatory and inhibitory input,", "Item",ExpressionUUID->"077037a8-8cd4-904c-bffb-b275512409d5"],
+
+Cell["receptor-dependent kinetics,", "Item",ExpressionUUID->"d9588daa-32a3-604f-929b-9dcf61529a02"],
+
+Cell["conductance changes,", "Item",ExpressionUUID->"2f9a8b66-a3a4-e744-aa7b-d6ebd1a98847"],
+
+Cell["transmission delays,", "Item",ExpressionUUID->"4d5c664f-9bea-2242-b7fd-6ae4c9b7b050"],
+
+Cell["short-term dynamics.", "Item",ExpressionUUID->"fbf0e8cd-384e-fa4b-902e-71197619314a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5.4. Plasticity layer", "Subsection",ExpressionUUID->"93b5f27e-7213-064b-bab9-544180a32429"],
+
+Cell["Represents: ", "Text",ExpressionUUID->"3ba6e590-63d4-9f46-a066-1e5cdef2903f"],
+
+Cell["long-term adaptation,", "Item",ExpressionUUID->"4a21ae8f-96dd-8142-93ac-b3c9286d2a87"],
+
+Cell["Hebbian updates,", "Item",ExpressionUUID->"a608f272-96fb-8143-8cb4-5577671253d3"],
+
+Cell["STDP,", "Item",ExpressionUUID->"aca1ff4f-ac8b-e54b-b71f-d0b0038c20b0"],
+
+Cell["homeostatic compensation,", "Item",ExpressionUUID->"08c8ddce-40e8-6d49-bc44-9d5aa774e1c2"],
+
+Cell["metaplasticity,", "Item",ExpressionUUID->"2551ce32-81f3-7448-b582-2e4a8c48c315"],
+
+Cell["structural rewiring.", "Item",ExpressionUUID->"67c92277-ad41-ac48-bc30-61c11003f14b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5.5. Network layer", "Subsection",ExpressionUUID->"edb24735-0c25-b74d-821b-bb6b4dbaf1fa"],
+
+Cell["Represents: ", "Text",ExpressionUUID->"3865fde7-5ace-2a47-aa35-fc807180493e"],
+
+Cell["connectivity,", "Item",ExpressionUUID->"3da07230-55ff-644b-a412-b8edd208440f"],
+
+Cell["inhibition-excitation balance,", "Item",ExpressionUUID->"34e57716-2aa2-b042-a3f0-f3727235021e"],
+
+Cell["oscillations,", "Item",ExpressionUUID->"a4e8ae5b-1739-ce42-a1ff-0b0ae8fd889f"],
+
+Cell["population codes,", "Item",ExpressionUUID->"14e4b55c-bed3-354a-a707-60b3c420fb7e"],
+
+Cell["routing and recurrence.", "Item",ExpressionUUID->"83d878ba-b391-da42-8d62-68a4ad4e986a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5.6. Measurement layer", "Subsection",ExpressionUUID->"728b4ff5-8189-2943-a176-89a5604faa11"],
+
+Cell["\<\
+This is one of the project\[CloseCurlyQuote]s distinguishing features. It \
+represents: \
+\>", "Text",ExpressionUUID->"ac31d26f-9af0-c044-b9f2-7dd64d91683d"],
+
+Cell["what the neuron detects,", "Item",ExpressionUUID->"e0a9c28d-3282-bc46-b8f3-26f6ad77963e"],
+
+Cell["how it filters,", "Item",ExpressionUUID->"1ec480d3-c8ba-4a4f-9940-cda909bfeff0"],
+
+Cell["how it distinguishes across scales,", "Item",ExpressionUUID->"31b1fb3f-869f-0448-8829-14231f73b157"],
+
+Cell["what part of its state remains observable,", "Item",ExpressionUUID->"711eda3a-79d7-7d4a-bd70-7717a4572533"],
+
+Cell["the geometry of its sensory interface.", "Item",ExpressionUUID->"89bede14-cc85-e84e-906a-b447e7a2ebea"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5.7. Closure layer", "Subsection",ExpressionUUID->"e97c2380-7c62-3549-a333-2646d382af54"],
+
+Cell["Represents: ", "Text",ExpressionUUID->"dafc8489-75ed-0b4f-9b8a-79d4ed883a0d"],
+
+Cell["recurrence,", "Item",ExpressionUUID->"f8a03b2c-aec3-8d41-9b0d-93046dc85835"],
+
+Cell["persistence,", "Item",ExpressionUUID->"a8f5c221-3c58-3a4d-b6a2-c12782ff3efd"],
+
+Cell["self-return,", "Item",ExpressionUUID->"651b6d8e-8f45-b44b-b57f-f91dcdd03ea8"],
+
+Cell["attractor maintenance,", "Item",ExpressionUUID->"ee4bfbc0-f42a-7d4f-bf83-b0214d076428"],
+
+Cell["state identity through update.", "Item",ExpressionUUID->"9821d632-9374-ac46-84e6-9a259e60de1b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5.8. Embodiment layer", "Subsection",ExpressionUUID->"b32c637d-3bd5-3f41-8234-086fdde359c0"],
+
+Cell["Represents: ", "Text",ExpressionUUID->"a9380413-4b3e-654f-a2a1-7119abf0ef93"],
+
+Cell["sensor coupling,", "Item",ExpressionUUID->"b0515ef1-cd4a-e342-9424-be4ffe1c1270"],
+
+Cell["environment interaction,", "Item",ExpressionUUID->"3d80e740-e697-9249-bf87-772cda96cbd7"],
+
+Cell["action loops,", "Item",ExpressionUUID->"abebcbc0-3b9d-f641-bdbd-12650f08b6e8"],
+
+Cell["adaptive constraints,", "Item",ExpressionUUID->"37450718-30bc-6b4f-b05c-8207b4589445"],
+
+Cell["temporal embedding in a task domain.", "Item",ExpressionUUID->"612aefc5-5447-094e-905c-5c2cec8c0656"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5.9. AI translation layer", "Subsection",ExpressionUUID->"ef9fe516-c35f-d844-af41-cee7172f2b83"],
+
+Cell["Represents: ", "Text",ExpressionUUID->"3413cf87-27bf-e948-8239-713b1b35e23f"],
+
+Cell["differentiable approximations,", "Item",ExpressionUUID->"bdf008b1-852c-b34a-9abc-47c7aff0553c"],
+
+Cell["trainable modules,", "Item",ExpressionUUID->"e7aeb0ab-26d1-f74c-afa8-9b7c32792575"],
+
+Cell["morphology-aware compute blocks,", "Item",ExpressionUUID->"9b90e49c-c662-0c40-ab6c-0f7bdc3572ff"],
+
+Cell["memory and routing gates,", "Item",ExpressionUUID->"00906d46-b1c1-2f49-9161-5a9def64ec83"],
+
+Cell["deployment-efficient surrogates.", "Item",ExpressionUUID->"b258cde4-4f0e-4540-9e9d-d2d5b55567ae"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["5.10. Evaluation layer", "Subsection",ExpressionUUID->"0cb3cce1-ab84-fc44-a3dd-26ad4a893dab"],
+
+Cell["Represents: ", "Text",ExpressionUUID->"57b81b44-9289-1840-a3e2-de02a3b69725"],
+
+Cell["task performance,", "Item",ExpressionUUID->"8926c62b-0c8e-2c47-85bf-fb5d69d58ecb"],
+
+Cell["robustness,", "Item",ExpressionUUID->"5ebadd9e-aa07-fa4d-8da7-42b65a2a75a9"],
+
+Cell["sample efficiency,", "Item",ExpressionUUID->"7036cc22-0a22-4d41-a999-d3d7f1325b0b"],
+
+Cell["interpretability,", "Item",ExpressionUUID->"f9ed43c5-a319-2647-9c8b-c8510391810c"],
+
+Cell["stability,", "Item",ExpressionUUID->"5090d380-2dd3-3d46-a6c9-e1a76f805d2c"],
+
+Cell["biological plausibility,", "Item",ExpressionUUID->"5f8ae333-c8d3-cb42-9ff3-fb67148aebbe"],
+
+Cell["measurement sensitivity.", "Item",ExpressionUUID->"a4e4158a-5faa-da48-bf6a-18c328a5ce6c"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"730fdf02-c765-7c4c-9650-af5b478e6c0f"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["6. The model ladder", "Section",ExpressionUUID->"dcfcf205-cb66-6143-a9d8-2636802f9690"],
+
+Cell["\<\
+A complete neuron framework should not jump to the most complex model first. \
+It should define a strict ladder. \
+\>", "Text",ExpressionUUID->"90934438-31a4-f043-b4d6-411db2064f09"],
+
+Cell[CellGroupData[{
+
+Cell["6.1. Ladder of neuron formalisms", "Subsection",ExpressionUUID->"116c67d7-3878-9e4f-88ad-49b0e8f4dcdf"],
+
+Cell["1. perceptron,", "Text",ExpressionUUID->"d7533573-82cd-0841-a5ac-7c5fba6e1603"],
+
+Cell["2. rate neuron,", "Text",ExpressionUUID->"36f69177-87d8-9a4d-8964-2432184a146f"],
+
+Cell["3. leaky integrate-and-fire,", "Text",ExpressionUUID->"13512187-2a92-fe4a-ab28-58c5eeabe426"],
+
+Cell["4. adaptive leaky integrate-and-fire,", "Text",ExpressionUUID->"a45e7c5d-1f36-b749-9c16-439b66ccd2ee"],
+
+Cell["5. Hodgkin-Huxley neuron,", "Text",ExpressionUUID->"39ca9ebf-ebdb-0e4d-aa71-208fbc9800a0"],
+
+Cell["6. multicompartment cable-theory neuron,", "Text",ExpressionUUID->"e46676d9-4a3c-2046-803e-467562b4bd15"],
+
+Cell["7. synaptically rich adaptive neuron,", "Text",ExpressionUUID->"c8d3ba77-49b5-f640-9906-d564ed29d061"],
+
+Cell["8. glia-modulated neuron,", "Text",ExpressionUUID->"ec186ccf-6e43-a549-b15b-e21e1003b4ec"],
+
+Cell["9. measurement-aware neuron,", "Text",ExpressionUUID->"a3f25af5-f2da-d646-a669-297fcaa72513"],
+
+Cell["10. closure-regularized digital RHUFT neuron. ", "Text",ExpressionUUID->"b676b5a4-61aa-6945-96c6-a949c73566f3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["6.2. Why this ladder is necessary", "Subsection",ExpressionUUID->"23e1c169-e3cf-4a41-a765-b7572b6ae42a"],
+
+Cell["\<\
+Each level should preserve or approximate the previous while adding one new \
+class of variables. This allows: \
+\>", "Text",ExpressionUUID->"7285912c-33c9-4242-8dab-808423cf3df7"],
+
+Cell["derivation,", "Item",ExpressionUUID->"aad507fa-64ae-6544-99cc-4d87afd01e58"],
+
+Cell["approximation,", "Item",ExpressionUUID->"c5b7a2fd-dc16-d54a-9668-0a24f071d00d"],
+
+Cell["benchmarking,", "Item",ExpressionUUID->"8bc8e435-25a9-2245-ab8c-8187d333e757"],
+
+Cell["ablation,", "Item",ExpressionUUID->"eb009b53-6041-9c42-b3f5-08e09eed73ce"],
+
+Cell["translation to AI.", "Item",ExpressionUUID->"7564a834-bae0-444d-9ec8-a6ef5639616f"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"80830ebe-a843-064d-8b97-3569c0d41de9"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["7. Core mathematical object", "Section",ExpressionUUID->"89f5389e-78f0-f643-9a34-92ac28056176"],
+
+Cell["\<\
+The project requires a neuron state operator rather than a single static \
+equation. \
+\>", "Text",ExpressionUUID->"e400d7aa-6e38-ac4a-8fde-8b387dcaf970"],
+
+Cell[CellGroupData[{
+
+Cell["7.1. Discrete-time master form", "Subsection",ExpressionUUID->"280ddca5-cb37-1047-9471-6e3126abe482"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["x", "TI"], 
+          RowBox[{
+            StyleBox["t", "TI"], "+", "1"}]], "\[LongEqual]", 
+         StyleBox["N", "TI"], 
+         RowBox[{"(", 
+           RowBox[{
+             SubscriptBox[
+              StyleBox["x", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["u", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["e", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox["\[Theta]", 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox["\[Mu]", 
+              StyleBox["t", "TI"]]}], ")"}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "x_{t+1} = \\mathcal{N}(x_t, u_t, e_t, \\theta_t, \\mu_t)", "state" -> 
+     "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "cb642d44-ec2d-d84e-bc57-db2c49e19d25"],
+ "where: "
+}], "Text",ExpressionUUID->"a1bd9e03-dba3-9f4c-acf8-bb04da7dd8e5"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["x", "TI"], 
+        StyleBox["t", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "x_t", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "b2e73a7b-2886-1145-9768-252a8568d010"],
+ " = internal neuron state,"
+}], "Item",ExpressionUUID->"50221df9-9be0-7641-9a83-75263222d77e"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["u", "TI"], 
+        StyleBox["t", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "u_t", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "be8b0390-55c4-a047-affa-81ca40b2217b"],
+ " = incoming signals,"
+}], "Item",ExpressionUUID->"58116e46-0a20-f848-b22c-69da4adc61b1"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["e", "TI"], 
+        StyleBox["t", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "e_t", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "2d58d713-35c2-4f40-85cc-08683d2afeac"],
+ " = embodied or environmental context,"
+}], "Item",ExpressionUUID->"1c590efa-1e02-1d49-a613-6548597f748c"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox["\[Theta]", 
+        StyleBox["t", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "\\theta_t", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "2e905388-670a-c242-9fe7-9117a89a7015"],
+ " = trainable or adaptive parameters,"
+}], "Item",ExpressionUUID->"1c584b09-8e99-7e4b-9e3b-95d3c1526556"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox["\[Mu]", 
+        StyleBox["t", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "\\mu_t", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "082e8394-b9c3-2a49-8aaf-68ca48d8bd52"],
+ " = measurement-state variables."
+}], "Item",ExpressionUUID->"3adf9e9e-c520-364e-a746-e5d849dcd9ef"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["7.2. Continuous-time master form", "Subsection",ExpressionUUID->"5b6b67b3-08e7-2d40-a960-1d61414d4cbb"],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  TemplateBox[<|"boxes" -> FormBox[
+      RowBox[{
+        FractionBox[
+         RowBox[{
+           StyleBox["d", "TI"], 
+           StyleBox["x", "TI"]}], 
+         RowBox[{
+           StyleBox["d", "TI"], 
+           StyleBox["t", "TI"]}]], "\[LongEqual]", 
+        StyleBox["F", "TI"], 
+        RowBox[{"(", 
+          RowBox[{
+            StyleBox["x", "TI"], ",", 
+            StyleBox["u", "TI"], ",", 
+            StyleBox["e", "TI"], ",", "\[Theta]", ",", "\[Mu]"}], ")"}]}], 
+      TraditionalForm], "errors" -> {}, "input" -> 
+    "\\frac{dx}{dt} = F(x,u,e,\\theta,\\mu)", "state" -> "Boxes"|>,
+   "TeXAssistantTemplate"], 
+  TraditionalForm]],ExpressionUUID->"bf1e2f54-cc08-1a47-90d7-b9d2900aea73"]], \
+"Text",ExpressionUUID->"7e9d85c7-5e04-7f47-a72b-1678a5222424"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["7.3. Measurement update", "Subsection",ExpressionUUID->"d589ce8f-54d3-6d49-89bb-ea4b01a7dba4"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox["\[Mu]", 
+          RowBox[{
+            StyleBox["t", "TI"], "+", "1"}]], "\[LongEqual]", 
+         StyleBox["M", "TI"], 
+         RowBox[{"(", 
+           RowBox[{
+             SubscriptBox[
+              StyleBox["x", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["u", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["e", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["h", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["g", "TI"], 
+              StyleBox["t", "TI"]]}], ")"}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\mu_{t+1} = \\mathcal{M}(x_t,u_t,e_t,h_t,g_t)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "c1b7e29e-a3df-b347-8a05-36863ac9ebec"],
+ "where: "
+}], "Text",ExpressionUUID->"0b1af1e3-9be0-4340-afc3-0fd91d642fba"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["h", "TI"], 
+        StyleBox["t", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "h_t", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "bf7e025b-b29d-7846-8212-38f8e4636717"],
+ " = history state,"
+}], "Item",ExpressionUUID->"6eed2574-a695-0840-a40c-d8b78564b5d1"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["g", "TI"], 
+        StyleBox["t", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "g_t", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "d507f92f-e26a-8b48-853d-24038a2965cb"],
+ " = geometry or interface state."
+}], "Item",ExpressionUUID->"4d35aebc-0238-f648-a35e-d4c3c8607d58"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["7.4. Closure update", "Subsection",ExpressionUUID->"eba38fe1-6d08-e24c-bf79-e7bac0e1f53f"],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  TemplateBox[<|"boxes" -> FormBox[
+      RowBox[{
+        SubscriptBox[
+         StyleBox["c", "TI"], 
+         RowBox[{
+           StyleBox["t", "TI"], "+", "1"}]], "\[LongEqual]", 
+        StyleBox["C", "TI"], 
+        RowBox[{"(", 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["x", "TI"], 
+             StyleBox["t", "TI"]], ",", 
+            SubscriptBox["\[Mu]", 
+             StyleBox["t", "TI"]], ",", 
+            SubscriptBox[
+             StyleBox["h", "TI"], 
+             StyleBox["t", "TI"]]}], ")"}]}], TraditionalForm], 
+    "errors" -> {}, "input" -> "c_{t+1} = \\mathcal{C}(x_t,\\mu_t,h_t)", 
+    "state" -> "Boxes"|>,
+   "TeXAssistantTemplate"], 
+  TraditionalForm]],ExpressionUUID->"d1a4af90-72f6-ee46-9fcb-e6cecc921598"]], \
+"Text",ExpressionUUID->"f6a8617a-3ce7-5c41-9135-6c584a9111dd"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["7.5. Parameter adaptation", "Subsection",ExpressionUUID->"86b25207-dce9-c04a-9a35-e05db394c612"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox["\[Theta]", 
+          RowBox[{
+            StyleBox["t", "TI"], "+", "1"}]], "\[LongEqual]", 
+         SubscriptBox["\[Theta]", 
+          StyleBox["t", "TI"]], "+", "\[Eta] ", 
+         StyleBox["P", "TI"], 
+         RowBox[{"(", 
+           RowBox[{
+             SubscriptBox[
+              StyleBox["x", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["u", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox["\[Mu]", 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["c", "TI"], 
+              StyleBox["t", "TI"]]}], ")"}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\theta_{t+1} = \\theta_t + \\eta\\,\\mathcal{P}(x_t,u_t,\\mu_t,c_t)", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "869fb8ae-b4e9-7b4e-8d24-a7a0e31b20d5"],
+ "This family is broad enough to include standard neurons and the proposed \
+extensions. "
+}], "Text",ExpressionUUID->"f5722b8e-31a9-6a48-b987-bd6441faf1bc"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"b53588e7-9b64-9247-9628-4131d276b5b3"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["8. State-space design", "Section",ExpressionUUID->"d8f1d08f-d098-b64f-af00-c1d4ff406c14"],
+
+Cell[TextData[{
+ "A useful master state vector is: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["x", "TI"], 
+         RowBox[{"(", 
+           StyleBox["t", "TI"], ")"}], "\[LongEqual]", 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["v", "TI"], ",", 
+             StyleBox["g", "TI"], ",", 
+             StyleBox["s", "TI"], ",", 
+             StyleBox["p", "TI"], ",", 
+             StyleBox["m", "TI"], ",", 
+             StyleBox["r", "TI"], ",", 
+             StyleBox["y", "TI"], ",", "\[Mu]", ",", 
+             StyleBox["c", "TI"]}], ")"}]}], TraditionalForm], "errors" -> {},
+      "input" -> "x(t)=\\big(v, g, s, p, m, r, y, \\mu, c\\big)", "state" -> 
+     "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "8a0de9cc-3af8-cb44-a6a2-bac8cc635156"],
+ "where: "
+}], "Text",ExpressionUUID->"0ce5943e-1d34-564b-9626-dd9f74d2d766"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["v", "TI"], TraditionalForm], "errors" -> {}, "input" -> "v", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "13b4f99b-6c71-6844-b8f9-750bf554d90e"],
+ " = membrane-like voltage or core activation state,"
+}], "Item",ExpressionUUID->"c67b43c2-04e7-ab46-8b9e-7719d9d58e68"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["g", "TI"], TraditionalForm], "errors" -> {}, "input" -> "g", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "7e91897d-9823-484c-98f5-b5bc97d77067"],
+ " = channel or gate state vector,"
+}], "Item",ExpressionUUID->"431fd306-64a6-0a4d-868b-2b2d1c618ae2"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["s", "TI"], TraditionalForm], "errors" -> {}, "input" -> "s", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "a47960fe-13e7-1b4b-97ce-7e4ef000c2fa"],
+ " = synaptic state vector,"
+}], "Item",ExpressionUUID->"970fb497-6ab8-4647-aa63-531da8ab046b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["p", "TI"], TraditionalForm], "errors" -> {}, "input" -> "p", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "d5e9b198-f308-6b4a-ae17-e03f33978f28"],
+ " = plasticity state vector,"
+}], "Item",ExpressionUUID->"587dc07d-b17f-1c47-b06a-12fdc2661ce4"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["m", "TI"], TraditionalForm], "errors" -> {}, "input" -> "m", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "1867a99e-3ef9-9241-bdcd-20dfa7eba22c"],
+ " = memory state,"
+}], "Item",ExpressionUUID->"9da6095f-ba79-df4d-9227-4f6a61b66612"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["r", "TI"], TraditionalForm], "errors" -> {}, "input" -> "r", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "0257f171-1714-c54a-95b7-25deefb26f81"],
+ " = morphology/compartment state,"
+}], "Item",ExpressionUUID->"ceea17b6-b9b7-2d46-a325-ec27eedff780"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["y", "TI"], TraditionalForm], "errors" -> {}, "input" -> "y", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "d1b1247c-dd7a-354b-9411-f94dfb8ff013"],
+ " = output state,"
+}], "Item",ExpressionUUID->"c020103d-5b93-e04a-baea-b9478ed99720"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|
+    "boxes" -> FormBox["\[Mu]", TraditionalForm], "errors" -> {}, "input" -> 
+     "\\mu", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "8a465d44-0d30-ce4e-b433-faea0f080762"],
+ " = measurement-state vector,"
+}], "Item",ExpressionUUID->"9708b3ee-f584-f24e-85df-df6e57a86b5e"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["c", "TI"], TraditionalForm], "errors" -> {}, "input" -> "c", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "a6dd9c40-67c4-0847-ba22-51b00006d1cd"],
+ " = closure or persistence state."
+}], "Item",ExpressionUUID->"76b1ccb3-f080-7749-8d3b-54d3f9e545a5"],
+
+Cell[CellGroupData[{
+
+Cell["8.1. Why this matters", "Subsection",ExpressionUUID->"0d940906-ca97-9b41-93c7-d61f345b0802"],
+
+Cell["\<\
+This makes explicit that the project is not about one scalar activation. It \
+is about a structured internal dynamical object. \
+\>", "Text",ExpressionUUID->"988c7c84-10f2-0346-96a5-cd8074280dc2"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"66793761-e744-774f-b260-6569b132991d"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["9. Neuron function taxonomy", "Section",ExpressionUUID->"94ca4b7e-fdea-b64a-a60b-b11c5895d3ab"],
+
+Cell["\<\
+To design a truly broad neuron framework, function classes must be listed \
+separately from morphological classes. \
+\>", "Text",ExpressionUUID->"91bb903a-8b2f-814f-9930-79a484e12d1a"],
+
+Cell[CellGroupData[{
+
+Cell["9.1. Functional neuron classes", "Subsection",ExpressionUUID->"8df4c839-c1fe-5841-b5ac-f87ded710c37"],
+
+Cell["Examples include: ", "Text",ExpressionUUID->"ac48b708-bc36-844c-9529-1c84447abe8b"],
+
+Cell["integrator,", "Item",ExpressionUUID->"cb62b40e-ed83-a04c-aedf-fbfac1f2b4de"],
+
+Cell["coincidence detector,", "Item",ExpressionUUID->"b5486795-42a9-b949-bd6f-3e5482ed87e8"],
+
+Cell["oscillator,", "Item",ExpressionUUID->"18fe7672-365a-4e4c-9eca-4660a3b4f357"],
+
+Cell["burst generator,", "Item",ExpressionUUID->"dd6c768a-1789-434f-a38c-bb09198d5043"],
+
+Cell["relay neuron,", "Item",ExpressionUUID->"eeb3b9f2-f819-ce4b-acc8-9f8b0b3a2eda"],
+
+Cell["gain controller,", "Item",ExpressionUUID->"df88a8de-c262-2e4e-ab25-54f49585680c"],
+
+Cell["predictor,", "Item",ExpressionUUID->"0275f2e4-c2f9-0849-8519-4bec9e7230be"],
+
+Cell["novelty detector,", "Item",ExpressionUUID->"ec39a13f-c015-194a-9b6d-acd8bcc34ac3"],
+
+Cell["sparse coder,", "Item",ExpressionUUID->"0cd04398-0746-564d-9f9d-b09ffcc2b6d5"],
+
+Cell["sequence memory cell,", "Item",ExpressionUUID->"65237a03-c12c-bd46-997e-4681bdc91314"],
+
+Cell["modulatory controller.", "Item",ExpressionUUID->"9feb9e91-6583-7e43-a5ec-71940099ebf1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["9.2. Biological cell classes to include later", "Subsection",ExpressionUUID->"969dd374-dfd4-8e4d-a449-18427b5c9f5f"],
+
+Cell["Examples include: ", "Text",ExpressionUUID->"66860c64-ebc9-9942-935c-ce6a728040a8"],
+
+Cell["pyramidal neurons,", "Item",ExpressionUUID->"334ab273-da98-b84e-aa0a-4c6cfdbd5295"],
+
+Cell["Purkinje cells,", "Item",ExpressionUUID->"d953a74b-2cb0-e84e-8d50-6e4c7140e5d5"],
+
+Cell["granule cells,", "Item",ExpressionUUID->"d3b99f2d-0fd6-1249-b3c9-047bede96818"],
+
+Cell["motor neurons,", "Item",ExpressionUUID->"0aabb31b-ff47-f84a-a22d-0b3e1f3adacf"],
+
+Cell["sensory neurons,", "Item",ExpressionUUID->"389152c6-8ecf-734a-8c65-760e9a4eb897"],
+
+Cell["dopaminergic neurons,", "Item",ExpressionUUID->"0a8860ee-adc0-2b4e-8f0d-086ef788a88c"],
+
+Cell["inhibitory interneurons,", "Item",ExpressionUUID->"29ea8bdb-ea71-a04f-90d0-715fa2c77769"],
+
+Cell["thalamic relay neurons,", "Item",ExpressionUUID->"d0afa91f-2c50-0341-8bf8-a784d04747ca"],
+
+Cell["hippocampal place-related cells,", "Item",ExpressionUUID->"1afd9be3-6125-3f4b-8723-30f94f91f9e9"],
+
+Cell["cortical chandelier and basket cells.", "Item",ExpressionUUID->"9367cf06-9902-8949-99af-65b91d2ccf18"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["9.3. Project rule", "Subsection",ExpressionUUID->"2b610385-4bf8-dc43-a668-dc3945b1ce4c"],
+
+Cell[TextData[{
+ "The architecture should support a many-to-many mapping: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+        "biological type", "\[LeftRightArrow]", "functional role", 
+         "\[LeftRightArrow]", "digital module design"}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\text{biological type} \\leftrightarrow \\text{functional role} \
+\\leftrightarrow \\text{digital module design}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "1c111cdc-802e-f943-a954-2cc9485eda45"]
+}], "Text",ExpressionUUID->"7ca5b2a3-0167-7f4c-892c-38f8e6c8ca5d"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"72cb7dde-d7c9-fd45-bc16-cca7657c87a4"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["10. Measurement-centric neuron concept", "Section",ExpressionUUID->"67294092-2a59-1541-9154-9dc44d693537"],
+
+Cell["\<\
+The project\[CloseCurlyQuote]s most important extension beyond standard \
+digital neurons is to treat the neuron as a measurement system. \
+\>", "Text",ExpressionUUID->"8c5cbbbe-e1cd-0e41-8998-be9b0d2fa23a"],
+
+Cell[CellGroupData[{
+
+Cell["10.1. Standard AI neuron view", "Subsection",ExpressionUUID->"9c690707-c79a-1b46-8594-81e7344d8c54"],
+
+Cell["\<\
+Most artificial neurons are treated as weighted transfer functions. \
+\>", "Text",ExpressionUUID->"f2c918be-bd08-2f42-8664-f55d6d530fcc"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["10.2. Proposed measurement neuron view", "Subsection",ExpressionUUID->"f8d9f43e-ec8b-384b-a121-7a046c913349"],
+
+Cell["A richer neuron is a system that: ", "Text",ExpressionUUID->"d49157a1-9dd7-c34c-bd6f-e781d5ce8f4d"],
+
+Cell["samples signals,", "Item",ExpressionUUID->"cdeed24c-7498-e646-9bb4-e1a18cf1b8c8"],
+
+Cell["filters them by scale and context,", "Item",ExpressionUUID->"23b20ff7-7507-b544-9e95-d80e319ca7ec"],
+
+Cell["stabilizes internal distinctions,", "Item",ExpressionUUID->"4025b1d3-86e9-7946-8c94-d11764480784"],
+
+Cell["stores relevant measurement traces,", "Item",ExpressionUUID->"abeb7681-8101-e84e-b437-dd7f145d054d"],
+
+Cell["routes outputs based on persistence and relevance.", "Item",ExpressionUUID->"06600965-0264-c446-a753-578d8d9c0b9b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["10.3. Formal statement", "Subsection",ExpressionUUID->"35f7ae94-8a60-e340-a221-a858891b74b3"],
+
+Cell[TextData[{
+ "A neuron should be modeled not just as: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["y", "TI"], "\[LongEqual]", "\[Phi]", 
+         RowBox[{"(", 
+           RowBox[{
+             StyleBox["w", "TI"], "\[CenterDot]", 
+             StyleBox["x", "TI"], "+", 
+             StyleBox["b", "TI"]}], ")"}]}], TraditionalForm], "errors" -> {},
+      "input" -> "y = \\phi(w\\cdot x + b)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "5727ba42-9947-fa4d-ad3b-e1aea49108e5"],
+ "but as: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["y", "TI"], 
+          StyleBox["t", "TI"]], "\[LongEqual]", "\[CapitalPhi]", 
+         RowBox[{"(", 
+           RowBox[{
+             SubscriptBox[
+              StyleBox["x", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox["\[Mu]", 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["c", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["h", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox[
+              StyleBox["g", "TI"], 
+              StyleBox["t", "TI"]], ",", 
+             SubscriptBox["\[Theta]", 
+              StyleBox["t", "TI"]]}], ")"}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "y_t = \\Phi(x_t, \\mu_t, c_t, h_t, g_t, \\theta_t)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "2eaefea1-384a-ba49-9eb9-152173f511be"],
+ "where output depends on internal measurement, closure, history, geometry, \
+and adaptive parameters. "
+}], "Text",ExpressionUUID->"0bda2f90-d1fa-5b44-96eb-c43133a9a0ec"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"a1bdbd1e-c1c7-134a-89c2-adb20f128d98"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["11. Closure and persistence", "Section",ExpressionUUID->"8c1f23e8-f326-3740-89cd-b396cc9e3e1c"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+11.1. Why closure is useful even before RHUFT claims are proven\
+\>", "Subsection",ExpressionUUID->"6b44476e-1f0f-0448-9219-517ec3674a57"],
+
+Cell["\<\
+In computational terms, closure can be treated as a persistence metric: \
+\>", "Text",ExpressionUUID->"c3e2a510-d9fc-ea46-9dee-2e1ff3f36e05"],
+
+Cell["how much a state returns to itself,", "Item",ExpressionUUID->"c28585be-3809-844f-91ef-2908974e8412"],
+
+Cell["how stable it remains under perturbation,", "Item",ExpressionUUID->"2f2d2d28-f830-b947-95aa-4c8eba653a96"],
+
+Cell["how much identity is maintained through recurrent update.", "Item",ExpressionUUID->"343fc293-f7b6-9d4a-85cb-4f8a6bbd2f89"],
+
+Cell["This already has practical engineering value. ", "Text",ExpressionUUID->"534177e7-5191-114a-bee6-14d829891d7e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["11.2. Candidate computational closure measures", "Subsection",ExpressionUUID->"693d9335-772c-644d-9e93-517ae9dd8e6a"],
+
+Cell["A closure score might be based on: ", "Text",ExpressionUUID->"64234ba6-62d9-5c42-a502-a4508fabd3ab"],
+
+Cell["recurrence error,", "Item",ExpressionUUID->"cc6da3c2-8c97-2544-9c62-5b9467b7a3d1"],
+
+Cell["attractor distance,", "Item",ExpressionUUID->"abca5570-3dc1-8a48-8205-960f060b2852"],
+
+Cell["cycle consistency,", "Item",ExpressionUUID->"0d842fd7-d51a-b448-bcf6-91c19367b84f"],
+
+Cell["memory retention,", "Item",ExpressionUUID->"4f4d26af-bc08-1246-9a99-a5dd90de5003"],
+
+Cell["spectral radius constraints,", "Item",ExpressionUUID->"e97c2298-1156-9542-aa70-8dfa91af49e3"],
+
+Cell["Lyapunov decrease.", "Item",ExpressionUUID->"2faaa421-5f91-ad40-afa7-828553204567"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["11.3. Immediate design value", "Subsection",ExpressionUUID->"030d91fe-265e-7144-a32e-6ca4343d04df"],
+
+Cell["Closure variables can act as: ", "Text",ExpressionUUID->"c5832a2c-e3d4-ce4c-9d84-d8708aef6215"],
+
+Cell["regularizers,", "Item",ExpressionUUID->"25492de4-fd75-0941-8a99-aaef18c3ac9c"],
+
+Cell["routing signals,", "Item",ExpressionUUID->"8a69ce15-95d8-2449-8670-c00a2f64a618"],
+
+Cell["memory gates,", "Item",ExpressionUUID->"453fca55-d73d-834f-817a-443776469534"],
+
+Cell["anomaly detectors,", "Item",ExpressionUUID->"6c3ebe70-92db-834f-bd77-a69ef410c84d"],
+
+Cell["stability monitors.", "Item",ExpressionUUID->"55d558a6-6753-6340-b1d8-0475cd425ebb"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"8eafa597-32b0-b245-b908-5193bc2cfd3e"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["12. Multiscale sensing and embodiment", "Section",ExpressionUUID->"23302c76-e7b5-3841-8227-161c0816710b"],
+
+Cell["\<\
+Your target architecture explicitly aims to bring neural nets closer to life \
+by deep sensory and cross-scale measurement. \
+\>", "Text",ExpressionUUID->"818a2ec8-b941-6841-a8c3-4f5ed4adf158"],
+
+Cell[CellGroupData[{
+
+Cell["12.1. Therefore the neuron cannot remain disembodied", "Subsection",ExpressionUUID->"9ffa98e1-f349-3941-8ae3-ff873ed68ce3"],
+
+Cell["\<\
+At least in the broader architecture, neurons must be connected to: \
+\>", "Text",ExpressionUUID->"dd5173d6-62ce-5c4f-b650-a9b01e2ade56"],
+
+Cell["sensory channels,", "Item",ExpressionUUID->"31fcb8b5-dbe5-7a47-9bd4-b71bb75603de"],
+
+Cell["temporal context,", "Item",ExpressionUUID->"c872e9a1-c461-9d42-963d-842408f66849"],
+
+Cell["environment state,", "Item",ExpressionUUID->"88e63af2-e530-c34a-a1e9-8912978d96b9"],
+
+Cell["active feedback or action loops.", "Item",ExpressionUUID->"2806c877-a9ff-2949-8e35-2c8d80825c83"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["12.2. Implication for modeling", "Subsection",ExpressionUUID->"a85c1e49-391d-f24d-a5bc-934399c63575"],
+
+Cell["The neuron series must eventually include: ", "Text",ExpressionUUID->"73446bda-2a19-c841-a41d-280411859e7e"],
+
+Cell["multimodal input fusion,", "Item",ExpressionUUID->"dc83b1f4-5c16-4e47-921c-886604f6d7e1"],
+
+Cell["asynchronous event handling,", "Item",ExpressionUUID->"afbfd7b8-b746-354d-95de-f824212782b3"],
+
+Cell["hierarchical timescales,", "Item",ExpressionUUID->"02a3c578-a83d-e142-a79e-f2da7c1f302d"],
+
+Cell["local memory and global context,", "Item",ExpressionUUID->"926d2d2f-6d3e-9840-acce-e60957756fd8"],
+
+Cell["geometry-aware sensor placement.", "Item",ExpressionUUID->"d786e251-2d1f-2049-986a-3a0f0b530d9c"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"6ab334e8-0034-5b40-9090-7d1266b78f43"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["13. Digital implementation requirements", "Section",ExpressionUUID->"fc3f288f-7c75-a941-84c2-d090e316f928"],
+
+Cell["\<\
+To be useful in AI, the full neuron concept must be convertible into \
+practical computational objects. \
+\>", "Text",ExpressionUUID->"3e6064e9-7a7b-0043-bd14-cd9c84747ccf"],
+
+Cell[CellGroupData[{
+
+Cell["13.1. Required implementation modes", "Subsection",ExpressionUUID->"594b50f0-4b45-b04a-a989-905e9c60c627"],
+
+Cell["The architecture should admit: ", "Text",ExpressionUUID->"458049aa-402e-4544-b7d6-74cc89e5ac98"],
+
+Cell["full simulation mode,", "Item",ExpressionUUID->"5e0682cb-eca3-e343-ad78-1bca4c65fc5c"],
+
+Cell["reduced differentiable training mode,", "Item",ExpressionUUID->"1eaae74c-1d8a-3848-b039-52c473f3ac7e"],
+
+Cell["efficient inference mode,", "Item",ExpressionUUID->"a36199e3-2c51-0243-a98d-173342847ea7"],
+
+Cell["ablation mode,", "Item",ExpressionUUID->"49073152-e20a-594b-b2a0-6455505c1465"],
+
+Cell["interpretable diagnostic mode.", "Item",ExpressionUUID->"785ca6dd-ea2b-3d47-99e4-90cfc3e95e7c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["13.2. Design rule", "Subsection",ExpressionUUID->"ee2d10b0-667c-c14a-ae8b-6bfc84d2f36a"],
+
+Cell["\<\
+Every biologically rich mechanism added to the neuron should be accompanied \
+by at least one simplified surrogate suitable for digital training. \
+\>", "Text",ExpressionUUID->"3624c6af-2fde-6a43-9896-c4e0cc0cc70f"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"45975296-eacb-bc4a-b78f-a9a5daa8b848"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["14. Benchmarking strategy", "Section",ExpressionUUID->"1041a22e-3385-cf48-80c0-e83a1a408dc8"],
+
+Cell["No advanced neuron proposal is serious without benchmarks. ", "Text",ExpressionUUID->"f7a3ac4c-6cff-b942-a091-af3582938351"],
+
+Cell[CellGroupData[{
+
+Cell["14.1. Core evaluation axes", "Subsection",ExpressionUUID->"b2b4a76c-9f67-d84d-b719-d5edaa886472"],
+
+Cell["The neuron architecture should be compared on: ", "Text",ExpressionUUID->"75cf6e81-a738-9f43-bdbb-05481161ceee"],
+
+Cell["sequence learning,", "Item",ExpressionUUID->"fb838a3f-0cfe-7a40-be46-3f7b09646edb"],
+
+Cell["multiscale sensory integration,", "Item",ExpressionUUID->"e0102e9c-274f-2641-b95c-e89fb10c7d70"],
+
+Cell["robustness to noise,", "Item",ExpressionUUID->"35286a3b-9ee4-474e-a43c-82c3648b3e37"],
+
+Cell["robustness to distribution shift,", "Item",ExpressionUUID->"5350d57f-5c1c-d94a-aed0-558fd99d4c25"],
+
+Cell["energy/compute cost,", "Item",ExpressionUUID->"d2a4d034-2026-7b43-a6fa-5ecd121020a5"],
+
+Cell["memory retention,", "Item",ExpressionUUID->"2e630456-c02a-1342-a9b8-d638df0797be"],
+
+Cell["interpretability,", "Item",ExpressionUUID->"a05b55b7-7d31-3d45-9f17-a88bcca5694a"],
+
+Cell["calibration quality,", "Item",ExpressionUUID->"7240a51d-add7-3642-889b-f970f77a2c84"],
+
+Cell["continual learning,", "Item",ExpressionUUID->"b9c2f37c-1f1d-2540-b861-6a269ff1d1ab"],
+
+Cell["failure under perturbation.", "Item",ExpressionUUID->"8d2e319f-0c56-4746-b262-620e571fdbc7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["14.2. Scientific evaluation axes", "Subsection",ExpressionUUID->"cd668674-2013-214e-94d6-d2b2012ab296"],
+
+Cell["If RHUFT-style variables are added, also compare: ", "Text",ExpressionUUID->"07b1c543-c931-6d40-b795-51a26328464e"],
+
+Cell["whether closure metrics predict performance,", "Item",ExpressionUUID->"443a6be3-f8b9-d347-bab6-1c0b8345e8a4"],
+
+Cell["whether measurement-state logging improves diagnosis,", "Item",ExpressionUUID->"404044ec-fc97-f343-a573-a518f9e62f03"],
+
+Cell["whether geometry-aware layouts improve observability,", "Item",ExpressionUUID->"68e8053b-96ac-0e41-8d29-11f67271398d"],
+
+Cell["whether multiscale operators outperform flat ones.", "Item",ExpressionUUID->"e223adcf-1b8e-bf41-913c-aa24266ffb53"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"b28d9355-cda8-e54e-ac5f-5a54662b890a"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["15. On base-12 and geometric number systems", "Section",ExpressionUUID->"7663364b-9fa1-ec4c-8b73-c0a74bb4643a"],
+
+Cell["\<\
+The user suggested that geometric decimal spacings such as base-12-like \
+schemes may help computation and multiscale stability. \
+\>", "Text",ExpressionUUID->"bb4e0ba4-d4f0-c04c-abc5-c59cad660146"],
+
+Cell[CellGroupData[{
+
+Cell["15.1. Professional treatment", "Subsection",ExpressionUUID->"ee34ad91-e1d2-5e47-9807-970792b48249"],
+
+Cell["\<\
+This should not be inserted casually into the neuron equations. It should be \
+treated as a separate research axis with rigorous questions: \
+\>", "Text",ExpressionUUID->"ef1660bc-69d8-3d4c-8e12-c71140b8bf10"],
+
+Cell["what computations are radix sensitive?", "Item",ExpressionUUID->"cfeea7a2-024b-e545-b09d-103312ee0d1e"],
+
+Cell["what representations preserve symmetry better?", "Item",ExpressionUUID->"3d61c149-e5d9-0c49-8827-4adf81c0260e"],
+
+Cell["do non-decimal encodings improve hierarchical partitioning?", "Item",ExpressionUUID->"a13bc851-0a18-e648-9e76-df22c1d73c91"],
+
+Cell["\<\
+does angular or factor-rich discretization improve routing or measurement?\
+\>", "Item",ExpressionUUID->"a693ede1-91b4-b042-a16e-789b26a6b15d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["15.2. Status", "Subsection",ExpressionUUID->"9aee9dee-4e90-414e-8e6b-fa7c76177f92"],
+
+Cell["\<\
+This is a valid research direction, but it should be isolated until \
+formalized. It will likely deserve its own later notebook. \
+\>", "Text",ExpressionUUID->"1de25593-c619-7447-aa2d-0e9d5a351eb2"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"086d4868-b66e-7c4a-92e6-d0370538094f"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["16. Immediate notebook-series roadmap", "Section",ExpressionUUID->"a0396c43-6a2a-db4e-865f-faf8738f1f05"],
+
+Cell["A rigorous professional series should proceed as follows. ", "Text",ExpressionUUID->"9a02b199-3cfc-a74c-9864-077ee598dd64"],
+
+Cell[CellGroupData[{
+
+Cell["16.1. Proposed numbered series", "Subsection",ExpressionUUID->"38950db0-7078-4d45-a540-dc2ffcfd4637"],
+
+Cell[TextData[{
+ "1. 01",
+ StyleBox["Complete",
+  FontSlant->Italic],
+ "Mathematical",
+ StyleBox["Neuron",
+  FontSlant->Italic],
+ "Program",
+ StyleBox["And",
+  FontSlant->Italic],
+ "Gap_Map"
+}], "Text",ExpressionUUID->"a4c64e28-c3f4-1743-b09a-8e954fd59603"],
+
+Cell[TextData[{
+ "2. 02",
+ StyleBox["Neuron",
+  FontSlant->Italic],
+ "State",
+ StyleBox["Space",
+  FontSlant->Italic],
+ "And",
+ StyleBox["Biophysical",
+  FontSlant->Italic],
+ "Dynamics"
+}], "Text",ExpressionUUID->"fffe9415-8c04-a94f-9a34-9fc85bd3691e"],
+
+Cell[TextData[{
+ "3. 03",
+ StyleBox["Synapses",
+  FontSlant->Italic],
+ "Plasticity",
+ StyleBox["And",
+  FontSlant->Italic],
+ "Glia_Coupling"
+}], "Text",ExpressionUUID->"40b8bbc6-a7ae-e64c-a2f4-7f013fe99065"],
+
+Cell[TextData[{
+ "4. 04",
+ StyleBox["Measurement",
+  FontSlant->Italic],
+ "Theory",
+ StyleBox["For",
+  FontSlant->Italic],
+ "Biological",
+ StyleBox["And",
+  FontSlant->Italic],
+ "Digital_Neurons"
+}], "Text",ExpressionUUID->"94486da2-ceb7-3c4b-9294-3f440621d1ec"],
+
+Cell[TextData[{
+ "5. 05",
+ StyleBox["Closure",
+  FontSlant->Italic],
+ "Recurrence",
+ StyleBox["And",
+  FontSlant->Italic],
+ "Persistence_Functionals"
+}], "Text",ExpressionUUID->"c1124bce-3ba7-ae42-9447-1578bb31795e"],
+
+Cell[TextData[{
+ "6. 06",
+ StyleBox["Multiscale",
+  FontSlant->Italic],
+ "Sensory",
+ StyleBox["Architecture",
+  FontSlant->Italic],
+ "And_Embodiment"
+}], "Text",ExpressionUUID->"c5508e22-1cb3-dc43-bfd9-49475146ad8b"],
+
+Cell[TextData[{
+ "7. 07",
+ StyleBox["AI",
+  FontSlant->Italic],
+ "Translation",
+ StyleBox["Modular",
+  FontSlant->Italic],
+ "Digital",
+ StyleBox["RHUFT",
+  FontSlant->Italic],
+ "Neuron"
+}], "Text",ExpressionUUID->"0bc65345-4bba-8041-b4ec-f0571ee610fc"],
+
+Cell[TextData[{
+ "8. 08",
+ StyleBox["Training",
+  FontSlant->Italic],
+ "Objectives",
+ StyleBox["Benchmarks",
+  FontSlant->Italic],
+ "And_Falsification"
+}], "Text",ExpressionUUID->"5928b23b-45c0-de4b-a670-b03b64068e49"],
+
+Cell[TextData[{
+ "9. 09",
+ StyleBox["Geometric",
+  FontSlant->Italic],
+ "Number",
+ StyleBox["Systems",
+  FontSlant->Italic],
+ "Spacing",
+ StyleBox["And",
+  FontSlant->Italic],
+ "Computational_Stability"
+}], "Text",ExpressionUUID->"df5ba109-96a4-984c-a91f-f561737baff4"],
+
+Cell[TextData[{
+ "10. 10",
+ StyleBox["Integrated",
+  FontSlant->Italic],
+ "RHUFT",
+ StyleBox["Neural",
+  FontSlant->Italic],
+ "System_Design "
+}], "Text",ExpressionUUID->"881caa26-20f6-4a42-a5e2-d2b93ec04753"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["16.2. Why this order works", "Subsection",ExpressionUUID->"74cfa636-81fd-444f-8921-ddc5a6e820bf"],
+
+Cell["It enforces a disciplined dependency chain: ", "Text",ExpressionUUID->"8441b4de-01e3-ed47-a4be-0d264eef8497"],
+
+Cell["define,", "Item",ExpressionUUID->"3af0d5dd-a01b-9648-b946-b8c1cd214d25"],
+
+Cell["derive,", "Item",ExpressionUUID->"40909da3-1a6e-4147-b278-12d1a87a9cd4"],
+
+Cell["extend,", "Item",ExpressionUUID->"92792d44-8218-8d47-822c-70a11ab51756"],
+
+Cell["operationalize,", "Item",ExpressionUUID->"341d1600-b518-4243-9ac8-7d56ce44ae3a"],
+
+Cell["evaluate.", "Item",ExpressionUUID->"a692f247-da13-b24a-a575-dc72de7b6334"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"a92a7231-9641-0c45-b2e0-fe55483d5d5f"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["17. Wolfram Language program scaffold", "Section",ExpressionUUID->"17d43960-d365-c04f-bffe-1996d7c67d22"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", 
+    RowBox[{
+    "neuronState", ",", "measurementState", ",", "closureState", ",", 
+     "neuronStep"}], "]"}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"neuronState", "[", "\[IndentingNewLine]", "   ", 
+     RowBox[{
+     "membrane_", ",", "gateVector_", ",", "synapseVector_", ",", 
+      "plasticityVector_", ",", "memory_", ",", "\[IndentingNewLine]", "   ", 
+      "morphology_", ",", "output_", ",", "measurement_", ",", "closure_"}], 
+     "]"}], ":=", 
+    RowBox[{"<|", "\[IndentingNewLine]", "  ", 
+     RowBox[{
+      RowBox[{"\"\<MembraneState\>\"", "->", "membrane"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<GateVector\>\"", "->", "gateVector"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<SynapseVector\>\"", "->", "synapseVector"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<PlasticityVector\>\"", "->", "plasticityVector"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<MemoryState\>\"", "->", "memory"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<MorphologyState\>\"", "->", "morphology"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<OutputState\>\"", "->", "output"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<MeasurementState\>\"", "->", "measurement"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<ClosureState\>\"", "->", "closure"}]}], 
+     "\[IndentingNewLine]", "|>"}]}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"measurementState", "[", 
+     RowBox[{
+     "scale_", ",", "phase_", ",", "coherence_", ",", "history_", ",", 
+      "geometry_"}], "]"}], ":=", 
+    RowBox[{"<|", "\[IndentingNewLine]", "  ", 
+     RowBox[{
+      RowBox[{"\"\<ScaleBand\>\"", "->", "scale"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<PhaseProxy\>\"", "->", "phase"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<CoherenceProxy\>\"", "->", "coherence"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<HistoryTrace\>\"", "->", "history"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<GeometryDescriptor\>\"", "->", "geometry"}]}], 
+     "\[IndentingNewLine]", "|>"}]}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"closureState", "[", 
+     RowBox[{"recurrence_", ",", "attractorDistance_", ",", "persistence_"}], 
+     "]"}], ":=", 
+    RowBox[{"<|", "\[IndentingNewLine]", "  ", 
+     RowBox[{
+      RowBox[{"\"\<RecurrenceScore\>\"", "->", "recurrence"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<AttractorDistance\>\"", "->", "attractorDistance"}], ",", 
+      "\[IndentingNewLine]", "  ", 
+      RowBox[{"\"\<PersistenceScore\>\"", "->", "persistence"}]}], 
+     "\[IndentingNewLine]", "|>"}]}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"neuronStep", "[", 
+    RowBox[{
+    "state_Association", ",", "input_", ",", "context_", ",", "params_"}], 
+    "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", "  ", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"newState", "=", "state"}], "}"}], ",", "\[IndentingNewLine]", 
+     "  ", "newState"}], "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",Expr\
+essionUUID->"c4701c13-9279-264a-aa76-9383a5c9e403"],
+
+Cell["\<\
+This scaffold is intentionally minimal. Later notebooks will define each \
+update law properly. \
+\>", "Text",ExpressionUUID->"fda9783a-a600-8f4c-a5fb-010d1883b81d"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"e44998c9-4952-a042-9020-115d72305488"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["18. Success criteria for the series", "Section",ExpressionUUID->"e5f953c3-36e1-1c4c-86e9-95674abfd654"],
+
+Cell["A successful neuron series should produce:", "Text",ExpressionUUID->"a8f21a68-65cf-4d42-99c6-e857327c65cb"],
+
+Cell["1. a mathematically explicit neuron state space,", "Text",ExpressionUUID->"9bd91a08-8f45-aa4f-9891-fc6e1b015fc9"],
+
+Cell["2. a ladder from biology to digital approximation,", "Text",ExpressionUUID->"286d9188-5f95-4647-a59c-75cb81de7f07"],
+
+Cell["3. executable Wolfram Language prototypes,", "Text",ExpressionUUID->"6fcfea2a-5756-634b-85f2-0115c5bee7f7"],
+
+Cell["\<\
+4. clear separation between established and speculative content,\
+\>", "Text",ExpressionUUID->"fd7ff55b-1d54-0249-b195-bfe9d7b0c2b4"],
+
+Cell["5. trainable AI-ready neuron modules,", "Text",ExpressionUUID->"de7ddfd3-bfb3-5a49-8a15-dabdd5f0523b"],
+
+Cell["6. measurement-aware and closure-aware extensions,", "Text",ExpressionUUID->"d2fdb77b-3225-cc4d-a011-0e1c3e19a3a3"],
+
+Cell["7. benchmark protocols and falsification criteria. ", "Text",ExpressionUUID->"2cae91e1-5093-354e-9d30-048a86bbb596"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"4ea2c439-6ca6-984f-a2dd-f0d6cf658ea6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["19. What this notebook establishes", "Section",ExpressionUUID->"1f17cba1-58ea-4245-b509-5dd3d7b59c14"],
+
+Cell["This notebook establishes the program, not the final neuron.", "Text",ExpressionUUID->"fe77e487-7c14-e443-92ec-092a4811dd2c"],
+
+Cell["\<\
+Its main achievement is to convert a visionary but incomplete neuron sketch \
+into a rigorous research agenda with: \
+\>", "Text",ExpressionUUID->"b88ec705-a72d-9040-84dd-146f1fd0cc27"],
+
+Cell["epistemic discipline,", "Item",ExpressionUUID->"6854acad-737a-8343-89f7-5867553a9df9"],
+
+Cell["mathematical layering,", "Item",ExpressionUUID->"cbe4e671-e192-ea4e-adde-c3d2df535d2f"],
+
+Cell["formal state variables,", "Item",ExpressionUUID->"19620085-545d-0846-a155-b4fad17db5d4"],
+
+Cell["gap mapping,", "Item",ExpressionUUID->"e7e0eb6a-60d2-4942-b40a-6892bfbfea03"],
+
+Cell["series structure,", "Item",ExpressionUUID->"27639acf-092c-7449-89b8-c898ee00b5a5"],
+
+Cell["implementation direction.", "Item",ExpressionUUID->"80870247-3853-5a4b-b136-d509ee8b0558"],
+
+Cell["That is the necessary foundation for all later notebooks. ", "Text",ExpressionUUID->"a689fd60-ed16-434a-ad9b-304cdd8da2ee"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TemplateBox[{0},
+      "Spacer1"]},
+    {
+     TemplateBox[{0},
+      "Spacer1"]}
+   },
+   AutoDelete->False,
+   FrameStyle->Directive[
+     LightDarkSwitched[
+      GrayLevel[0.8], 
+      GrayLevel[0.4867756]], 
+     AbsoluteThickness[1]],
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "Rows" -> {False, {True}, False}},
+   GridBoxItemSize->{"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Text", "MarkdownDelimiter",
+ ShowStringCharacters->False,
+ Background->None,ExpressionUUID->"9e9c487c-9712-fd47-9dc3-3e72ecab750c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["20. Next notebook", "Section",ExpressionUUID->"e7aee3da-dfa7-ec4b-b57e-f95f098a487a"],
+
+Cell["The next notebook should be:", "Text",ExpressionUUID->"df73bb48-ce45-7a4f-b696-db5f63498459"],
+
+Cell[TextData[{
+ "02",
+ StyleBox["Neuron",
+  FontSlant->Italic],
+ "State",
+ StyleBox["Space",
+  FontSlant->Italic],
+ "And",
+ StyleBox["Biophysical",
+  FontSlant->Italic],
+ "Dynamics"
+}], "Text",ExpressionUUID->"e7c52745-97f2-004e-ab28-77eef76c163f"],
+
+Cell["It should derive and organize: ", "Text",ExpressionUUID->"2f0a274a-d7d7-a047-952e-77657cc6b76e"],
+
+Cell["the neuron state vector in full detail,", "Item",ExpressionUUID->"4e9c0f2e-240b-a04b-a042-8c901803bdd4"],
+
+Cell["membrane equations,", "Item",ExpressionUUID->"e5fa2b6f-237c-5544-b4cc-5e97782e9c00"],
+
+Cell["conductance-based dynamics,", "Item",ExpressionUUID->"929394f2-3d78-6e43-8d5e-4325e5ae8537"],
+
+Cell["cable and compartment models,", "Item",ExpressionUUID->"e42ddb76-0ce3-db4a-8957-a1e70ff5ebe7"],
+
+Cell["reduction ladders from HH to digital approximations,", "Item",ExpressionUUID->"f671cd31-7aad-f24e-9dc5-2b25295f06d1"],
+
+Cell["executable Wolfram Language model scaffolds.", "Item",ExpressionUUID->"0ff5f025-0948-044e-9465-4b18915c7c62"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{684, 824.25},
+WindowMargins->{{Automatic, 147.75}, {315, Automatic}},
+FrontEndVersion->"15.0 for Microsoft Windows (64-bit) (May 19, 2026)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"b9e1fa07-071a-b546-82af-e24ad5aecc6d"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 255, 11, 157, "Title",ExpressionUUID->"78e8f61f-c59f-474c-80c5-5e12df79101f"],
+Cell[CellGroupData[{
+Cell[856, 37, 81, 0, 66, "Section",ExpressionUUID->"dfcec424-58cd-204b-bad1-3e91610c8bfc"],
+Cell[940, 39, 166, 5, 33, "Text",ExpressionUUID->"048301a5-da25-0749-ab20-64c94fcf4a32"],
+Cell[1109, 46, 417, 7, 99, "Text",ExpressionUUID->"5c869e63-718b-154e-afe5-e1e6e87a4c56"],
+Cell[1529, 55, 277, 6, 55, "Text",ExpressionUUID->"4d463749-79c0-d443-8bac-3346e7ded729"],
+Cell[1809, 63, 99, 0, 33, "Text",ExpressionUUID->"01b1103b-2cb8-9743-bd2d-9560edd09765"],
+Cell[1911, 65, 130, 0, 33, "Text",ExpressionUUID->"5d58ea83-a61c-4e44-8b2e-5b0959d3012e"],
+Cell[2044, 67, 141, 2, 33, "Text",ExpressionUUID->"477a8486-25a1-6949-b2ba-8e0e25127e1a"],
+Cell[2188, 71, 129, 0, 33, "Text",ExpressionUUID->"21791c13-c7ec-b64d-81ce-17e165bbf994"],
+Cell[2320, 73, 168, 3, 33, "Text",ExpressionUUID->"32849b2e-7d36-b84f-9820-fae9baab53b5"],
+Cell[2491, 78, 107, 0, 33, "Text",ExpressionUUID->"ffc883d1-4d16-584b-b0be-4c1c1fc4814c"],
+Cell[2601, 80, 1014, 25, 87, "Text",ExpressionUUID->"ac3650c9-3acb-7a47-aebe-0f8cbf52ac35"],
+Cell[3618, 107, 596, 20, 48, "Text",ExpressionUUID->"4ed2cc0f-abbb-1c47-962a-6b1330a210b9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4251, 132, 96, 0, 66, "Section",ExpressionUUID->"690c3273-ef84-7641-9bde-9fc04138518f"],
+Cell[4350, 134, 149, 2, 33, "Text",ExpressionUUID->"71665c29-8c96-1442-acf5-10cd51cbe89d"],
+Cell[4502, 138, 241, 5, 55, "Text",ExpressionUUID->"7a6f0bf1-b599-8b4e-afeb-681554943ef1"],
+Cell[4746, 145, 109, 0, 30, "Item",ExpressionUUID->"22af00f0-6161-3e46-834a-ec0df46cb3db"],
+Cell[4858, 147, 105, 0, 30, "Item",ExpressionUUID->"61bda3bd-8d53-d846-a537-3cb545534c87"],
+Cell[4966, 149, 101, 0, 30, "Item",ExpressionUUID->"0fbff2bd-d470-b649-a6a6-daac1bdac016"],
+Cell[5070, 151, 120, 0, 30, "Item",ExpressionUUID->"202c2153-7b98-7e40-bca6-2ca443d52051"],
+Cell[5193, 153, 188, 3, 50, "Item",ExpressionUUID->"80ef039b-681d-9946-ac20-8f906decd695"],
+Cell[5384, 158, 770, 16, 76, "Text",ExpressionUUID->"cfa19739-1a1d-b443-9128-07def2c26e88"],
+Cell[6157, 176, 596, 20, 48, "Text",ExpressionUUID->"1da91288-5d5b-0b49-a35f-00304b314532"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6790, 201, 107, 0, 66, "Section",ExpressionUUID->"86fc2229-2455-a54a-8167-4be8a79d19d3"],
+Cell[CellGroupData[{
+Cell[6922, 205, 103, 0, 53, "Subsection",ExpressionUUID->"6f1b2864-c4a0-ed4c-bd0c-ff2e57721596"],
+Cell[7028, 207, 181, 3, 55, "Text",ExpressionUUID->"b03b3ad1-c6c3-df4a-b00a-ec576c053fde"],
+Cell[CellGroupData[{
+Cell[7234, 214, 124, 0, 43, "Subsubsection",ExpressionUUID->"cc046f95-1892-7044-a940-9510b1a51bc3"],
+Cell[7361, 216, 86, 0, 33, "Text",ExpressionUUID->"2f199279-bf71-9442-a012-6cfa42abd753"],
+Cell[7450, 218, 89, 0, 30, "Item",ExpressionUUID->"21487fce-0185-d149-973c-dc870168f54b"],
+Cell[7542, 220, 92, 0, 30, "Item",ExpressionUUID->"8386efcf-c9a5-634f-9406-7fd037157ecf"],
+Cell[7637, 222, 84, 0, 30, "Item",ExpressionUUID->"20ee9db0-beeb-d64b-a3bc-7e44c55ff487"],
+Cell[7724, 224, 93, 0, 30, "Item",ExpressionUUID->"6036e94c-13db-a146-8af1-26e1d4a66dfb"],
+Cell[7820, 226, 82, 0, 30, "Item",ExpressionUUID->"572d66e4-f5b3-7249-92f1-850f638280de"],
+Cell[7905, 228, 86, 0, 30, "Item",ExpressionUUID->"700cb42d-25b8-a64a-a21a-07a0aa515dd7"],
+Cell[7994, 230, 107, 0, 30, "Item",ExpressionUUID->"c0601da7-8bcd-4245-8f09-85f9af76f099"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8138, 235, 123, 0, 43, "Subsubsection",ExpressionUUID->"5f3c8567-190b-274c-a92d-9d3bb79626a6"],
+Cell[8264, 237, 86, 0, 33, "Text",ExpressionUUID->"5a7660e8-aefe-064a-8165-431b7206bad8"],
+Cell[8353, 239, 101, 0, 30, "Item",ExpressionUUID->"96918b52-ce55-0247-ad5c-6b63083559f3"],
+Cell[8457, 241, 97, 0, 30, "Item",ExpressionUUID->"4cef2b83-295a-2142-a257-881110afad83"],
+Cell[8557, 243, 107, 0, 30, "Item",ExpressionUUID->"6013b06a-b58c-0a4c-a24a-13340d8ff12b"],
+Cell[8667, 245, 105, 0, 30, "Item",ExpressionUUID->"3bd839a7-95ba-f343-a1a9-6815a0ead719"],
+Cell[8775, 247, 111, 0, 30, "Item",ExpressionUUID->"7a86c184-675a-4e44-a276-abee283c4e8b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8923, 252, 129, 0, 43, "Subsubsection",ExpressionUUID->"4785188d-8575-3045-9ba7-2a87ce15719c"],
+Cell[9055, 254, 86, 0, 33, "Text",ExpressionUUID->"cf215f2c-7c00-fc49-9b3b-d0189bb93394"],
+Cell[9144, 256, 108, 0, 30, "Item",ExpressionUUID->"4242b26b-28a9-f845-b1cb-cc376f6c2565"],
+Cell[9255, 258, 90, 0, 30, "Item",ExpressionUUID->"3cd82ef8-f732-1849-b304-df67cfed03e4"],
+Cell[9348, 260, 90, 0, 30, "Item",ExpressionUUID->"4e3b328e-8958-164c-b627-fcee4c1b95ea"],
+Cell[9441, 262, 90, 0, 30, "Item",ExpressionUUID->"07815eee-0160-4d43-aa8b-7285264336c5"],
+Cell[9534, 264, 117, 0, 30, "Item",ExpressionUUID->"e9a70a3b-a1db-be45-8946-12e98557f129"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9688, 269, 133, 0, 43, "Subsubsection",ExpressionUUID->"4e3dc171-0d90-4b4a-b6cc-240481a5cdf9"],
+Cell[9824, 271, 86, 0, 33, "Text",ExpressionUUID->"9fc78668-dc46-5946-99ba-34296ccb218b"],
+Cell[9913, 273, 91, 0, 30, "Item",ExpressionUUID->"54f9845a-4878-1947-a59b-4b6506a71eff"],
+Cell[10007, 275, 123, 0, 30, "Item",ExpressionUUID->"7d5556b5-f54d-db49-a100-9e43927aea37"],
+Cell[10133, 277, 104, 0, 30, "Item",ExpressionUUID->"9ec1ceb4-ed6e-4e45-9d0e-3dd1443cf38f"],
+Cell[10240, 279, 107, 0, 30, "Item",ExpressionUUID->"14456466-56e4-da4a-9ae4-60e211a81c22"],
+Cell[10350, 281, 107, 0, 30, "Item",ExpressionUUID->"160f1261-57dd-3c45-9b39-458b9673f9b0"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10506, 287, 109, 0, 53, "Subsection",ExpressionUUID->"d2319b3a-5f47-3c42-b713-075d79c6a5ee"],
+Cell[10618, 289, 234, 3, 77, "Text",ExpressionUUID->"2ae19b1a-b509-5c4f-96a7-7a4ab2336135"],
+Cell[10855, 294, 596, 20, 48, "Text",ExpressionUUID->"7cbbc00c-4cd7-4141-9ced-c61f54dd6810"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11500, 320, 167, 2, 103, "Section",ExpressionUUID->"2d821cc7-0e18-3844-8a6f-2af89568d86a"],
+Cell[11670, 324, 113, 0, 33, "Text",ExpressionUUID->"e4a8d769-d6d2-6b49-8b6d-358ce5be9795"],
+Cell[CellGroupData[{
+Cell[11808, 328, 92, 0, 53, "Subsection",ExpressionUUID->"a8e9bdf6-3100-f944-9a28-d0ec71075d77"],
+Cell[11903, 330, 217, 5, 55, "Text",ExpressionUUID->"d4cb6fab-4848-d348-8053-e47536331819"],
+Cell[12123, 337, 87, 0, 30, "Item",ExpressionUUID->"cf8a37e6-5025-0e42-a2d3-4a86e8fa3cc7"],
+Cell[12213, 339, 83, 0, 30, "Item",ExpressionUUID->"0c8db365-411a-354e-a37c-1a9dfc4382a9"],
+Cell[12299, 341, 92, 0, 30, "Item",ExpressionUUID->"4b6d03e9-e857-8b4f-8ee8-fcfaf2690aef"],
+Cell[12394, 343, 85, 0, 30, "Item",ExpressionUUID->"187fc19f-de22-fc41-9bbc-4304bd0554fa"],
+Cell[12482, 345, 86, 0, 30, "Item",ExpressionUUID->"25a8beff-09eb-f148-a563-e78b4bc6beb1"],
+Cell[12571, 347, 92, 0, 30, "Item",ExpressionUUID->"5a5b6cf4-a7ec-484b-b47a-7493fb4e90d5"],
+Cell[12666, 349, 90, 0, 30, "Item",ExpressionUUID->"d84777d3-58de-6446-a98e-765ac65f1ba9"],
+Cell[12759, 351, 96, 0, 30, "Item",ExpressionUUID->"27574572-7fd7-9d48-9f29-8355bc09546f"],
+Cell[12858, 353, 90, 0, 30, "Item",ExpressionUUID->"40e2959f-fba8-8d42-a241-63e8f47ad605"],
+Cell[12951, 355, 151, 2, 33, "Text",ExpressionUUID->"e42fda63-cf4b-d946-8f16-ba4ce255a3fd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13139, 362, 106, 0, 53, "Subsection",ExpressionUUID->"e9e610df-df2d-1b49-8ce3-699a0bbb890f"],
+Cell[CellGroupData[{
+Cell[13270, 366, 122, 0, 43, "Subsubsection",ExpressionUUID->"21b3422a-f811-a14a-8a95-d270024ec0f9"],
+Cell[13395, 368, 148, 2, 33, "Text",ExpressionUUID->"365f4d96-3863-e546-862c-b9fe5cbd92d4"],
+Cell[13546, 372, 88, 0, 30, "Item",ExpressionUUID->"1afd58c2-c8af-194c-9508-59045a7931be"],
+Cell[13637, 374, 84, 0, 30, "Item",ExpressionUUID->"0bb9b92b-3a87-8449-ad9f-dd29267cb9f5"],
+Cell[13724, 376, 90, 0, 30, "Item",ExpressionUUID->"64fe7f41-7538-374b-b8f9-1344360a68dd"],
+Cell[13817, 378, 82, 0, 30, "Item",ExpressionUUID->"4f060444-a7aa-e947-bb80-b5f9aa1b10e7"],
+Cell[13902, 380, 84, 0, 30, "Item",ExpressionUUID->"6d435978-10d8-d047-a1e5-e83d7c618c58"],
+Cell[13989, 382, 80, 0, 30, "Item",ExpressionUUID->"5920144d-f009-ee44-ad64-ca7cb09e4573"],
+Cell[14072, 384, 78, 0, 30, "Item",ExpressionUUID->"4e37a925-99bf-5e4b-92ca-3c074134fa56"],
+Cell[14153, 386, 82, 0, 30, "Item",ExpressionUUID->"f6bd493b-5a0e-ac4d-af02-62140dc62b94"],
+Cell[14238, 388, 93, 0, 30, "Item",ExpressionUUID->"5d8fa672-2162-954e-adf4-00b3367fb403"],
+Cell[14334, 390, 86, 0, 30, "Item",ExpressionUUID->"8593a083-fe54-004b-805a-d20e5692e4f1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14457, 395, 125, 0, 43, "Subsubsection",ExpressionUUID->"08efd073-58a5-c14f-8bba-118b1c8d425a"],
+Cell[14585, 397, 140, 2, 33, "Text",ExpressionUUID->"069e4655-07ac-e44b-8247-df0069aded51"],
+Cell[14728, 401, 94, 0, 30, "Item",ExpressionUUID->"1479825f-cd9d-ce44-87ff-0e421dfffdd7"],
+Cell[14825, 403, 94, 0, 30, "Item",ExpressionUUID->"3162dbb4-8473-0747-ae06-e526bff323fc"],
+Cell[14922, 405, 91, 0, 30, "Item",ExpressionUUID->"e8c79434-3ebc-8643-993c-7e56e4bdfe8b"],
+Cell[15016, 407, 90, 0, 30, "Item",ExpressionUUID->"7a6bc5f7-6e87-2049-837d-6aaf3fb9eb37"],
+Cell[15109, 409, 94, 0, 30, "Item",ExpressionUUID->"dfea7fc0-52f2-4d4a-9bbc-c5613448ed7a"],
+Cell[15206, 411, 99, 0, 30, "Item",ExpressionUUID->"734af7d8-8a32-6e4d-9341-746c0bd3abb7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15342, 416, 131, 0, 43, "Subsubsection",ExpressionUUID->"e1a41fca-1e48-0841-9b88-07424cef693a"],
+Cell[15476, 418, 146, 2, 33, "Text",ExpressionUUID->"eaceb786-aa08-de4e-8bca-90b77005545b"],
+Cell[15625, 422, 102, 0, 30, "Item",ExpressionUUID->"0ab333a1-7b5e-0547-91d5-eed5a695ca60"],
+Cell[15730, 424, 96, 0, 30, "Item",ExpressionUUID->"ad8dae01-c499-544a-8fc2-5c1ee6bf0a77"],
+Cell[15829, 426, 98, 0, 30, "Item",ExpressionUUID->"8f08cc1e-75be-9d47-81f1-b2ce06cdf1fa"],
+Cell[15930, 428, 101, 0, 30, "Item",ExpressionUUID->"5c3ca995-cbea-7142-a4db-fd0e5e4851ea"],
+Cell[16034, 430, 108, 0, 30, "Item",ExpressionUUID->"b451dc45-32a1-2e46-8ad4-0f58351a2337"],
+Cell[16145, 432, 596, 20, 48, "Text",ExpressionUUID->"d1a1af59-94d9-6342-aeba-03f844333fc3"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16802, 459, 110, 0, 66, "Section",ExpressionUUID->"59020110-e933-8042-a09f-3fb91c76585d"],
+Cell[16915, 461, 458, 10, 77, "Text",ExpressionUUID->"666d8446-5754-414d-9c86-da12e0686128"],
+Cell[CellGroupData[{
+Cell[17398, 475, 103, 0, 53, "Subsection",ExpressionUUID->"478a60d9-3860-6342-b665-c4dd7feb4898"],
+Cell[17504, 477, 110, 0, 33, "Text",ExpressionUUID->"d506d889-7d34-f14d-9fee-3603e403cb55"],
+Cell[17617, 479, 94, 0, 30, "Item",ExpressionUUID->"ffa94633-7f3a-3a41-a060-d86e301a1410"],
+Cell[17714, 481, 95, 0, 30, "Item",ExpressionUUID->"d73ef614-e67e-0346-a775-6677bb508cf4"],
+Cell[17812, 483, 106, 0, 30, "Item",ExpressionUUID->"07929afd-6e1a-a241-9146-1bb24dec5a02"],
+Cell[17921, 485, 127, 0, 30, "Item",ExpressionUUID->"7166e390-030e-4841-b2b0-4eb301fe2bf0"],
+Cell[18051, 487, 108, 0, 30, "Item",ExpressionUUID->"232b09dd-01b9-6d4c-80de-17b920825a9d"],
+Cell[18162, 489, 150, 2, 30, "Item",ExpressionUUID->"baeb998d-e34b-414d-9633-e94bcca67926"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18349, 496, 99, 0, 53, "Subsection",ExpressionUUID->"899837d7-c51d-4046-a8f4-14c682d85698"],
+Cell[18451, 498, 129, 0, 33, "Text",ExpressionUUID->"63399823-d7ee-5642-bb92-cf08afb4559a"],
+Cell[18583, 500, 103, 0, 33, "Text",ExpressionUUID->"0ae1a42c-87c1-7e46-a9b0-4dde030020aa"],
+Cell[18689, 502, 110, 0, 33, "Text",ExpressionUUID->"e374b50d-fbad-f34f-a1f3-013333d10b7e"],
+Cell[18802, 504, 114, 0, 33, "Text",ExpressionUUID->"c2715fc1-8128-3d4a-b835-d26af9207fa4"],
+Cell[18919, 506, 99, 0, 33, "Text",ExpressionUUID->"41403f0d-53bf-3b43-9d45-4b48acc11dff"],
+Cell[19021, 508, 104, 0, 33, "Text",ExpressionUUID->"78a2c0c2-d700-cc4b-a9cd-c6f8278ce3c0"],
+Cell[19128, 510, 91, 0, 33, "Text",ExpressionUUID->"2710765f-3f54-9647-9e92-92b698488189"],
+Cell[19222, 512, 105, 0, 33, "Text",ExpressionUUID->"8fd3539b-22bc-0f49-b7f2-d181c8366de9"],
+Cell[19330, 514, 102, 0, 33, "Text",ExpressionUUID->"1d94cdaa-442f-2042-a901-384470f93140"],
+Cell[19435, 516, 120, 0, 33, "Text",ExpressionUUID->"32b56de6-7270-5e48-94e5-5239b91c997b"],
+Cell[19558, 518, 119, 0, 33, "Text",ExpressionUUID->"c65ddf1c-591a-8747-80bc-e3159b29213c"],
+Cell[19680, 520, 94, 0, 33, "Text",ExpressionUUID->"9c504d14-3c34-5448-9c0c-097e8de489c7"],
+Cell[19777, 522, 144, 2, 33, "Text",ExpressionUUID->"c2a36a29-f030-a04f-98c1-884e601e0f62"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19958, 529, 102, 0, 53, "Subsection",ExpressionUUID->"1d3d8163-5f48-df42-aab2-c069fbeb8044"],
+Cell[20063, 531, 203, 5, 33, "Text",ExpressionUUID->"0c412ce9-a018-584e-b7fd-b8288021380a"],
+Cell[20269, 538, 108, 0, 30, "Item",ExpressionUUID->"627c8749-e4c0-ab4d-93be-e86db7714c09"],
+Cell[20380, 540, 127, 0, 30, "Item",ExpressionUUID->"e1b832ba-649c-dc4c-8382-3fc1019d3db0"],
+Cell[20510, 542, 140, 2, 30, "Item",ExpressionUUID->"bb5e60e8-6582-5d4d-afa8-00f98ce53121"],
+Cell[20653, 546, 103, 0, 30, "Item",ExpressionUUID->"c905caac-6ec6-e245-8d7b-a3abad4eff93"],
+Cell[20759, 548, 596, 20, 48, "Text",ExpressionUUID->"b55efb45-c065-8d40-9502-eae14a15382e"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21404, 574, 106, 0, 66, "Section",ExpressionUUID->"c0f723d8-8330-c842-9874-d65fe78cc433"],
+Cell[21513, 576, 166, 3, 55, "Text",ExpressionUUID->"c5fd0711-9ec3-4446-91be-531fddd1f803"],
+Cell[CellGroupData[{
+Cell[21704, 583, 101, 0, 53, "Subsection",ExpressionUUID->"205f3a91-7aa4-e646-ba0f-af518abbc48a"],
+Cell[21808, 585, 83, 0, 33, "Text",ExpressionUUID->"574f4fbd-1eb3-cd4a-b69a-2c51b714abdc"],
+Cell[21894, 587, 76, 0, 30, "Item",ExpressionUUID->"27c0a6e8-86ab-f547-a8cb-ece593a69900"],
+Cell[21973, 589, 81, 0, 30, "Item",ExpressionUUID->"91a714e3-7a19-6842-9527-51de822cb3e8"],
+Cell[22057, 591, 76, 0, 30, "Item",ExpressionUUID->"afeb3ccb-4622-a744-992e-9bef12f84eee"],
+Cell[22136, 593, 90, 0, 30, "Item",ExpressionUUID->"a19a89f4-206a-dc44-9a7b-c3deef3bb25e"],
+Cell[22229, 595, 89, 0, 30, "Item",ExpressionUUID->"91193409-47ac-3b47-b253-66781058a4f6"],
+Cell[22321, 597, 94, 0, 30, "Item",ExpressionUUID->"71615e79-33d0-4a47-ae86-ec0ddc2b0109"],
+Cell[22418, 599, 96, 0, 33, "Text",ExpressionUUID->"164daa52-b393-744c-b7b8-ca19d5d66234"],
+Cell[22517, 601, 84, 0, 30, "Item",ExpressionUUID->"2ab95e40-3c07-0f4d-bc34-4b9d39a85ab2"],
+Cell[22604, 603, 87, 0, 30, "Item",ExpressionUUID->"3e7b1767-f16c-f84e-a979-e99705ccafc7"],
+Cell[22694, 605, 85, 0, 30, "Item",ExpressionUUID->"8ec7ae0c-a132-ac42-9096-93a2d1cae2aa"],
+Cell[22782, 607, 92, 0, 30, "Item",ExpressionUUID->"17993def-ec71-9949-aed5-ca7c44e6fdc5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22911, 612, 108, 0, 53, "Subsection",ExpressionUUID->"dd6b7ca1-1d36-0742-a3d9-79c314770101"],
+Cell[23022, 614, 83, 0, 33, "Text",ExpressionUUID->"d068262b-285c-ac48-b9f4-10685411a752"],
+Cell[23108, 616, 90, 0, 30, "Item",ExpressionUUID->"b5f5eb62-2a65-4846-a420-31e6900059d7"],
+Cell[23201, 618, 83, 0, 30, "Item",ExpressionUUID->"3849fe46-e01f-fd4a-85fc-dfe0a6dddc3d"],
+Cell[23287, 620, 86, 0, 30, "Item",ExpressionUUID->"b7e7e9cb-9bbc-c04b-87f7-e88d6f4f3816"],
+Cell[23376, 622, 76, 0, 30, "Item",ExpressionUUID->"174eafe2-f443-2745-9c4a-bb8659114d1a"],
+Cell[23455, 624, 95, 0, 30, "Item",ExpressionUUID->"b235507f-f615-dc4c-b557-c21d3b4d822b"],
+Cell[23553, 626, 96, 0, 33, "Text",ExpressionUUID->"e02df9f9-840f-be4a-826c-7b9ff4abb6c6"],
+Cell[23652, 628, 76, 0, 30, "Item",ExpressionUUID->"7823d7ee-be2b-e54a-950f-17aead2a11aa"],
+Cell[23731, 630, 76, 0, 30, "Item",ExpressionUUID->"07404843-a20c-384c-bcc8-9fb3c28577ab"],
+Cell[23810, 632, 105, 0, 30, "Item",ExpressionUUID->"3f839f6a-2f0d-4a43-a068-4ef525ce0b29"],
+Cell[23918, 634, 93, 0, 30, "Item",ExpressionUUID->"241352d2-556e-a540-94d1-cfcc4f3a5bae"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24048, 639, 96, 0, 53, "Subsection",ExpressionUUID->"65a2fe30-d57c-0546-b24a-f92702d2e9ad"],
+Cell[24147, 641, 83, 0, 33, "Text",ExpressionUUID->"59164546-f3aa-7b4a-9fd7-3c88ceac22ce"],
+Cell[24233, 643, 103, 0, 30, "Item",ExpressionUUID->"077037a8-8cd4-904c-bffb-b275512409d5"],
+Cell[24339, 645, 99, 0, 30, "Item",ExpressionUUID->"d9588daa-32a3-604f-929b-9dcf61529a02"],
+Cell[24441, 647, 91, 0, 30, "Item",ExpressionUUID->"2f9a8b66-a3a4-e744-aa7b-d6ebd1a98847"],
+Cell[24535, 649, 91, 0, 30, "Item",ExpressionUUID->"4d5c664f-9bea-2242-b7fd-6ae4c9b7b050"],
+Cell[24629, 651, 91, 0, 30, "Item",ExpressionUUID->"fbf0e8cd-384e-fa4b-902e-71197619314a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24757, 656, 98, 0, 53, "Subsection",ExpressionUUID->"93b5f27e-7213-064b-bab9-544180a32429"],
+Cell[24858, 658, 83, 0, 33, "Text",ExpressionUUID->"3ba6e590-63d4-9f46-a066-1e5cdef2903f"],
+Cell[24944, 660, 92, 0, 30, "Item",ExpressionUUID->"4a21ae8f-96dd-8142-93ac-b3c9286d2a87"],
+Cell[25039, 662, 87, 0, 30, "Item",ExpressionUUID->"a608f272-96fb-8143-8cb4-5577671253d3"],
+Cell[25129, 664, 76, 0, 30, "Item",ExpressionUUID->"aca1ff4f-ac8b-e54b-b71f-d0b0038c20b0"],
+Cell[25208, 666, 96, 0, 30, "Item",ExpressionUUID->"08c8ddce-40e8-6d49-bc44-9d5aa774e1c2"],
+Cell[25307, 668, 86, 0, 30, "Item",ExpressionUUID->"2551ce32-81f3-7448-b582-2e4a8c48c315"],
+Cell[25396, 670, 91, 0, 30, "Item",ExpressionUUID->"67c92277-ad41-ac48-bc30-61c11003f14b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25524, 675, 95, 0, 53, "Subsection",ExpressionUUID->"edb24735-0c25-b74d-821b-bb6b4dbaf1fa"],
+Cell[25622, 677, 83, 0, 33, "Text",ExpressionUUID->"3865fde7-5ace-2a47-aa35-fc807180493e"],
+Cell[25708, 679, 84, 0, 30, "Item",ExpressionUUID->"3da07230-55ff-644b-a412-b8edd208440f"],
+Cell[25795, 681, 101, 0, 30, "Item",ExpressionUUID->"34e57716-2aa2-b042-a3f0-f3727235021e"],
+Cell[25899, 683, 84, 0, 30, "Item",ExpressionUUID->"a4e8ae5b-1739-ce42-a1ff-0b0ae8fd889f"],
+Cell[25986, 685, 88, 0, 30, "Item",ExpressionUUID->"14e4b55c-bed3-354a-a707-60b3c420fb7e"],
+Cell[26077, 687, 94, 0, 30, "Item",ExpressionUUID->"83d878ba-b391-da42-8d62-68a4ad4e986a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[26208, 692, 99, 0, 53, "Subsection",ExpressionUUID->"728b4ff5-8189-2943-a176-89a5604faa11"],
+Cell[26310, 694, 167, 3, 33, "Text",ExpressionUUID->"ac31d26f-9af0-c044-b9f2-7dd64d91683d"],
+Cell[26480, 699, 95, 0, 30, "Item",ExpressionUUID->"e0a9c28d-3282-bc46-b8f3-26f6ad77963e"],
+Cell[26578, 701, 86, 0, 30, "Item",ExpressionUUID->"1ec480d3-c8ba-4a4f-9940-cda909bfeff0"],
+Cell[26667, 703, 106, 0, 30, "Item",ExpressionUUID->"31b1fb3f-869f-0448-8829-14231f73b157"],
+Cell[26776, 705, 113, 0, 30, "Item",ExpressionUUID->"711eda3a-79d7-7d4a-bd70-7717a4572533"],
+Cell[26892, 707, 109, 0, 30, "Item",ExpressionUUID->"89bede14-cc85-e84e-906a-b447e7a2ebea"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27038, 712, 95, 0, 53, "Subsection",ExpressionUUID->"e97c2380-7c62-3549-a333-2646d382af54"],
+Cell[27136, 714, 83, 0, 33, "Text",ExpressionUUID->"dafc8489-75ed-0b4f-9b8a-79d4ed883a0d"],
+Cell[27222, 716, 82, 0, 30, "Item",ExpressionUUID->"f8a03b2c-aec3-8d41-9b0d-93046dc85835"],
+Cell[27307, 718, 83, 0, 30, "Item",ExpressionUUID->"a8f5c221-3c58-3a4d-b6a2-c12782ff3efd"],
+Cell[27393, 720, 83, 0, 30, "Item",ExpressionUUID->"651b6d8e-8f45-b44b-b57f-f91dcdd03ea8"],
+Cell[27479, 722, 93, 0, 30, "Item",ExpressionUUID->"ee4bfbc0-f42a-7d4f-bf83-b0214d076428"],
+Cell[27575, 724, 101, 0, 30, "Item",ExpressionUUID->"9821d632-9374-ac46-84e6-9a259e60de1b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27713, 729, 98, 0, 53, "Subsection",ExpressionUUID->"b32c637d-3bd5-3f41-8234-086fdde359c0"],
+Cell[27814, 731, 83, 0, 33, "Text",ExpressionUUID->"a9380413-4b3e-654f-a2a1-7119abf0ef93"],
+Cell[27900, 733, 87, 0, 30, "Item",ExpressionUUID->"b0515ef1-cd4a-e342-9424-be4ffe1c1270"],
+Cell[27990, 735, 95, 0, 30, "Item",ExpressionUUID->"3d80e740-e697-9249-bf87-772cda96cbd7"],
+Cell[28088, 737, 84, 0, 30, "Item",ExpressionUUID->"abebcbc0-3b9d-f641-bdbd-12650f08b6e8"],
+Cell[28175, 739, 92, 0, 30, "Item",ExpressionUUID->"37450718-30bc-6b4f-b05c-8207b4589445"],
+Cell[28270, 741, 107, 0, 30, "Item",ExpressionUUID->"612aefc5-5447-094e-905c-5c2cec8c0656"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[28414, 746, 102, 0, 53, "Subsection",ExpressionUUID->"ef9fe516-c35f-d844-af41-cee7172f2b83"],
+Cell[28519, 748, 83, 0, 33, "Text",ExpressionUUID->"3413cf87-27bf-e948-8239-713b1b35e23f"],
+Cell[28605, 750, 101, 0, 30, "Item",ExpressionUUID->"bdf008b1-852c-b34a-9abc-47c7aff0553c"],
+Cell[28709, 752, 89, 0, 30, "Item",ExpressionUUID->"e7aeb0ab-26d1-f74c-afa8-9b7c32792575"],
+Cell[28801, 754, 103, 0, 30, "Item",ExpressionUUID->"9b90e49c-c662-0c40-ab6c-0f7bdc3572ff"],
+Cell[28907, 756, 96, 0, 30, "Item",ExpressionUUID->"00906d46-b1c1-2f49-9161-5a9def64ec83"],
+Cell[29006, 758, 103, 0, 30, "Item",ExpressionUUID->"b258cde4-4f0e-4540-9e9d-d2d5b55567ae"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29146, 763, 99, 0, 53, "Subsection",ExpressionUUID->"0cb3cce1-ab84-fc44-a3dd-26ad4a893dab"],
+Cell[29248, 765, 83, 0, 33, "Text",ExpressionUUID->"57b81b44-9289-1840-a3e2-de02a3b69725"],
+Cell[29334, 767, 88, 0, 30, "Item",ExpressionUUID->"8926c62b-0c8e-2c47-85bf-fb5d69d58ecb"],
+Cell[29425, 769, 82, 0, 30, "Item",ExpressionUUID->"5ebadd9e-aa07-fa4d-8da7-42b65a2a75a9"],
+Cell[29510, 771, 89, 0, 30, "Item",ExpressionUUID->"7036cc22-0a22-4d41-a999-d3d7f1325b0b"],
+Cell[29602, 773, 88, 0, 30, "Item",ExpressionUUID->"f9ed43c5-a319-2647-9c8b-c8510391810c"],
+Cell[29693, 775, 81, 0, 30, "Item",ExpressionUUID->"5090d380-2dd3-3d46-a6c9-e1a76f805d2c"],
+Cell[29777, 777, 95, 0, 30, "Item",ExpressionUUID->"5f8ae333-c8d3-cb42-9ff3-fb67148aebbe"],
+Cell[29875, 779, 95, 0, 30, "Item",ExpressionUUID->"a4e4158a-5faa-da48-bf6a-18c328a5ce6c"],
+Cell[29973, 781, 596, 20, 48, "Text",ExpressionUUID->"730fdf02-c765-7c4c-9650-af5b478e6c0f"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[30618, 807, 93, 0, 66, "Section",ExpressionUUID->"dcfcf205-cb66-6143-a9d8-2636802f9690"],
+Cell[30714, 809, 192, 3, 55, "Text",ExpressionUUID->"90934438-31a4-f043-b4d6-411db2064f09"],
+Cell[CellGroupData[{
+Cell[30931, 816, 109, 0, 53, "Subsection",ExpressionUUID->"116c67d7-3878-9e4f-88ad-49b0e8f4dcdf"],
+Cell[31043, 818, 85, 0, 33, "Text",ExpressionUUID->"d7533573-82cd-0841-a5ac-7c5fba6e1603"],
+Cell[31131, 820, 86, 0, 33, "Text",ExpressionUUID->"36f69177-87d8-9a4d-8964-2432184a146f"],
+Cell[31220, 822, 99, 0, 33, "Text",ExpressionUUID->"13512187-2a92-fe4a-ab28-58c5eeabe426"],
+Cell[31322, 824, 108, 0, 33, "Text",ExpressionUUID->"a45e7c5d-1f36-b749-9c16-439b66ccd2ee"],
+Cell[31433, 826, 96, 0, 33, "Text",ExpressionUUID->"39ca9ebf-ebdb-0e4d-aa71-208fbc9800a0"],
+Cell[31532, 828, 111, 0, 33, "Text",ExpressionUUID->"e46676d9-4a3c-2046-803e-467562b4bd15"],
+Cell[31646, 830, 108, 0, 33, "Text",ExpressionUUID->"c8d3ba77-49b5-f640-9906-d564ed29d061"],
+Cell[31757, 832, 96, 0, 33, "Text",ExpressionUUID->"ec186ccf-6e43-a549-b15b-e21e1003b4ec"],
+Cell[31856, 834, 99, 0, 33, "Text",ExpressionUUID->"a3f25af5-f2da-d646-a669-297fcaa72513"],
+Cell[31958, 836, 117, 0, 33, "Text",ExpressionUUID->"b676b5a4-61aa-6945-96c6-a949c73566f3"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32112, 841, 110, 0, 53, "Subsection",ExpressionUUID->"23e1c169-e3cf-4a41-a765-b7572b6ae42a"],
+Cell[32225, 843, 190, 3, 55, "Text",ExpressionUUID->"7285912c-33c9-4242-8dab-808423cf3df7"],
+Cell[32418, 848, 82, 0, 30, "Item",ExpressionUUID->"aad507fa-64ae-6544-99cc-4d87afd01e58"],
+Cell[32503, 850, 85, 0, 30, "Item",ExpressionUUID->"c5b7a2fd-dc16-d54a-9668-0a24f071d00d"],
+Cell[32591, 852, 84, 0, 30, "Item",ExpressionUUID->"8bc8e435-25a9-2245-ab8c-8187d333e757"],
+Cell[32678, 854, 80, 0, 70, "Item",ExpressionUUID->"eb009b53-6041-9c42-b3f5-08e09eed73ce"],
+Cell[32761, 856, 89, 0, 70, "Item",ExpressionUUID->"7564a834-bae0-444d-9ec8-a6ef5639616f"],
+Cell[32853, 858, 596, 20, 70, "Text",ExpressionUUID->"80830ebe-a843-064d-8b97-3569c0d41de9"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33498, 884, 101, 0, 70, "Section",ExpressionUUID->"89f5389e-78f0-f643-9a34-92ac28056176"],
+Cell[33602, 886, 164, 3, 55, "Text",ExpressionUUID->"e400d7aa-6e38-ac4a-8fde-8b387dcaf970"],
+Cell[CellGroupData[{
+Cell[33791, 893, 107, 0, 53, "Subsection",ExpressionUUID->"280ddca5-cb37-1047-9471-6e3126abe482"],
+Cell[33901, 895, 1114, 31, 33, "Text",ExpressionUUID->"a1bd9e03-dba3-9f4c-acf8-bb04da7dd8e5"],
+Cell[35018, 928, 442, 11, 30, "Item",ExpressionUUID->"50221df9-9be0-7641-9a83-75263222d77e"],
+Cell[35463, 941, 437, 11, 30, "Item",ExpressionUUID->"58116e46-0a20-f848-b22c-69da4adc61b1"],
+Cell[35903, 954, 454, 11, 30, "Item",ExpressionUUID->"1c590efa-1e02-1d49-a613-6548597f748c"],
+Cell[36360, 967, 441, 10, 30, "Item",ExpressionUUID->"1c584b09-8e99-7e4b-9e3b-95d3c1526556"],
+Cell[36804, 979, 430, 10, 30, "Item",ExpressionUUID->"3adf9e9e-c520-364e-a746-e5d849dcd9ef"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37271, 994, 109, 0, 53, "Subsection",ExpressionUUID->"5b6b67b3-08e7-2d40-a960-1d61414d4cbb"],
+Cell[37383, 996, 815, 21, 48, "Text",ExpressionUUID->"7e9d85c7-5e04-7f47-a72b-1678a5222424"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[38235, 1022, 100, 0, 53, "Subsection",ExpressionUUID->"d589ce8f-54d3-6d49-89bb-ea4b01a7dba4"],
+Cell[38338, 1024, 1126, 31, 33, "Text",ExpressionUUID->"0b1af1e3-9be0-4340-afc3-0fd91d642fba"],
+Cell[39467, 1057, 434, 11, 30, "Item",ExpressionUUID->"6eed2574-a695-0840-a40c-d8b78564b5d1"],
+Cell[39904, 1070, 448, 11, 30, "Item",ExpressionUUID->"4d35aebc-0238-f648-a35e-d4c3c8607d58"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40389, 1086, 96, 0, 53, "Subsection",ExpressionUUID->"eba38fe1-6d08-e24c-bf79-e7bac0e1f53f"],
+Cell[40488, 1088, 868, 23, 33, "Text",ExpressionUUID->"f6a8617a-3ce7-5c41-9135-6c584a9111dd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[41393, 1116, 102, 0, 53, "Subsection",ExpressionUUID->"86b25207-dce9-c04a-9a35-e05db394c612"],
+Cell[41498, 1118, 1189, 31, 55, "Text",ExpressionUUID->"f5722b8e-31a9-6a48-b987-bd6441faf1bc"],
+Cell[42690, 1151, 596, 20, 48, "Text",ExpressionUUID->"b53588e7-9b64-9247-9628-4131d276b5b3"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[43335, 1177, 95, 0, 66, "Section",ExpressionUUID->"d8f1d08f-d098-b64f-af00-c1d4ff406c14"],
+Cell[43433, 1179, 937, 24, 33, "Text",ExpressionUUID->"0ce5943e-1d34-564b-9626-dd9f74d2d766"],
+Cell[44373, 1205, 412, 9, 70, "Item",ExpressionUUID->"c67b43c2-04e7-ab46-8b9e-7719d9d58e68"],
+Cell[44788, 1216, 394, 9, 70, "Item",ExpressionUUID->"431fd306-64a6-0a4d-868b-2b2d1c618ae2"],
+Cell[45185, 1227, 387, 9, 70, "Item",ExpressionUUID->"970fb497-6ab8-4647-aa63-531da8ab046b"],
+Cell[45575, 1238, 389, 9, 70, "Item",ExpressionUUID->"587dc07d-b17f-1c47-b06a-12fdc2661ce4"],
+Cell[45967, 1249, 378, 9, 70, "Item",ExpressionUUID->"9da6095f-ba79-df4d-9227-4f6a61b66612"],
+Cell[46348, 1260, 394, 9, 30, "Item",ExpressionUUID->"ceea17b6-b9b7-2d46-a325-ec27eedff780"],
+Cell[46745, 1271, 378, 9, 30, "Item",ExpressionUUID->"c020103d-5b93-e04a-baea-b9478ed99720"],
+Cell[47126, 1282, 378, 9, 30, "Item",ExpressionUUID->"9708b3ee-f584-f24e-85df-df6e57a86b5e"],
+Cell[47507, 1293, 394, 9, 30, "Item",ExpressionUUID->"76b1ccb3-f080-7749-8d3b-54d3f9e545a5"],
+Cell[CellGroupData[{
+Cell[47926, 1306, 98, 0, 53, "Subsection",ExpressionUUID->"0d940906-ca97-9b41-93c7-d61f345b0802"],
+Cell[48027, 1308, 206, 3, 55, "Text",ExpressionUUID->"988c7c84-10f2-0346-96a5-cd8074280dc2"],
+Cell[48236, 1313, 596, 20, 48, "Text",ExpressionUUID->"66793761-e744-774f-b260-6569b132991d"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[48881, 1339, 101, 0, 66, "Section",ExpressionUUID->"94ca4b7e-fdea-b64a-a60b-b11c5895d3ab"],
+Cell[48985, 1341, 194, 3, 55, "Text",ExpressionUUID->"91bb903a-8b2f-814f-9930-79a484e12d1a"],
+Cell[CellGroupData[{
+Cell[49204, 1348, 107, 0, 53, "Subsection",ExpressionUUID->"8df4c839-c1fe-5841-b5ac-f87ded710c37"],
+Cell[49314, 1350, 89, 0, 33, "Text",ExpressionUUID->"ac48b708-bc36-844c-9529-1c84447abe8b"],
+Cell[49406, 1352, 82, 0, 30, "Item",ExpressionUUID->"cb62b40e-ed83-a04c-aedf-fbfac1f2b4de"],
+Cell[49491, 1354, 92, 0, 30, "Item",ExpressionUUID->"b5486795-42a9-b949-bd6f-3e5482ed87e8"],
+Cell[49586, 1356, 82, 0, 30, "Item",ExpressionUUID->"18fe7672-365a-4e4c-9eca-4660a3b4f357"],
+Cell[49671, 1358, 87, 0, 30, "Item",ExpressionUUID->"dd6c768a-1789-434f-a38c-bb09198d5043"],
+Cell[49761, 1360, 84, 0, 30, "Item",ExpressionUUID->"eeb3b9f2-f819-ce4b-acc8-9f8b0b3a2eda"],
+Cell[49848, 1362, 87, 0, 30, "Item",ExpressionUUID->"df88a8de-c262-2e4e-ab25-54f49585680c"],
+Cell[49938, 1364, 81, 0, 30, "Item",ExpressionUUID->"0275f2e4-c2f9-0849-8519-4bec9e7230be"],
+Cell[50022, 1366, 88, 0, 30, "Item",ExpressionUUID->"ec39a13f-c015-194a-9b6d-acd8bcc34ac3"],
+Cell[50113, 1368, 84, 0, 30, "Item",ExpressionUUID->"0cd04398-0746-564d-9f9d-b09ffcc2b6d5"],
+Cell[50200, 1370, 92, 0, 30, "Item",ExpressionUUID->"65237a03-c12c-bd46-997e-4681bdc91314"],
+Cell[50295, 1372, 93, 0, 30, "Item",ExpressionUUID->"9feb9e91-6583-7e43-a5ec-71940099ebf1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[50425, 1377, 122, 0, 53, "Subsection",ExpressionUUID->"969dd374-dfd4-8e4d-a449-18427b5c9f5f"],
+Cell[50550, 1379, 89, 0, 33, "Text",ExpressionUUID->"66860c64-ebc9-9942-935c-ce6a728040a8"],
+Cell[50642, 1381, 89, 0, 30, "Item",ExpressionUUID->"334ab273-da98-b84e-aa0a-4c6cfdbd5295"],
+Cell[50734, 1383, 86, 0, 30, "Item",ExpressionUUID->"d953a74b-2cb0-e84e-8d50-6e4c7140e5d5"],
+Cell[50823, 1385, 85, 0, 30, "Item",ExpressionUUID->"d3b99f2d-0fd6-1249-b3c9-047bede96818"],
+Cell[50911, 1387, 85, 0, 30, "Item",ExpressionUUID->"0aabb31b-ff47-f84a-a22d-0b3e1f3adacf"],
+Cell[50999, 1389, 87, 0, 30, "Item",ExpressionUUID->"389152c6-8ecf-734a-8c65-760e9a4eb897"],
+Cell[51089, 1391, 92, 0, 30, "Item",ExpressionUUID->"0a8860ee-adc0-2b4e-8f0d-086ef788a88c"],
+Cell[51184, 1393, 95, 0, 30, "Item",ExpressionUUID->"29ea8bdb-ea71-a04f-90d0-715fa2c77769"],
+Cell[51282, 1395, 94, 0, 30, "Item",ExpressionUUID->"d0afa91f-2c50-0341-8bf8-a784d04747ca"],
+Cell[51379, 1397, 103, 0, 30, "Item",ExpressionUUID->"1afd9be3-6125-3f4b-8723-30f94f91f9e9"],
+Cell[51485, 1399, 108, 0, 30, "Item",ExpressionUUID->"9367cf06-9902-8949-99af-65b91d2ccf18"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[51630, 1404, 94, 0, 53, "Subsection",ExpressionUUID->"2b610385-4bf8-dc43-a668-dc3945b1ce4c"],
+Cell[51727, 1406, 649, 13, 52, "Text",ExpressionUUID->"7ca5b2a3-0167-7f4c-892c-38f8e6c8ca5d"],
+Cell[52379, 1421, 596, 20, 48, "Text",ExpressionUUID->"72cb7dde-d7c9-fd45-bc16-cca7657c87a4"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[53024, 1447, 112, 0, 66, "Section",ExpressionUUID->"67294092-2a59-1541-9154-9dc44d693537"],
+Cell[53139, 1449, 217, 3, 55, "Text",ExpressionUUID->"8c5cbbbe-e1cd-0e41-8998-be9b0d2fa23a"],
+Cell[CellGroupData[{
+Cell[53381, 1456, 106, 0, 53, "Subsection",ExpressionUUID->"9c690707-c79a-1b46-8594-81e7344d8c54"],
+Cell[53490, 1458, 147, 2, 33, "Text",ExpressionUUID->"f2c918be-bd08-2f42-8664-f55d6d530fcc"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[53674, 1465, 115, 0, 53, "Subsection",ExpressionUUID->"f8d9f43e-ec8b-384b-a121-7a046c913349"],
+Cell[53792, 1467, 105, 0, 33, "Text",ExpressionUUID->"d49157a1-9dd7-c34c-bd6f-e781d5ce8f4d"],
+Cell[53900, 1469, 87, 0, 30, "Item",ExpressionUUID->"cdeed24c-7498-e646-9bb4-e1a18cf1b8c8"],
+Cell[53990, 1471, 105, 0, 30, "Item",ExpressionUUID->"23b20ff7-7507-b544-9e95-d80e319ca7ec"],
+Cell[54098, 1473, 104, 0, 30, "Item",ExpressionUUID->"4025b1d3-86e9-7946-8c94-d11764480784"],
+Cell[54205, 1475, 106, 0, 30, "Item",ExpressionUUID->"abeb7681-8101-e84e-b437-dd7f145d054d"],
+Cell[54314, 1477, 121, 0, 30, "Item",ExpressionUUID->"06600965-0264-c446-a753-578d8d9c0b9b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[54472, 1482, 99, 0, 53, "Subsection",ExpressionUUID->"35f7ae94-8a60-e340-a221-a858891b74b3"],
+Cell[54574, 1484, 1835, 47, 77, "Text",ExpressionUUID->"0bda2f90-d1fa-5b44-96eb-c43133a9a0ec"],
+Cell[56412, 1533, 596, 20, 48, "Text",ExpressionUUID->"a1bdbd1e-c1c7-134a-89c2-adb20f128d98"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[57057, 1559, 101, 0, 66, "Section",ExpressionUUID->"8c1f23e8-f326-3740-89cd-b396cc9e3e1c"],
+Cell[CellGroupData[{
+Cell[57183, 1563, 148, 2, 70, "Subsection",ExpressionUUID->"6b44476e-1f0f-0448-9219-517ec3674a57"],
+Cell[57334, 1567, 151, 2, 70, "Text",ExpressionUUID->"c3e2a510-d9fc-ea46-9dee-2e1ff3f36e05"],
+Cell[57488, 1571, 106, 0, 30, "Item",ExpressionUUID->"c28585be-3809-844f-91ef-2908974e8412"],
+Cell[57597, 1573, 112, 0, 30, "Item",ExpressionUUID->"2f2d2d28-f830-b947-95aa-4c8eba653a96"],
+Cell[57712, 1575, 128, 0, 30, "Item",ExpressionUUID->"343fc293-f7b6-9d4a-85cb-4f8a6bbd2f89"],
+Cell[57843, 1577, 117, 0, 33, "Text",ExpressionUUID->"534177e7-5191-114a-bee6-14d829891d7e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[57997, 1582, 123, 0, 53, "Subsection",ExpressionUUID->"693d9335-772c-644d-9e93-517ae9dd8e6a"],
+Cell[58123, 1584, 106, 0, 33, "Text",ExpressionUUID->"64234ba6-62d9-5c42-a502-a4508fabd3ab"],
+Cell[58232, 1586, 88, 0, 30, "Item",ExpressionUUID->"cc6da3c2-8c97-2544-9c62-5b9467b7a3d1"],
+Cell[58323, 1588, 90, 0, 30, "Item",ExpressionUUID->"abca5570-3dc1-8a48-8205-960f060b2852"],
+Cell[58416, 1590, 89, 0, 30, "Item",ExpressionUUID->"0d842fd7-d51a-b448-bcf6-91c19367b84f"],
+Cell[58508, 1592, 88, 0, 30, "Item",ExpressionUUID->"4f4d26af-bc08-1246-9a99-a5dd90de5003"],
+Cell[58599, 1594, 99, 0, 30, "Item",ExpressionUUID->"e97c2298-1156-9542-aa70-8dfa91af49e3"],
+Cell[58701, 1596, 89, 0, 30, "Item",ExpressionUUID->"2faaa421-5f91-ad40-afa7-828553204567"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[58827, 1601, 105, 0, 53, "Subsection",ExpressionUUID->"030d91fe-265e-7144-a32e-6ca4343d04df"],
+Cell[58935, 1603, 101, 0, 33, "Text",ExpressionUUID->"c5832a2c-e3d4-ce4c-9d84-d8708aef6215"],
+Cell[59039, 1605, 84, 0, 30, "Item",ExpressionUUID->"25492de4-fd75-0941-8a99-aaef18c3ac9c"],
+Cell[59126, 1607, 87, 0, 30, "Item",ExpressionUUID->"8a69ce15-95d8-2449-8670-c00a2f64a618"],
+Cell[59216, 1609, 84, 0, 30, "Item",ExpressionUUID->"453fca55-d73d-834f-817a-443776469534"],
+Cell[59303, 1611, 89, 0, 30, "Item",ExpressionUUID->"6c3ebe70-92db-834f-bd77-a69ef410c84d"],
+Cell[59395, 1613, 90, 0, 30, "Item",ExpressionUUID->"55d558a6-6753-6340-b1d8-0475cd425ebb"],
+Cell[59488, 1615, 596, 20, 48, "Text",ExpressionUUID->"8eafa597-32b0-b245-b908-5193bc2cfd3e"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[60133, 1641, 111, 0, 66, "Section",ExpressionUUID->"23302c76-e7b5-3841-8227-161c0816710b"],
+Cell[60247, 1643, 203, 3, 55, "Text",ExpressionUUID->"818a2ec8-b941-6841-a8c3-4f5ed4adf158"],
+Cell[CellGroupData[{
+Cell[60475, 1650, 129, 0, 53, "Subsection",ExpressionUUID->"9ffa98e1-f349-3941-8ae3-ff873ed68ce3"],
+Cell[60607, 1652, 147, 2, 33, "Text",ExpressionUUID->"dd5173d6-62ce-5c4f-b650-a9b01e2ade56"],
+Cell[60757, 1656, 88, 0, 30, "Item",ExpressionUUID->"31fcb8b5-dbe5-7a47-9bd4-b71bb75603de"],
+Cell[60848, 1658, 88, 0, 30, "Item",ExpressionUUID->"c872e9a1-c461-9d42-963d-842408f66849"],
+Cell[60939, 1660, 89, 0, 30, "Item",ExpressionUUID->"88e63af2-e530-c34a-a1e9-8912978d96b9"],
+Cell[61031, 1662, 103, 0, 30, "Item",ExpressionUUID->"2806c877-a9ff-2949-8e35-2c8d80825c83"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[61171, 1667, 107, 0, 53, "Subsection",ExpressionUUID->"a85c1e49-391d-f24d-a5bc-934399c63575"],
+Cell[61281, 1669, 114, 0, 33, "Text",ExpressionUUID->"73446bda-2a19-c841-a41d-280411859e7e"],
+Cell[61398, 1671, 95, 0, 30, "Item",ExpressionUUID->"dc83b1f4-5c16-4e47-921c-886604f6d7e1"],
+Cell[61496, 1673, 99, 0, 30, "Item",ExpressionUUID->"afbfd7b8-b746-354d-95de-f824212782b3"],
+Cell[61598, 1675, 95, 0, 30, "Item",ExpressionUUID->"02a3c578-a83d-e142-a79e-f2da7c1f302d"],
+Cell[61696, 1677, 103, 0, 30, "Item",ExpressionUUID->"926d2d2f-6d3e-9840-acce-e60957756fd8"],
+Cell[61802, 1679, 103, 0, 30, "Item",ExpressionUUID->"d786e251-2d1f-2049-986a-3a0f0b530d9c"],
+Cell[61908, 1681, 596, 20, 48, "Text",ExpressionUUID->"6ab334e8-0034-5b40-9090-7d1266b78f43"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[62553, 1707, 113, 0, 66, "Section",ExpressionUUID->"fc3f288f-7c75-a941-84c2-d090e316f928"],
+Cell[62669, 1709, 183, 3, 55, "Text",ExpressionUUID->"3e6064e9-7a7b-0043-bd14-cd9c84747ccf"],
+Cell[CellGroupData[{
+Cell[62877, 1716, 112, 0, 53, "Subsection",ExpressionUUID->"594b50f0-4b45-b04a-a989-905e9c60c627"],
+Cell[62992, 1718, 102, 0, 33, "Text",ExpressionUUID->"458049aa-402e-4544-b7d6-74cc89e5ac98"],
+Cell[63097, 1720, 92, 0, 30, "Item",ExpressionUUID->"5e0682cb-eca3-e343-ad78-1bca4c65fc5c"],
+Cell[63192, 1722, 108, 0, 30, "Item",ExpressionUUID->"1eaae74c-1d8a-3848-b039-52c473f3ac7e"],
+Cell[63303, 1724, 96, 0, 30, "Item",ExpressionUUID->"a36199e3-2c51-0243-a98d-173342847ea7"],
+Cell[63402, 1726, 85, 0, 30, "Item",ExpressionUUID->"49073152-e20a-594b-b2a0-6455505c1465"],
+Cell[63490, 1728, 101, 0, 30, "Item",ExpressionUUID->"785ca6dd-ea2b-3d47-99e4-90cfc3e95e7c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[63628, 1733, 94, 0, 53, "Subsection",ExpressionUUID->"ee2d10b0-667c-c14a-ae8b-6bfc84d2f36a"],
+Cell[63725, 1735, 225, 3, 77, "Text",ExpressionUUID->"3624c6af-2fde-6a43-9896-c4e0cc0cc70f"],
+Cell[63953, 1740, 596, 20, 48, "Text",ExpressionUUID->"45975296-eacb-bc4a-b78f-a9a5daa8b848"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[64598, 1766, 99, 0, 66, "Section",ExpressionUUID->"1041a22e-3385-cf48-80c0-e83a1a408dc8"],
+Cell[64700, 1768, 130, 0, 33, "Text",ExpressionUUID->"f7a3ac4c-6cff-b942-a091-af3582938351"],
+Cell[CellGroupData[{
+Cell[64855, 1772, 103, 0, 53, "Subsection",ExpressionUUID->"b2b4a76c-9f67-d84d-b719-d5edaa886472"],
+Cell[64961, 1774, 118, 0, 33, "Text",ExpressionUUID->"75cf6e81-a738-9f43-bdbb-05481161ceee"],
+Cell[65082, 1776, 89, 0, 30, "Item",ExpressionUUID->"fb838a3f-0cfe-7a40-be46-3f7b09646edb"],
+Cell[65174, 1778, 102, 0, 30, "Item",ExpressionUUID->"e0102e9c-274f-2641-b95c-e89fb10c7d70"],
+Cell[65279, 1780, 91, 0, 30, "Item",ExpressionUUID->"35286a3b-9ee4-474e-a43c-82c3648b3e37"],
+Cell[65373, 1782, 104, 0, 30, "Item",ExpressionUUID->"5350d57f-5c1c-d94a-aed0-558fd99d4c25"],
+Cell[65480, 1784, 91, 0, 30, "Item",ExpressionUUID->"d2a4d034-2026-7b43-a6fa-5ecd121020a5"],
+Cell[65574, 1786, 88, 0, 30, "Item",ExpressionUUID->"2e630456-c02a-1342-a9b8-d638df0797be"],
+Cell[65665, 1788, 88, 0, 30, "Item",ExpressionUUID->"a05b55b7-7d31-3d45-9f17-a88bcca5694a"],
+Cell[65756, 1790, 91, 0, 30, "Item",ExpressionUUID->"7240a51d-add7-3642-889b-f970f77a2c84"],
+Cell[65850, 1792, 90, 0, 30, "Item",ExpressionUUID->"b9c2f37c-1f1d-2540-b861-6a269ff1d1ab"],
+Cell[65943, 1794, 98, 0, 30, "Item",ExpressionUUID->"8d2e319f-0c56-4746-b262-620e571fdbc7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[66078, 1799, 109, 0, 53, "Subsection",ExpressionUUID->"cd668674-2013-214e-94d6-d2b2012ab296"],
+Cell[66190, 1801, 121, 0, 33, "Text",ExpressionUUID->"07b1c543-c931-6d40-b795-51a26328464e"],
+Cell[66314, 1803, 115, 0, 30, "Item",ExpressionUUID->"443a6be3-f8b9-d347-bab6-1c0b8345e8a4"],
+Cell[66432, 1805, 124, 0, 30, "Item",ExpressionUUID->"404044ec-fc97-f343-a573-a518f9e62f03"],
+Cell[66559, 1807, 124, 0, 30, "Item",ExpressionUUID->"68e8053b-96ac-0e41-8d29-11f67271398d"],
+Cell[66686, 1809, 121, 0, 30, "Item",ExpressionUUID->"e223adcf-1b8e-bf41-913c-aa24266ffb53"],
+Cell[66810, 1811, 596, 20, 48, "Text",ExpressionUUID->"b28d9355-cda8-e54e-ac5f-5a54662b890a"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[67455, 1837, 117, 0, 103, "Section",ExpressionUUID->"7663364b-9fa1-ec4c-8b73-c0a74bb4643a"],
+Cell[67575, 1839, 208, 3, 55, "Text",ExpressionUUID->"bb4e0ba4-d4f0-c04c-abc5-c59cad660146"],
+Cell[CellGroupData[{
+Cell[67808, 1846, 105, 0, 53, "Subsection",ExpressionUUID->"ee34ad91-e1d2-5e47-9807-970792b48249"],
+Cell[67916, 1848, 219, 3, 55, "Text",ExpressionUUID->"ef1660bc-69d8-3d4c-8e12-c71140b8bf10"],
+Cell[68138, 1853, 109, 0, 30, "Item",ExpressionUUID->"cfeea7a2-024b-e545-b09d-103312ee0d1e"],
+Cell[68250, 1855, 117, 0, 30, "Item",ExpressionUUID->"3d61c149-e5d9-0c49-8827-4adf81c0260e"],
+Cell[68370, 1857, 130, 0, 30, "Item",ExpressionUUID->"a13bc851-0a18-e648-9e76-df22c1d73c91"],
+Cell[68503, 1859, 153, 2, 50, "Item",ExpressionUUID->"a693ede1-91b4-b042-a16e-789b26a6b15d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[68693, 1866, 89, 0, 53, "Subsection",ExpressionUUID->"9aee9dee-4e90-414e-8e6b-fa7c76177f92"],
+Cell[68785, 1868, 208, 3, 55, "Text",ExpressionUUID->"1de25593-c619-7447-aa2d-0e9d5a351eb2"],
+Cell[68996, 1873, 596, 20, 48, "Text",ExpressionUUID->"086d4868-b66e-7c4a-92e6-d0370538094f"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[69641, 1899, 111, 0, 66, "Section",ExpressionUUID->"a0396c43-6a2a-db4e-865f-faf8738f1f05"],
+Cell[69755, 1901, 129, 0, 33, "Text",ExpressionUUID->"9a02b199-3cfc-a74c-9864-077ee598dd64"],
+Cell[CellGroupData[{
+Cell[69909, 1905, 107, 0, 53, "Subsection",ExpressionUUID->"38950db0-7078-4d45-a540-dc2ffcfd4637"],
+Cell[70019, 1907, 257, 11, 33, "Text",ExpressionUUID->"a4c64e28-c3f4-1743-b09a-8e954fd59603"],
+Cell[70279, 1920, 252, 11, 33, "Text",ExpressionUUID->"fffe9415-8c04-a94f-9a34-9fc85bd3691e"],
+Cell[70534, 1933, 207, 8, 33, "Text",ExpressionUUID->"40b8bbc6-a7ae-e64c-a2f4-7f013fe99065"],
+Cell[70744, 1943, 262, 11, 33, "Text",ExpressionUUID->"94486da2-ceb7-3c4b-9294-3f440621d1ec"],
+Cell[71009, 1956, 216, 8, 33, "Text",ExpressionUUID->"c1124bce-3ba7-ae42-9447-1578bb31795e"],
+Cell[71228, 1966, 216, 8, 33, "Text",ExpressionUUID->"c5508e22-1cb3-dc43-bfd9-49475146ad8b"],
+Cell[71447, 1976, 252, 11, 33, "Text",ExpressionUUID->"0bc65345-4bba-8041-b4ec-f0571ee610fc"],
+Cell[71702, 1989, 218, 8, 33, "Text",ExpressionUUID->"5928b23b-45c0-de4b-a670-b03b64068e49"],
+Cell[71923, 1999, 269, 11, 33, "Text",ExpressionUUID->"df5ba109-96a4-984c-a91f-f561737baff4"],
+Cell[72195, 2012, 209, 8, 33, "Text",ExpressionUUID->"881caa26-20f6-4a42-a5e2-d2b93ec04753"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[72441, 2025, 103, 0, 53, "Subsection",ExpressionUUID->"74cfa636-81fd-444f-8921-ddc5a6e820bf"],
+Cell[72547, 2027, 115, 0, 33, "Text",ExpressionUUID->"8441b4de-01e3-ed47-a4be-0d264eef8497"],
+Cell[72665, 2029, 78, 0, 30, "Item",ExpressionUUID->"3af0d5dd-a01b-9648-b946-b8c1cd214d25"],
+Cell[72746, 2031, 78, 0, 30, "Item",ExpressionUUID->"40909da3-1a6e-4147-b278-12d1a87a9cd4"],
+Cell[72827, 2033, 78, 0, 30, "Item",ExpressionUUID->"92792d44-8218-8d47-822c-70a11ab51756"],
+Cell[72908, 2035, 86, 0, 30, "Item",ExpressionUUID->"341d1600-b518-4243-9ac8-7d56ce44ae3a"],
+Cell[72997, 2037, 80, 0, 30, "Item",ExpressionUUID->"a692f247-da13-b24a-a575-dc72de7b6334"],
+Cell[73080, 2039, 596, 20, 48, "Text",ExpressionUUID->"a92a7231-9641-0c45-b2e0-fe55483d5d5f"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[73725, 2065, 111, 0, 66, "Section",ExpressionUUID->"17d43960-d365-c04f-bffe-1996d7c67d22"],
+Cell[73839, 2067, 3497, 80, 732, "Input",ExpressionUUID->"c4701c13-9279-264a-aa76-9383a5c9e403"],
+Cell[77339, 2149, 175, 3, 55, "Text",ExpressionUUID->"fda9783a-a600-8f4c-a5fb-010d1883b81d"],
+Cell[77517, 2154, 596, 20, 48, "Text",ExpressionUUID->"e44998c9-4952-a042-9020-115d72305488"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[78150, 2179, 109, 0, 66, "Section",ExpressionUUID->"e5f953c3-36e1-1c4c-86e9-95674abfd654"],
+Cell[78262, 2181, 113, 0, 33, "Text",ExpressionUUID->"a8f21a68-65cf-4d42-99c6-e857327c65cb"],
+Cell[78378, 2183, 119, 0, 33, "Text",ExpressionUUID->"9bd91a08-8f45-aa4f-9891-fc6e1b015fc9"],
+Cell[78500, 2185, 121, 0, 33, "Text",ExpressionUUID->"286d9188-5f95-4647-a59c-75cb81de7f07"],
+Cell[78624, 2187, 113, 0, 33, "Text",ExpressionUUID->"6fcfea2a-5756-634b-85f2-0115c5bee7f7"],
+Cell[78740, 2189, 143, 2, 33, "Text",ExpressionUUID->"fd7ff55b-1d54-0249-b195-bfe9d7b0c2b4"],
+Cell[78886, 2193, 108, 0, 33, "Text",ExpressionUUID->"de7ddfd3-bfb3-5a49-8a15-dabdd5f0523b"],
+Cell[78997, 2195, 121, 0, 33, "Text",ExpressionUUID->"d2fdb77b-3225-cc4d-a011-0e1c3e19a3a3"],
+Cell[79121, 2197, 122, 0, 33, "Text",ExpressionUUID->"2cae91e1-5093-354e-9d30-048a86bbb596"],
+Cell[79246, 2199, 596, 20, 48, "Text",ExpressionUUID->"4ea2c439-6ca6-984f-a2dd-f0d6cf658ea6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[79879, 2224, 108, 0, 66, "Section",ExpressionUUID->"1f17cba1-58ea-4245-b509-5dd3d7b59c14"],
+Cell[79990, 2226, 131, 0, 33, "Text",ExpressionUUID->"fe77e487-7c14-e443-92ec-092a4811dd2c"],
+Cell[80124, 2228, 195, 3, 55, "Text",ExpressionUUID->"b88ec705-a72d-9040-84dd-146f1fd0cc27"],
+Cell[80322, 2233, 92, 0, 30, "Item",ExpressionUUID->"6854acad-737a-8343-89f7-5867553a9df9"],
+Cell[80417, 2235, 93, 0, 30, "Item",ExpressionUUID->"cbe4e671-e192-ea4e-adde-c3d2df535d2f"],
+Cell[80513, 2237, 94, 0, 30, "Item",ExpressionUUID->"19620085-545d-0846-a155-b4fad17db5d4"],
+Cell[80610, 2239, 83, 0, 30, "Item",ExpressionUUID->"e7e0eb6a-60d2-4942-b40a-6892bfbfea03"],
+Cell[80696, 2241, 88, 0, 30, "Item",ExpressionUUID->"27639acf-092c-7449-89b8-c898ee00b5a5"],
+Cell[80787, 2243, 96, 0, 30, "Item",ExpressionUUID->"80870247-3853-5a4b-b136-d509ee8b0558"],
+Cell[80886, 2245, 129, 0, 33, "Text",ExpressionUUID->"a689fd60-ed16-434a-ad9b-304cdd8da2ee"],
+Cell[81018, 2247, 596, 20, 48, "Text",ExpressionUUID->"9e9c487c-9712-fd47-9dc3-3e72ecab750c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[81651, 2272, 91, 0, 66, "Section",ExpressionUUID->"e7aee3da-dfa7-ec4b-b57e-f95f098a487a"],
+Cell[81745, 2274, 99, 0, 33, "Text",ExpressionUUID->"df73bb48-ce45-7a4f-b696-db5f63498459"],
+Cell[81847, 2276, 249, 11, 33, "Text",ExpressionUUID->"e7c52745-97f2-004e-ab28-77eef76c163f"],
+Cell[82099, 2289, 102, 0, 33, "Text",ExpressionUUID->"2f0a274a-d7d7-a047-952e-77657cc6b76e"],
+Cell[82204, 2291, 110, 0, 30, "Item",ExpressionUUID->"4e9c0f2e-240b-a04b-a042-8c901803bdd4"],
+Cell[82317, 2293, 90, 0, 30, "Item",ExpressionUUID->"e5fa2b6f-237c-5544-b4cc-5e97782e9c00"],
+Cell[82410, 2295, 98, 0, 30, "Item",ExpressionUUID->"929394f2-3d78-6e43-8d5e-4325e5ae8537"],
+Cell[82511, 2297, 100, 0, 30, "Item",ExpressionUUID->"e42ddb76-0ce3-db4a-8957-a1e70ff5ebe7"],
+Cell[82614, 2299, 123, 0, 30, "Item",ExpressionUUID->"f671cd31-7aad-f24e-9dc5-2b25295f06d1"],
+Cell[82740, 2301, 115, 0, 30, "Item",ExpressionUUID->"0ff5f025-0948-044e-9465-4b18915c7c62"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
